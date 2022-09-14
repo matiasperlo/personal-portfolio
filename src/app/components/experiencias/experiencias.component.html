@@ -1,22 +1,13 @@
 <div class="section">
     <h3 class="section-title">Experiencia</h3>
-    <ul class="section-items exp-items">
+    <ul class="section-items exp-items" *ngFor="let exp of experiencias">
       <li class="section-item exp-item">
         <div class="exp-item-logo" style="background-image: url('./assets/img/logo1.jpg');"></div>
-        <h1 class="exp-item-rol">FrontEnd Developer</h1>
-        <h2 class="exp-item-place">Bigma SRL</h2>
+        <h1 class="exp-item-rol">{{ exp.rol }}</h1>
+        <h2 class="exp-item-place">{{ exp.organizacion }}</h2>
         <div class="exp-item-details">
-          <h3 class="exp-item-time">Jornada Completa</h3>
-          <p class="exp-item-dates">Marzo 2020 - Actualidad</p>
-        </div>
-      </li>
-      <li class="section-item exp-item">
-        <div class="exp-item-logo" style="background-image: url('./assets/img/logo2.jpg');"></div>
-        <h1 class="exp-item-rol">FullStack Developer</h1>
-        <h2 class="exp-item-place">Camaleon APIs</h2>
-        <div class="exp-item-details">
-          <h3 class="exp-item-time">Jornada Parcial</h3>
-          <p class="exp-item-dates">Enero 2019 - Noviembre 2019</p>
+          <h3 class="exp-item-time">{{ exp.jornada }}</h3>
+          <p class="exp-item-dates">{{ exp.fechaInicio }} - {{ exp.fechaFin }}</p>
         </div>
       </li>
     </ul>

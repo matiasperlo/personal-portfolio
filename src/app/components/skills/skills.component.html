@@ -1,31 +1,13 @@
 <div class="section">
     <h3 class="section-title">Hard-Soft Skills</h3>
-    <ul class="section-items">
+    <ul class="section-items" *ngFor="let skill of skills">
       <li class="skills-item">
-        <h3 class="skill-name">Resolucion de Problemas</h3>
+        <h3 class="skill-name">{{ skill.nombre }}</h3>
         <div class="skill-progress">
           <div class="skill-p-bar">
-            <div class="p-bar-75"></div>
+            <div class="p-bar-{{ skill.progreso }}"></div>
           </div>
-          <p class="skill-percent">75%</p>
-        </div>
-      </li>
-      <li class="skills-item">
-        <h3 class="skill-name">Diseño de Sistemas</h3>
-        <div class="skill-progress">
-          <div class="skill-p-bar">
-            <div class="p-bar-90"></div>
-          </div>
-          <p class="skill-percent">90%</p>
-        </div>
-      </li>
-      <li class="skills-item">
-        <h3 class="skill-name">Programacion Orientada a Objetos</h3>
-        <div class="skill-progress">
-          <div class="skill-p-bar">
-            <div class="p-bar-75"></div>
-          </div>
-          <p class="skill-percent">75%</p>
+          <p class="skill-percent">{{ skill.progreso }}%</p>
         </div>
       </li>
     </ul>
