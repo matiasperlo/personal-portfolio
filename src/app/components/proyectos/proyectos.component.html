@@ -1,23 +1,9 @@
 <div class="section">
     <h3 class="section-title">Proyectos</h3>
-    <ul class="section-items">
+    <ul class="section-items" *ngFor="let proyecto of proyectos">
       <li class="project-item">
-        <h3 class="project-title">e-commerce</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel soluta explicabo ab ipsa pariatur
-           illo delectus iure aperiam voluptatum eligendi quam nihil asperiores molestiae dolorem, unde blanditiis laudantium, excepturi perspiciatis!</p>
-      </li>
-      <li class="project-item">
-        <h3 class="project-title">red social</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel soluta explicabo ab ipsa pariatur
-           illo delectus iure aperiam voluptatum eligendi quam nihil asperiores molestiae dolorem, unde blanditiis laudantium, excepturi perspiciatis!</p>
-      </li>
-      <li class="project-item">
-        <h3 class="project-title">simulador</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel soluta explicabo ab ipsa pariatur
-           illo delectus iure aperiam voluptatum eligendi quam nihil asperiores molestiae dolorem, unde blanditiis laudantium, excepturi perspiciatis!</p>
+        <h3 class="project-title"><a href="{{ proyecto.link }}">{{ proyecto.nombre }}</a></h3>
+        <p>{{ proyecto.descripcion }}</p>
       </li>
     </ul>
   </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Proyecto } from 'src/app/models/proyecto';
+import { ProyectosService } from 'src/app/services/proyectos.service';
 
 @Component({
   selector: 'app-proyectos',
@@ -6,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./proyectos.component.css']
 })
 export class ProyectosComponent implements OnInit {
-
-  constructor() { }
+  proyectos: Proyecto[] = [];
+  constructor(private proyectoData: ProyectosService) { }
 
   ngOnInit(): void {
+    this.cargarProyectos();
+  }
+
+  cargarProyectos(){
+    const mySubcriber = {
+      next: (res: Proyecto[]) => {
+        this.proyectos = res;
+      }
+    };
+
+    this.proyectoData.getProyectos().subscribe(mySubcriber);
   }
 
 }
