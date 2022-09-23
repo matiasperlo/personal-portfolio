@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
 import { Usuario } from '../models/usuario';
 
 @Injectable({
@@ -10,17 +9,39 @@ export class UsuarioService {
     {
       usuario: 'admin',
       password: 'admin'
+    },
+    {
+      usuario: 'guest',
+      password: ''
     }
-  ]
+  ];
+
   constructor() { }
+  
+  private existeUser(user: string): Usuario | undefined {
+    return this.usuarios.find(function (element) {
+      return element.usuario == user;
+    });
+
+    // for (let i = 0; i < this.usuarios.length; i++){
+    //   if (this.usuarios[i].usuario == usuario.usuario && this.usuarios[i].password == usuario.password){
+    //     return true;
+    //   }
+    // }
+    // return false;
+  }
 
   login(user: string, passwd: string): boolean{
-    return this.usuarios.includes({usuario: user, password: passwd})
+    let match = this.existeUser(user);
+    if (match == undefined){
+      return false;
+    }
+    return match.password == passwd;
   }
 
   register(user: string, passwd: string): boolean{
-    if (!this.usuarios.includes({usuario: user, password: passwd})){
-      this.usuarios.concat({usuario: user, password: passwd})
+    if(!this.existeUser(user)){
+      this.usuarios.push({usuario: user, password: passwd});
       return true;
     }
     return false;
