@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-portada',
@@ -20,7 +21,7 @@ export class PortadaComponent implements OnInit {
     REG: 'Usuario Registrado exitosamente'
   };
 
-  constructor(private usuarioService: UsuarioService, private fb: FormBuilder) {
+  constructor(private usuarioService: UsuarioService, private fb: FormBuilder, private modalService: NgbModal) {
     this.formLogin = fb.group({
       usuario: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -89,5 +90,9 @@ export class PortadaComponent implements OnInit {
     }
 
     this.setMsgOk(this.mensajesExito['REG']);
+  }
+
+  open(content: any){
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 }
