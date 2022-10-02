@@ -23,6 +23,7 @@ import { EducacionComponent } from './components/educacion/educacion.component';
 import { ProyectoComponent } from './components/proyecto/proyecto.component';
 import { SkillComponent } from './components/skill/skill.component';
 import { ExperienciaComponent } from './components/experiencia/experiencia.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ExperienciaComponent } from './components/experiencia/experiencia.compo
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
