@@ -1,3 +1,38 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formLogin">
+      <div class="mb-3 has-validation">
+        <label for="txtUsuario" class="form-label">Usuario</label>
+        <input type="text" class="form-control" id="txtUsuario" formControlName="usuario" required>
+        <div class="text-danger" *ngIf="formLogin.get('usuario')?.invalid && formLogin.get('usuario')?.touched">
+          campo requerido
+        </div>
+      </div>
+      <div class="mb-3 has-validation">
+        <label for="txtPasswd" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="txtPasswd" formControlName="password" required>
+        <div class="text-danger" *ngIf="formLogin.get('password')?.invalid && formLogin.get('password')?.touched">
+          campo requerido
+        </div>
+      </div>
+    </form>
+    <div class="text-danger" *ngIf="messageErr != '' ">
+      {{ messageErr }}
+    </div>
+    <div class="text-success" *ngIf="messageOk != '' ">
+      {{ messageOk }}
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="register()">Registrarse</button>
+    <button type="button" class="btn btn-primary" (click)="login()">Ingresar</button>
+  </div>
+</ng-template>
+
 <header class="header-container bg-black">
     <div class="header-bg-img opacity-5 min-vh-95" style="background-image: url('./assets/img/bg0.jpg')"></div>
     <div class="header-data">
@@ -11,45 +46,9 @@
         <li class="header-menu-social-item" type="button"><span class="iconify" data-icon="akar-icons:linkedin-box-fill" data-width="30" data-height="30"></span></li>
         <li class="header-menu-social-item" type="button"><span class="iconify" data-icon="akar-icons:github-fill" data-width="30" data-height="30"></span></li>
       </ul>
-      <button style="border: none; background:none; color: white;" (click)="mostrarFormLogin()" data-bs-toggle="modal" data-bs-target="#modalLogin"><span class="iconify" type="button" data-icon="carbon:login" data-width="30" data-height="30" ></span></button>
+      <button style="border: none; background:none; color: white;" (click)="mostrarFormLogin();open(content)" data-bs-toggle="modal" data-bs-target="#modalLogin"><span class="iconify" type="button" data-icon="carbon:login" data-width="30" data-height="30" ></span></button>
     </div>  
-
-    <div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form [formGroup]="formLogin">
-              <div class="mb-3 has-validation">
-                <label for="txtUsuario" class="form-label">Usuario</label>
-                <input type="text" class="form-control" id="txtUsuario" formControlName="usuario" required>
-                <div class="text-danger" *ngIf="formLogin.get('usuario')?.invalid && formLogin.get('usuario')?.touched">
-                  campo requerido
-                </div>
-              </div>
-              <div class="mb-3 has-validation">
-                <label for="txtPasswd" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="txtPasswd" formControlName="password" required>
-                <div class="text-danger" *ngIf="formLogin.get('password')?.invalid && formLogin.get('password')?.touched">
-                  campo requerido
-                </div>
-              </div>
-            </form>
-            <div class="text-danger" *ngIf="messageErr != '' ">
-              {{ messageErr }}
-            </div>
-            <div class="text-success" *ngIf="messageOk != '' ">
-              {{ messageOk }}
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="register()">Registrarse</button>
-            <button type="button" class="btn btn-primary" (click)="login()">Ingresar</button>
-          </div>
-        </div>
-      </div>
-    </div>
 </header>
+
+
+
