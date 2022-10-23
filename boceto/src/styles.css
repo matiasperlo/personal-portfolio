@@ -1,0 +1,225 @@
+:root {
+  /* backgrounds */
+  --bg-gris-claro: #E4E4E4;
+  --bg-negro-oscuro: #000;
+
+}
+
+@font-face {
+  font-family: 'RobotoThin';
+  src: url("fonts/roboto/Roboto-Thin.ttf");
+}
+@font-face {
+  font-family: 'RobotoLight';
+  src: url("fonts/roboto/Roboto-Light.ttf");
+}
+
+@font-face {
+  font-family: 'RobotoRegular';
+  src: url("fonts/roboto/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: 'RobotoMedium';
+  src: url("fonts/roboto/Roboto-Medium.ttf");
+}
+
+@font-face {
+  font-family: 'RobotoBold';
+  src: url("fonts/roboto/Roboto-Bold.ttf");
+}
+
+@font-face {
+  font-family: 'RobotoExtraBold';
+  src: url("fonts/roboto/Roboto-BoldItalic.ttf");
+}
+
+@font-face {
+  font-family: 'RobotoBlack';
+  src: url("fonts/roboto/Roboto-Black.ttf");
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'RobotoRegular';
+  margin: 0;
+  padding: 0;
+}
+
+/* ------------------------------------------------ */
+ /* overwrite de algunas clases bootstrap */
+.navbar>.container-fluid-flex-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
+/* ------------------------------------------------ */
+
+/* ------------------------------------------------ */
+ /* classes propias */
+.wallpaper {
+  background-size: cover;
+  background-position: 50%;
+}
+
+.overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.avatar {
+  width: 75px;
+  height: 75px;
+  background-size: cover;
+  background-position: 50%;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.header-perfil > .avatar{
+  width: 175px;
+  height: 175px;
+  background-size: cover;
+  background-position: 50%;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.header-perfil > .nombre {
+  font-family: "RobotoBlack";
+  font-size: 64px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.header-perfil > .descripcion {
+  font-family: "RobotoBold";
+  font-size: 24px;
+  margin-top: 0;
+}
+
+.section {
+  margin-top: 100px;
+  font-family: 'RobotoRegular';
+  font-size: 24px;
+}
+
+.section .section-title {
+  font-family: 'RobotoBold';
+  font-size: 48px;
+}
+
+.section-item{
+  background-color: #F0F0F0;
+  box-shadow: 0 5px 5px 0 rgb(0 0 0 / 15%);
+  border-radius: 2%;
+  overflow: hidden;
+}
+
+.logo{
+  margin: auto;
+  width: 100%;
+  /* min-width: 125px; */
+  /* max-width: 240px; */
+  height: 200px;
+  /* min-height: 200px; */
+  /* max-height: 240px; */
+  background-size: cover;
+  background-position: 50%;
+}
+
+.row-gap-10p {
+  display: flex;
+  row-gap: 10px;
+}
+
+.item-org > .item-rol{
+  font-family: "RobotoLight";
+}
+
+.item-org > .item-place{
+  font-family: "RobotoLight";
+}
+
+.item-work > .item-time {
+  font-family: "RobotoLight";
+}
+
+.item-work > .item-dates{
+  font-family: "RobotoLight";
+}
+
+.column-gap-10p{
+  display: flex;
+  column-gap: 10px;
+}
+
+.agradecimiento{
+  font-size: calc(1rem + 3.5vw);
+  font-family: "RobotoRegular";
+  color: #008BD9;
+}
+
+/* dispositivos medianos como tablets */
+@media (max-width: 768px)
+{
+  .item-rol {
+    font-size: calc(1.7rem + 1.5vw);
+  }
+
+  .item-work{
+    margin-top: 20px;
+  }
+}
+
+@media (min-width: 425px)
+{
+  .logo{
+    max-width: 351px;
+  }
+}
+
+/* dispositivos desktop y mas alla */
+@media (min-width: 992px)
+{
+
+  .navbar-expand-lg .column-gap-10p {
+    display: flex;
+    column-gap: 10px
+  }
+
+  .nav-item-log{
+    margin-left: 1.5rem;
+  }
+
+  .navbar-expand-lg .navbar-collapse-flex-end {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .logo{
+    height: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
