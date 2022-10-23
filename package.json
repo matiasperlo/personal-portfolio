@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "scss": "sass",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -25,6 +26,7 @@
     "@popperjs/core": "^2.10.2",
     "bootstrap": "^5.2.1",
     "rxjs": "~7.5.0",
+    "sass": "^1.55.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
