@@ -1,14 +1,16 @@
 <div class="section">
-    <h3 class="section-title">Hard-Soft Skills</h3>
-    <ul class="section-items" *ngFor="let skill of skills">
-      <li class="skills-item">
-        <h3 class="skill-name">{{ skill.nombre }}</h3>
-        <div class="skill-progress">
-          <div class="skill-p-bar">
-            <div class="p-bar-{{ skill.progreso }}"></div>
-          </div>
-          <p class="skill-percent">{{ skill.progreso }}%</p>
+  <h3 class="section-title">Hard-Soft Skills</h3>
+    
+    <div class="d-flex flex-column row-gap-10p" *ngFor="let skill of skills">
+      <div class="row">
+        <div class="col-lg-4 ">
+          <h3 class="m-0 text-center">{{ skill.nombre }}</h3>
         </div>
-      </li>
-    </ul>
+        <div class="col-lg-8">
+          <div class="progress" style="height: 100%;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">{{ skill.progreso }}%</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>

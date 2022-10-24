@@ -1,14 +1,33 @@
 <div class="section">
-    <h3 class="section-title">Experiencia</h3>
-    <ul class="section-items exp-items" *ngFor="let exp of experiencias">
-      <li class="section-item exp-item">
-        <div class="exp-item-logo" style="background-image: url('./assets/img/logo1.jpg');"></div>
-        <h1 class="exp-item-rol">{{ exp.rol }}</h1>
-        <h2 class="exp-item-place">{{ exp.organizacion }}</h2>
-        <div class="exp-item-details">
-          <h3 class="exp-item-time">{{ exp.jornada }}</h3>
-          <p class="exp-item-dates">{{ exp.fechaInicio }} - {{ exp.fechaFin }}</p>
+  <h3 class="section-title">Experiencia</h3>
+  <div class="d-flex flex-column row-gap-10p" *ngFor="let exp of experiencias">
+    <div class="section-item">
+      <div class="row ">
+        <div class="col-lg-8">
+          <div class="row row-cols-1 row-cols-lg-3">
+            <div class="col">
+              <div class="logo" style="background-image: url('src/img/logo1.jpg');"></div>
+            </div>
+              <div class="col">
+                <div class="d-flex h-100 justify-content-center flex-column text-center">
+                  <h1 class="item-rol m-0">{{ exp.rol }}</h1>
+                </div>
+              </div>
+              <div class="col">
+                <div class="d-flex h-100 justify-content-center flex-column text-center">
+                  <h2 class="item-place m-0">{{ exp.organizacion }}</h2>
+                </div>
+              </div>
+          </div>
         </div>
-      </li>
-    </ul>
+
+        <div class="col-lg-4 item-work">
+          <div class="d-flex h-100 justify-content-center flex-column text-center">
+            <h3 class="item-time">{{ exp.jornada }}</h3>
+            <p class="item-dates">{{ exp.fechaInicio }} - {{ exp.fechaFin }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
