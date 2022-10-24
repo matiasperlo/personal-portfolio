@@ -25,6 +25,7 @@ import { ProyectoComponent } from './components/proyecto/proyecto.component';
 import { SkillComponent } from './components/skill/skill.component';
 import { ExperienciaComponent } from './components/experiencia/experiencia.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ProyectoComponent,
     SkillComponent,
     ExperienciaComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
