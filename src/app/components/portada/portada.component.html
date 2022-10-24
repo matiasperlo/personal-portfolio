@@ -1,4 +1,27 @@
-<ng-template #content let-modal>
+<header>
+  <div class="bg-dark">
+    <!-- la opacity me permite hacer enfasis en los datos -->
+    <div class="wallpaper vh-100 opacity-25" style="background-image: url('src/img/bg0.jpg')"></div>
+    
+    <!-- un overlay de los datos del perfil -->
+    <div class="overlay">
+      <div class="container h-100">
+        <div class="row h-100">
+          <div class="d-flex justify-content-center flex-column text-center">
+            <div class="header-perfil">
+              <div class="avatar" style="background-image: url('src/img/perfil.jpeg');"></div>
+              <h1 class="nombre text-white">Matias Perlo</h1>
+              <h2 class="descripcion text-white">Estudiante de Ingenieria de Sistemas</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</header>
+
+<!-- <ng-template #content let-modal>
   <div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
@@ -31,9 +54,9 @@
     <button type="button" class="btn btn-secondary" (click)="register()">Registrarse</button>
     <button type="button" class="btn btn-primary" (click)="login()">Ingresar</button>
   </div>
-</ng-template>
+</ng-template> -->
 
-<header class="header-container bg-black">
+<!-- <header class="header-container bg-black">
     <div class="header-bg-img opacity-5 min-vh-95" style="background-image: url('./assets/img/bg0.jpg')"></div>
     <div class="header-data">
       <div class="header-avatar" style="background-image: url('./assets/img/perfil.jpg');"></div>
@@ -48,7 +71,7 @@
       </ul>
       <button style="border: none; background:none; color: white;" (click)="mostrarFormLogin();open(content)" data-bs-toggle="modal" data-bs-target="#modalLogin"><span class="iconify" type="button" data-icon="carbon:login" data-width="30" data-height="30" ></span></button>
     </div>  
-</header>
+</header> -->
 
 
 
