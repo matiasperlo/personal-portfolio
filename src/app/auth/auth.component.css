@@ -1,0 +1,12 @@
+body {
+    display: flex;
+}
+
+html, body {
+    height: 100%;
+}
+
+.form-signin {
+    padding:20px;
+    max-width: 320px;
+}
