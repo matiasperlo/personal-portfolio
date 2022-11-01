@@ -1,4 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../core/services/user.service';
+import { Educacion } from './models/educacion';
+import { Experiencia } from './models/experiencia';
+import { Perfil } from './models/perfil';
+import { Proyecto } from './models/proyecto';
+import { Skill } from './models/skill';
+import { EducacionService } from './services/educacion.service';
+import { ExperienciaService } from './services/experiencia.service';
+import { PerfilService } from './services/perfil.service';
+import { ProyectosService } from './services/proyectos.service';
+import { SkillsService } from './services/skills.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +25,14 @@ export class HomeComponent implements OnInit {
   proyectos: Proyecto[] = [];
   skills: Skill[] = [];
 
-  constructor() { }
+  constructor(
+    private userData: UserService,
+    private perfilData: PerfilService,
+    private eduData: EducacionService,
+    private expData: ExperienciaService,
+    private proyectoData: ProyectosService,
+    private skillsData: SkillsService 
+  ) { }
 
   ngOnInit(): void {
   }
@@ -29,7 +47,7 @@ export class HomeComponent implements OnInit {
         this.txtEmail = 'Error downloading user data';
       },
     };
-    this.userdata.getPerfil().subscribe(myObserver);
+    this.perfilData.getPerfil().subscribe(myObserver);
   }
 
   cargarEducaciones(){
@@ -39,7 +57,7 @@ export class HomeComponent implements OnInit {
       }
     }
 
-    this.edudata.getEducaciones().subscribe(mySubscriber);
+    this.eduData.getEducaciones().subscribe(mySubscriber);
   }
 
   cargarExperiencias(){
@@ -49,7 +67,7 @@ export class HomeComponent implements OnInit {
         console.log(res);
       }
     };
-    this.expdata.getExperiencias().subscribe(mySubscriber);
+    this.expData.getExperiencias().subscribe(mySubscriber);
   }
 
   cargarProyectos(){
@@ -68,7 +86,7 @@ export class HomeComponent implements OnInit {
         this.skills = res;
       }
     }
-    this.skillsdata.getSkills().subscribe(mySubscriber);
+    this.skillsData.getSkills().subscribe(mySubscriber);
   }
 
   cargarDatosSobreMi() {
@@ -80,6 +98,6 @@ export class HomeComponent implements OnInit {
         this.txtSobreMi = 'Error downloading user data';
       },
     };
-    this.userdata.getPerfil().subscribe(myObserver);
+    this.perfilData.getPerfil().subscribe(myObserver);
   }
 }
