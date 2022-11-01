@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { Perfil } from '../core/models/perfil';
+import { Perfil } from '../models/perfil';
 
 @Injectable({
   providedIn: 'root'

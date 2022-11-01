@@ -4,24 +4,22 @@
         <h1 class="text-white">Bienvenido</h1>
     </header>
 
-    <form action="">
+    <form [formGroup]="authForm" (ngSubmit)="submitForm">
             <div class="form-floating mb-2">
-                <input type="text" class="form-control"  id="txt-username"  placeholder="username">
+                <input type="text" formControlName="username" class="form-control"  id="txt-username"  placeholder="username">
                 <label class="form-label" for="txt-username">user</label>
             </div>
             <div class="form-floating mb-4">
-                <input type="password" class="form-control"  id="txt-password" placeholder="Password">
+                <input type="password" formControlName="password" class="form-control"  id="txt-password" placeholder="Password">
                 <label class="form-label" for="txt-password">password</label>
             </div>
 
-            <button class="w-100 btn btn-primary btn-lg mb-2">Acceder</button>
+            <button class="w-100 btn btn-primary btn-lg mb-2" type="submit" [disabled]="!authForm.valid">Acceder</button>
             <button class="w-100 btn btn-outline-light btn-lg mb-4">Registrarse</button>
 
             <div class="text-center">
                 <a href="#" style="text-decoration: none;">Entrar como invitado</a>
             </div>
     </form>
-
-    
 
 </div>
