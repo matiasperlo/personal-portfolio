@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { Experiencia } from '../core/models/experiencia';
+import { Experiencia } from '../models/experiencia';
 
 @Injectable({
   providedIn: 'root'
