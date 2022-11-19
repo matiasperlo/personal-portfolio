@@ -4,6 +4,9 @@ import { ApiService } from './services/api.service';
 import { JwtService } from './services/jwt.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { UserService } from './services/user.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpTokenInterceptor } from './interceptors/http.token.interceptor';
+import { ImageService } from './services/image.service';
 
 
 
@@ -13,23 +16,12 @@ import { UserService } from './services/user.service';
     CommonModule
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
     ApiService,
     JwtService,
     AuthGuardService,
-    UserService
-  ],
+    UserService,
+    ImageService
+  ]
 })
 export class CoreModule { }
-
-
-// providers: [
-//   { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
-//   ApiService,
-//   ArticlesService,
-//   AuthGuard,
-//   CommentsService,
-//   JwtService,
-//   ProfilesService,
-//   TagsService,
-//   UserService
-// ],

@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * Servicio que maneja el almacenamiento local del JWT, incluye acciones basicas.
+ */
 @Injectable()
 export class JwtService {
 
@@ -7,11 +10,11 @@ export class JwtService {
     return window.localStorage['jwtToken'];
   }
 
-  saveToken(token: String) {
+  guardarToken(token: String) {
     window.localStorage['jwtToken'] = token;
   }
 
-  destroyToken() {
+  destruirToken() {
     window.localStorage.removeItem('jwtToken');
   }
 }

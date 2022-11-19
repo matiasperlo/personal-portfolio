@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
+import { ApiService } from 'src/app/core/services/api.service';
 import { Experiencia } from '../models/experiencia';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ExperienciaService {
   private experiencias: Experiencia[] = [
     {
@@ -22,9 +21,12 @@ export class ExperienciaService {
       fechaFin: 'Noviembre 2019'
     }
   ];
-  constructor() { }
+  constructor(
+    private apiService: ApiService
+  ) { }
 
   getExperiencias(){
-    return of(this.experiencias);
+    return this.apiService.get('/experiencias/all');
+    // return of(this.experiencias);
   }
 }

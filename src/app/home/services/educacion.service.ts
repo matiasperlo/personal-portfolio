@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { Educacion } from '../models/educacion';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class EducacionService {
   private educaciones: Educacion[] = [
     {
