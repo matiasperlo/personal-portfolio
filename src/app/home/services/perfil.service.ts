@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { Perfil } from '../models/perfil';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class PerfilService {
   private perfil: Perfil[] = [
     {

@@ -7,11 +7,12 @@
       </button>
       <div class="collapse navbar-collapse navbar-collapse-flex-end" id="navbarSupportedContent">
         
-        <div class="navbar-nav column-gap-10p">
-          <div class="nav-item"><span class="iconify" style="color: white;" data-icon="akar-icons:facebook-fill" data-width="30" data-height="30"></span></div>
-          <div class="nav-item"><span class="iconify" style="color: white;" data-icon="akar-icons:linkedin-box-fill" data-width="30" data-height="30"></span></div>
-          <div class="nav-item"><span class="iconify" style="color: white;" data-icon="akar-icons:github-fill" data-width="30" data-height="30"></span></div>
-          <div class="nav-item nav-item-log"><a href="#"><span class="iconify" data-icon="carbon:login" data-width="30" data-height="30"></span></a></div>
+        <div class="navbar-nav p-4 column-gap-10p">
+          <div class="nav-item mb-2"><span class="iconify" style="color: white;" data-icon="akar-icons:facebook-fill" data-width="30" data-height="30">    </span> <div class="text-white d-inline text-name  ">facebook</div> </div>
+          <div class="nav-item mb-2"><span class="iconify" style="color: white;" data-icon="akar-icons:linkedin-box-fill" data-width="30" data-height="30"></span> <div class="text-white d-inline text-name  ">linkedin</div> </div>
+          <div class="nav-item mb-2"><span class="iconify" style="color: white;" data-icon="akar-icons:github-fill" data-width="30" data-height="30">      </span> <div class="text-white d-inline text-name  ">github</div>   </div>
+          <div [routerLink]="['/auth']" *appVerCuandoLogin="false" class="nav-item nav-item-log"> <span class="iconify" data-icon="carbon:login" style="color: white;" data-width="30" data-height="30"></span>  <div class="text-white d-inline text-name">login</div> </div>
+          <div [routerLink]="['/auth']" *appVerCuandoLogin="true"  class="nav-item nav-item-log"> <span class="iconify" data-icon="carbon:logout" style="color: white;" data-width="30" data-height="30"></span> <div class="text-white d-inline text-name">logout</div></div>
         </div>
       </div>
     </div>
@@ -42,7 +43,7 @@
   </header>
 
   <!-- todos los campos del portafolio -->
-  <div class="container">
+  <div class="container" >
 
     <!-- descripcion breve sobre mi -->
     <div class="section" id="sobremi">

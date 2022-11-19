@@ -1,0 +1,14 @@
+
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-nav{
+        padding: 0 !important;
+    }
+
+    .navbar-expand-lg .navbar-nav .nav-item{
+        margin-bottom: 0 !important;
+    }
+
+    .navbar-expand-lg .navbar-nav .nav-item  .text-name {
+        display: none !important;
+    }
+}
