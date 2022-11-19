@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ShowAuthedDirective } from './show-authed.directive';
+import { HeaderComponent } from './layout/header.component';
+import { VerCuandoLoginDirective } from './ver-cuando-login.directive';
 
 
 
 @NgModule({
   declarations: [
-    ShowAuthedDirective
+    VerCuandoLoginDirective,
+    HeaderComponent,
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    ShowAuthedDirective
+    VerCuandoLoginDirective
   ]
 })
 export class SharedModule { }
