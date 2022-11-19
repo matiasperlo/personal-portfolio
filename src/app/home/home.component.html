@@ -1,0 +1,171 @@
+<div class="w-100 h-100">
+<!-- Menu de redes sociales y sesion de usuario -->
+<nav class="navbar navbar-expand-lg fixed-top bg-dark">
+    <div class="container-fluid container-fluid-flex-end">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse navbar-collapse-flex-end" id="navbarSupportedContent">
+        
+        <div class="navbar-nav p-4 column-gap-10p">
+          <div class="nav-item mb-2"><span class="iconify" style="color: white;" data-icon="akar-icons:facebook-fill" data-width="30" data-height="30">    </span> <div class="text-white d-inline text-name  ">facebook</div> </div>
+          <div class="nav-item mb-2"><span class="iconify" style="color: white;" data-icon="akar-icons:linkedin-box-fill" data-width="30" data-height="30"></span> <div class="text-white d-inline text-name  ">linkedin</div> </div>
+          <div class="nav-item mb-2"><span class="iconify" style="color: white;" data-icon="akar-icons:github-fill" data-width="30" data-height="30">      </span> <div class="text-white d-inline text-name  ">github</div>   </div>
+          <div [routerLink]="['/auth']" *appVerCuandoLogin="false" class="nav-item nav-item-log"> <span class="iconify" data-icon="carbon:login" style="color: white;" data-width="30" data-height="30"></span>  <div class="text-white d-inline text-name">login</div> </div>
+          <div [routerLink]="['/auth']" *appVerCuandoLogin="true"  class="nav-item nav-item-log"> <span class="iconify" data-icon="carbon:logout" style="color: white;" data-width="30" data-height="30"></span> <div class="text-white d-inline text-name">logout</div></div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- header inicial con portada e informacion -->
+  <header>
+    <div class="bg-dark">
+      <!-- la opacity me permite hacer enfasis en los datos -->
+      <div class="wallpaper vh-100 opacity-25" style="background-image: url('assets/img/bg0.jpg')"></div>
+      
+      <!-- un overlay de los datos del perfil -->
+      <div class="overlay">
+        <div class="container h-100">
+          <div class="row h-100">
+            <div class="d-flex justify-content-center flex-column text-center">
+              <div class="header-perfil">
+                <div class="avatar" style="background-image: url('assets/img/perfil.jpeg');"></div>
+                <h1 class="nombre text-white">Matias Perlo</h1>
+                <h2 class="descripcion text-white">Estudiante de Ingenieria de Sistemas</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </header>
+
+  <!-- todos los campos del portafolio -->
+  <div class="container" >
+
+    <!-- descripcion breve sobre mi -->
+    <div class="section" id="sobremi">
+      <h3 class="section-title">Sobre Mi</h3> 
+      <p>
+        {{ txtSobreMi }}
+      </p>
+    </div>
+
+    <!-- mi experiencias -->
+    <div class="section">
+      <h3 class="section-title">Experiencia</h3>
+      <div class="d-flex flex-column row-gap-10p" *ngFor="let exp of experiencias">
+        <div class="section-item">
+          <div class="row ">
+            <div class="col-lg-8">
+              <div class="row row-cols-1 row-cols-lg-3">
+                <div class="col">
+                  <div class="logo" style="background-image: url('assets/img/logo1.jpg');"></div>
+                </div>
+                  <div class="col">
+                    <div class="d-flex h-100 justify-content-center flex-column text-center">
+                      <h1 class="item-rol m-0">{{ exp.rol }}</h1>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="d-flex h-100 justify-content-center flex-column text-center">
+                      <h2 class="item-place m-0">{{ exp.organizacion }}</h2>
+                    </div>
+                  </div>
+              </div>
+            </div>
+    
+            <div class="col-lg-4 item-work">
+              <div class="d-flex h-100 justify-content-center flex-column text-center">
+                <h3 class="item-time">{{ exp.jornada }}</h3>
+                <p class="item-dates">{{ exp.fechaInicio }} - {{ exp.fechaFin }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- mi educacion -->
+    <div class="section">
+      <h3 class="section-title">Educacion</h3>
+      <div class="d-flex flex-column row-gap-10p" *ngFor="let edu of educaciones">
+        <div class="section-item">
+          <div class="row ">
+            <div class="col-lg-8">
+              <div class="row row-cols-1 row-cols-lg-3">
+                <div class="col">
+                  <div class="logo" style="background-image: url('assets/img/logo1.jpg');"></div>
+                </div>
+                  <div class="col">
+                    <div class="d-flex h-100 justify-content-center flex-column text-center">
+                      <h1 class="item-rol m-0">{{ edu.titulo }}</h1>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="d-flex h-100 justify-content-center flex-column text-center">
+                      <h2 class="item-place m-0">{{ edu.academia }}</h2>
+                    </div>
+                  </div>
+              </div>
+            </div>
+    
+            <div class="col-lg-4 item-work">
+              <div class="d-flex h-100 justify-content-center flex-column text-center">
+                <p class="item-dates">{{ edu.fechaInicio }} - {{ edu.fechaFin }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- mis skills  -->
+    <div class="section">
+      <h3 class="section-title">Hard-Soft Skills</h3>
+        
+        <div class="d-flex flex-column row-gap-10p" *ngFor="let skill of skills">
+          <div class="row">
+            <div class="col-lg-4 ">
+              <h3 class="m-0 text-center">{{ skill.nombre }}</h3>
+            </div>
+            <div class="col-lg-8">
+              <div class="progress" style="height: 100%;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">{{ skill.progreso }}%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- otros de mis proyectos  -->
+    <div class="section">
+      <h3 class="section-title">Proyectos</h3>
+      <div class="d-flex flex-column" *ngFor="let proyecto of proyectos">
+        <div>
+          <h3 class="project-title"><a href="{{ proyecto.link }}">{{ proyecto.nombre }}</a></h3>
+          <p>{{ proyecto.descripcion }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- palabras finales y contacto -->
+    <div class="section">
+      <h1 class="text-center agradecimiento">¡Gracias Por Su Visita!</h1>
+      <div class="avatar" style="background-image: url('assets/img/perfil.jpeg');"></div>
+      <h2 class="text-center">{{ txtNombre }}</h2>
+      <p class="email text-center">{{ txtEmail }}</p>
+      <div class="d-flex flex-row mb-4" style="justify-content: space-evenly;">
+        <span class="iconify" style="color: black;" data-icon="akar-icons:facebook-fill" data-width="50" data-height="50"></span>
+        <span class="iconify" style="color: black;" data-icon="akar-icons:linkedin-box-fill" data-width="50" data-height="50"></span>
+        <span class="iconify" style="color: black;" data-icon="akar-icons:github-fill" data-width="50" data-height="50"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- este es un div de ejemplo, lo mejor para los modals es dejarlos al final del html -->
+  <div class="modals"></div>
+</div>
+

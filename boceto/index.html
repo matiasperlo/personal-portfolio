@@ -6,155 +6,301 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-<link rel="icon" type="image/png" href="./assets/img/favicon.png">
+<link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon.png">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
 
 <title>
-Mi Portfolio
+  Mi Portafolio
 </title>
-
-<link id="pagestyle" href="css/styles.css" rel="stylesheet" />
-
-
+<link href="assets/bootstrap.min.css" rel="stylesheet">
+<link href="assets/styles.css" rel="stylesheet" />
 
 </head>
 <body class="bg-gray">
-    <header class="header-container bg-black">
-        <div class="header-bg-img opacity-5 min-vh-95" style="background-image: url('./assets/img/bg0.jpg')"></div>
-        <div class="header-data">
-          <div class="header-avatar" style="background-image: url('./assets/img/perfil.jpg');"></div>
-          <h1 class="header-title-name text-white">Cameron Williamson</h1>
-          <h2 class="header-title-rol text-white">Ing. de Software</h2>
+
+    <!-- Menu de redes sociales y sesion de usuario -->
+    <nav class="navbar navbar-expand-lg fixed-top bg-dark">
+      <div class="container-fluid container-fluid-flex-end">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse navbar-collapse-flex-end" id="navbarSupportedContent">
+          
+          <div class="navbar-nav column-gap-10p">
+            <div class="nav-item"><span class="iconify" style="color: white;" data-icon="akar-icons:facebook-fill" data-width="30" data-height="30"></span></div>
+            <div class="nav-item"><span class="iconify" style="color: white;" data-icon="akar-icons:linkedin-box-fill" data-width="30" data-height="30"></span></div>
+            <div class="nav-item"><span class="iconify" style="color: white;" data-icon="akar-icons:github-fill" data-width="30" data-height="30"></span></div>
+            <div class="nav-item nav-item-log"><a href="#"><span class="iconify" data-icon="carbon:login" data-width="30" data-height="30"></span></a></div>
+          </div>
         </div>
-        <div class="header-menu">
-          <ul class="header-menu-social">
-            <li class="header-menu-social-item"><iconify-icon icon="akar-icons:facebook-fill" style="color: white;" width="30" height="30"></iconify-icon></li>
-            <li class="header-menu-social-item"><iconify-icon icon="akar-icons:linkedin-box-fill" style="color: white;" width="30" height="30"></iconify-icon></li>
-            <li class="header-menu-social-item"><iconify-icon icon="akar-icons:github-fill" style="color: white;" width="30" height="30"></iconify-icon></li>
-          </ul>
-          <a class="header-menu-log" href="#"><iconify-icon icon="carbon:login" style="color: white;" width="30" height="30"></iconify-icon></a>
-        </div>
-    </header>
-    <div class="main">
-      <div class="section">
-        <h3 class="section-title">Sobre Mi</h3> 
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aperiam ex recusandae id.
-          Exercitationem, quam debitis qui, vel culpa voluptate esse blanditiis est dolorem commodi ex
-           veniam natus recusandae officia.</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aperiam ex recusandae id.
-        Exercitationem, quam debitis qui, vel culpa voluptate esse blanditiis est dolorem commodi ex
-          veniam natus recusandae officia.</p>
       </div>
+    </nav>
+
+    <!-- header inicial con portada e informacion -->
+    <header>
+      <div class="bg-dark">
+        <!-- la opacity me permite hacer enfasis en los datos -->
+        <div class="wallpaper vh-100 opacity-25" style="background-image: url('assets/img/bg0.jpg')"></div>
+        
+        <!-- un overlay de los datos del perfil -->
+        <div class="overlay">
+          <div class="container h-100">
+            <div class="row h-100">
+              <div class="d-flex justify-content-center flex-column text-center">
+                <div class="header-perfil">
+                  <div class="avatar" style="background-image: url('assets/img/perfil.jpeg');"></div>
+                  <h1 class="nombre text-white">Matias Perlo</h1>
+                  <h2 class="descripcion text-white">Estudiante de Ingenieria de Sistemas</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </header>
+
+    <!-- todos los campos del portafolio -->
+    <div class="container">
+
+      <!-- descripcion breve sobre mi -->
+      <div class="section" id="sobremi">
+        <h3 class="section-title">Sobre Mi</h3> 
+        <div>
+          <p>Actualmente soy estudiante universitario en la carrera de Ing. de Sistemas en UTN Argentina,
+            en un estado avanzado y con la esperanza de graduarme en los proximos años.
+          </p>
+
+          <p>
+            Busco obtener mis primeras experiencias dentro del Área de Desarrollo con el perfil de Programador / Desarrollador,
+            abierto a considerar las oportunidades que se presenten y afrontar nuevos desafios que me permitan crecer.
+          </p>
+
+          <p>
+            Me considero responsable, dedicada, sincera, proactiva, abierta a sugerencias, desempeñándome en grupo con buena
+            comunicación y actitud.
+          </p>
+        </div>
+      </div>
+
+      <!-- mi experiencias -->
       <div class="section">
         <h3 class="section-title">Experiencia</h3>
-        <ul class="section-items exp-items">
-          <li class="section-item exp-item">
-            <div class="exp-item-logo" style="background-image: url('./assets/img/logo1.jpg');"></div>
-            <h1 class="exp-item-rol">FrontEnd Developer</h1>
-            <h2 class="exp-item-place">Bigma SRL</h2>
-            <div class="exp-item-details">
-              <h3 class="exp-item-time">Jornada Completa</h3>
-              <p class="exp-item-dates">Marzo 2020 - Actualidad</p>
+        <div class="d-flex flex-column row-gap-10p">
+          
+          <div class="section-item">
+            <div class="row ">
+              <div class="col-lg-8">
+                <div class="row row-cols-1 row-cols-lg-3">
+                  <div class="col">
+                    <div class="logo" style="background-image: url('assets/img/logo1.jpg');"></div>
+                  </div>
+                    <div class="col">
+                      <div class="d-flex h-100 justify-content-center flex-column text-center">
+                        <h1 class="item-rol m-0">FrontEnd Developer</h1>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="d-flex h-100 justify-content-center flex-column text-center">
+                        <h2 class="item-place m-0">Bigma SRL</h2>
+                      </div>
+                    </div>
+                </div>
+              </div>
+  
+              <div class="col-lg-4 item-work">
+                <div class="d-flex h-100 justify-content-center flex-column text-center">
+                  <h3 class="item-time">Jornada Completa</h3>
+                  <p class="item-dates">Marzo 2020 - Actualidad</p>
+                </div>
+              </div>
             </div>
-          </li>
-          <li class="section-item exp-item">
-            <div class="exp-item-logo" style="background-image: url('./assets/img/logo2.jpg');"></div>
-            <h1 class="exp-item-rol">FullStack Developer</h1>
-            <h2 class="exp-item-place">Camaleon APIs</h2>
-            <div class="exp-item-details">
-              <h3 class="exp-item-time">Jornada Parcial</h3>
-              <p class="exp-item-dates">Enero 2019 - Noviembre 2019</p>
+          </div>
+          
+          <div class="section-item">
+            <div class="row ">
+              <div class="col-lg-8">
+                <div class="row row-cols-1 row-cols-lg-3">
+                  <div class="col">
+                    <div class="logo" style="background-image: url('assets/img/logo1.jpg');"></div>
+                  </div>
+                    <div class="col">
+                      <div class="d-flex h-100 justify-content-center flex-column text-center">
+                        <h1 class="item-rol m-0">FrontEnd Developer</h1>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="d-flex h-100 justify-content-center flex-column text-center">
+                        <h2 class="item-place m-0">Bigma SRL</h2>
+                      </div>
+                    </div>
+                </div>
+              </div>
+  
+              <div class="col-lg-4 item-work">
+                <div class="d-flex h-100 justify-content-center flex-column text-center">
+                  <h3 class="item-time">Jornada Completa</h3>
+                  <p class="item-dates">Marzo 2020 - Actualidad</p>
+                </div>
+              </div>
             </div>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
+
+      <!-- mi educacion -->
       <div class="section">
         <h3 class="section-title">Educacion</h3>
-        <ul class="section-items">
-          <li class="section-item">
-            <div class="exp-item-logo" style="background-image: url('./assets/img/siglo21.png');"></div>
-            <h1 class="exp-item-rol">Ingenieria de Software</h1>
-            <div class="exp-item-details">
-              <h3 class="exp-item-time">Universidad Siglo21</h3>
-              <p class="exp-item-dates">Enero 2019 - Noviembre 2019</p>
+        <div class="d-flex flex-column row-gap-10p">
+          
+          <div class="section-item">
+            <div class="row ">
+              <div class="col-lg-8">
+                <div class="row row-cols-1 row-cols-lg-3">
+                  <div class="col">
+                    <div class="logo" style="background-image: url('assets/img/logo1.jpg');"></div>
+                  </div>
+                    <div class="col">
+                      <div class="d-flex h-100 justify-content-center flex-column text-center">
+                        <h1 class="item-rol m-0">FrontEnd Developer</h1>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="d-flex h-100 justify-content-center flex-column text-center">
+                        <h2 class="item-place m-0">Bigma SRL</h2>
+                      </div>
+                    </div>
+                </div>
+              </div>
+  
+              <div class="col-lg-4 item-work">
+                <div class="d-flex h-100 justify-content-center flex-column text-center">
+                  <h3 class="item-time">Jornada Completa</h3>
+                  <p class="item-dates">Marzo 2020 - Actualidad</p>
+                </div>
+              </div>
             </div>
-          </li>
-          <li class="section-item">
-            <div class="exp-item-logo" style="background-image: url('./assets/img/google_logo.png');"></div>
-            <h1 class="exp-item-rol">Desarrollo de Aplicaciones Mobile</h1>
-            <div class="exp-item-details">
-              <h3 class="exp-item-time">Academia de Google</h3>
-              <p class="exp-item-dates">Enero 2019 - Noviembre 2019</p>
+          </div>
+          
+          <div class="section-item">
+            <div class="row ">
+              <div class="col-lg-8">
+                <div class="row row-cols-1 row-cols-lg-3">
+                  <div class="col">
+                    <div class="logo" style="background-image: url('assets/img/logo1.jpg');"></div>
+                  </div>
+                    <div class="col">
+                      <div class="d-flex h-100 justify-content-center flex-column text-center">
+                        <h1 class="item-rol m-0">FrontEnd Developer</h1>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="d-flex h-100 justify-content-center flex-column text-center">
+                        <h2 class="item-place m-0">Bigma SRL</h2>
+                      </div>
+                    </div>
+                </div>
+              </div>
+  
+              <div class="col-lg-4 item-work">
+                <div class="d-flex h-100 justify-content-center flex-column text-center">
+                  <h3 class="item-time">Jornada Completa</h3>
+                  <p class="item-dates">Marzo 2020 - Actualidad</p>
+                </div>
+              </div>
             </div>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
+
+      <!-- mis skills  -->
       <div class="section">
         <h3 class="section-title">Hard-Soft Skills</h3>
-        <ul class="section-items">
-          <li class="skills-item">
-            <h3 class="skill-name">Resolucion de Problemas</h3>
-            <div class="skill-progress">
-              <div class="skill-p-bar">
-                <div class="p-bar-75"></div>
+          
+          <div class="d-flex flex-column row-gap-10p">
+            <div class="row">
+              <div class="col-lg-4 ">
+                <h3 class="m-0 text-center">Resolucion de Problemas</h3>
               </div>
-              <p class="skill-percent">75%</p>
-            </div>
-          </li>
-          <li class="skills-item">
-            <h3 class="skill-name">Diseño de Sistemas</h3>
-            <div class="skill-progress">
-              <div class="skill-p-bar">
-                <div class="p-bar-90"></div>
+              <div class="col-lg-8">
+                <div class="progress" style="height: 100%;">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75%</div>
+                </div>
               </div>
-              <p class="skill-percent">90%</p>
             </div>
-          </li>
-          <li class="skills-item">
-            <h3 class="skill-name">Programacion Orientada a Objetos</h3>
-            <div class="skill-progress">
-              <div class="skill-p-bar">
-                <div class="p-bar-75"></div>
+
+            <div class="row">
+              <div class="col-lg-4 ">
+                <h3 class="m-0 text-center">Resolucion de Problemas</h3>
               </div>
-              <p class="skill-percent">75%</p>
+              <div class="col-lg-8">
+                <div class="progress" style="height: 100%;">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75%</div>
+                </div>
+              </div>
             </div>
-          </li>
-        </ul>
+
+            <div class="row">
+              <div class="col-lg-4 ">
+                <h3 class="m-0 text-center">Resolucion de Problemas</h3>
+              </div>
+              <div class="col-lg-8">
+                <div class="progress" style="height: 100%;">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75%</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
       </div>
+
+      <!-- otros de mis proyectos  -->
       <div class="section">
         <h3 class="section-title">Proyectos</h3>
-        <ul class="section-items">
-          <li class="project-item">
+        <div class="d-flex flex-column">
+          <div>
             <h3 class="project-title">e-commerce</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel soluta explicabo ab ipsa pariatur
-               illo delectus iure aperiam voluptatum eligendi quam nihil asperiores molestiae dolorem, unde blanditiis laudantium, excepturi perspiciatis!</p>
-          </li>
-          <li class="project-item">
-            <h3 class="project-title">red social</h3>
+               illo delectus iure aperiam voluptatum eligendi quam nihil asperiores molestiae dolorem, unde blanditiis laudantium, excepturi perspiciatis!
+            </p>
+          </div>
+          <div>
+            <h3 class="project-title">e-commerce</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel soluta explicabo ab ipsa pariatur
-               illo delectus iure aperiam voluptatum eligendi quam nihil asperiores molestiae dolorem, unde blanditiis laudantium, excepturi perspiciatis!</p>
-          </li>
-          <li class="project-item">
-            <h3 class="project-title">simulador</h3>
+               illo delectus iure aperiam voluptatum eligendi quam nihil asperiores molestiae dolorem, unde blanditiis laudantium, excepturi perspiciatis!
+            </p>
+          </div>
+          <div>
+            <h3 class="project-title">e-commerce</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel soluta explicabo ab ipsa pariatur
-               illo delectus iure aperiam voluptatum eligendi quam nihil asperiores molestiae dolorem, unde blanditiis laudantium, excepturi perspiciatis!</p>
-          </li>
-        </ul>
+               illo delectus iure aperiam voluptatum eligendi quam nihil asperiores molestiae dolorem, unde blanditiis laudantium, excepturi perspiciatis!
+            </p>
+          </div>
+
+        </div>
       </div>
-      <div class="final-msg">
-        <h1 class="thanks">¡Gracias Por Su Visita!</h1>
-        <div class="avatar" style="background-image: url('./assets/img/perfil.jpg');"></div>
-        <h2>Cameron Williamson</h2>
-        <p class="email">williamson@office.com</p>
-        <ul class="header-menu-social">
-          <li class="header-menu-social-item"><iconify-icon icon="akar-icons:facebook-fill" style="color: black;" width="30" height="30"></iconify-icon></li>
-          <li class="header-menu-social-item"><iconify-icon icon="akar-icons:linkedin-box-fill" style="color: black;" width="30" height="30"></iconify-icon></li>
-          <li class="header-menu-social-item"><iconify-icon icon="akar-icons:github-fill" style="color: black;" width="30" height="30"></iconify-icon></li>
-        </ul>
+
+      <!-- palabras finales y contacto -->
+      <div class="section">
+        <h1 class="text-center agradecimiento">¡Gracias Por Su Visita!</h1>
+        <div class="avatar" style="background-image: url('assets/img/perfil.jpeg');"></div>
+        <h2 class="text-center">Matias Perlo</h2>
+        <p class="email text-center">matias.perlo.arg@gmail.com</p>
+        <div class="d-flex flex-row mb-4" style="justify-content: space-evenly;">
+          <span class="iconify" style="color: black;" data-icon="akar-icons:facebook-fill" data-width="50" data-height="50"></span>
+          <span class="iconify" style="color: black;" data-icon="akar-icons:linkedin-box-fill" data-width="50" data-height="50"></span>
+          <span class="iconify" style="color: black;" data-icon="akar-icons:github-fill" data-width="50" data-height="50"></span>
+        </div>
       </div>
     </div>
-    <script src="https://code.iconify.design/iconify-icon/1.0.0-beta.3/iconify-icon.min.js"></script>
+
+    <!-- este es un div de ejemplo, lo mejor para los modals es dejarlos al final del html -->
+    <div class="modals"></div>
+
+    <script src="assets/bootstrap.bundle.min.js" ></script>
+    <script src="https://code.iconify.design/3/3.0.0/iconify.min.js"></script>
 </body>

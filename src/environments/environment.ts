@@ -2,8 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+
+// esta es la configuracion que se usa cuando se hace ng build
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'http://localhost:8080/api'
+  // apiUrl: 'http://localhost:5555/api' //postman proxy
 };
 
 /*
