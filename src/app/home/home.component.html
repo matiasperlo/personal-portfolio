@@ -66,12 +66,12 @@
                 </div>
                   <div class="col">
                     <div class="d-flex h-100 justify-content-center flex-column text-center">
-                      <h1 class="item-rol m-0">{{ exp.rol }}</h1>
+                      <h1 class="item-rol m-0">{{ exp.rol.rol }}</h1>
                     </div>
                   </div>
                   <div class="col">
                     <div class="d-flex h-100 justify-content-center flex-column text-center">
-                      <h2 class="item-place m-0">{{ exp.organizacion }}</h2>
+                      <h2 class="item-place m-0">{{ exp.empresa.nombre }}</h2>
                     </div>
                   </div>
               </div>
@@ -79,8 +79,8 @@
     
             <div class="col-lg-4 item-work">
               <div class="d-flex h-100 justify-content-center flex-column text-center">
-                <h3 class="item-time">{{ exp.jornada }}</h3>
-                <p class="item-dates">{{ exp.fechaInicio }} - {{ exp.fechaFin }}</p>
+                <h3 class="item-time">{{ exp.jornada.nombre }}</h3>
+                <p class="item-dates">{{ exp.fechainicio }} - {{ exp.fechafin}}</p>
               </div>
             </div>
           </div>
@@ -114,7 +114,8 @@
     
             <div class="col-lg-4 item-work">
               <div class="d-flex h-100 justify-content-center flex-column text-center">
-                <p class="item-dates">{{ edu.fechaInicio }} - {{ edu.fechaFin }}</p>
+                <p class="item-dates">{{ edu.fechaInicio | date:'M-Y' }} - {{ edu.fechaFin | date:'M-Y' }}</p>
+                <!-- TODO: Reparar esto que no anda -->
               </div>
             </div>
           </div>
