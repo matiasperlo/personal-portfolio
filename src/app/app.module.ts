@@ -20,7 +20,7 @@ import { SharedModule } from './shared/shared.module';
     NgbModule,
     HttpClientModule,
     CoreModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

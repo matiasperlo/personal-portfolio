@@ -3,6 +3,7 @@ import { Jornada } from "./jornada";
 import { Rol } from "./rol";
 
 export interface Experiencia {
+    id: number;
     rol: Rol;
     empresa: Empresa;
     jornada: Jornada;

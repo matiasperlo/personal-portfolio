@@ -1,0 +1,95 @@
+<div class="container bg-light pt-3">
+    <h1 class="mb-4 text-center">Educaciones</h1>
+    <div class="row text-center mb-4">
+        <div class="col">
+            <div class="btn" (click)="crearItem()">
+                <span class="iconify" data-icon="material-symbols:add" data-width="30" data-height="30"></span>
+                añadir
+            </div>
+        </div>
+        <div class="col">
+            <div class="btn">
+                <span class="iconify" data-icon="material-symbols:home" data-width="30" data-height="30"></span>
+                home
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-success alert-dismissible" role="alert" *ngIf="mostrarSuccess">
+        Cambios realizados con exito.
+        <button type="button" class="btn-close" aria-label="Close" (click)="mostrarSuccess = false;"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="mostrarError">
+        Ocurrio un error inesperado, intente de nuevo más tarde.
+        <button type="button" class="btn-close" aria-label="Close" (click)="mostrarError = false;"></button>
+    </div>
+
+    <div class="d-flex flex-column" *ngFor="let edu of educaciones; let i = index">
+        
+        <div class="d-flex align-items-center flex-row justify-content-between mb-2 ">
+            <div class="d-flex flex-row me-3">
+                <div class="btn px-1" (click)="editarItem(i)">
+                    <span class="iconify me-2" data-icon="material-symbols:edit" data-width="30" data-height="30"></span>
+                </div>
+                <div class="btn px-1" (click)="eliminarItem(i)">
+                    <span class="iconify" data-icon="material-symbols:delete-outline" data-width="30" data-height="30"></span>
+                </div>
+            </div>
+            <div class="text-truncate">
+                {{ edu.titulo }}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="container bg-light pt-3" *ngIf="editaOAgrega">
+    
+    <form [formGroup]="formItem" (ngSubmit)="grabar()">
+        <h1>{{ edita ? 'Edicion' : 'Nuevo'}}</h1>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" formControlName="titulo" id="titulo">
+            <label for="titulo">Titulo</label>
+        </div>
+        <select class="form-select form-select-lg mb-3" formControlName="instituto" aria-label=".form-select-lg example">
+            <option *ngFor="let insti of instituciones;let f = index" [ngValue]="insti" >{{ insti.nombre }}</option>
+
+        </select>
+        
+        <!-- <div class="form-check">
+            <input class="form-check-input" id="flexCheckDefault" type="checkbox" value="" (change)="nuevoInstituto = !nuevoInstituto" >
+            <label class="form-check-label" for="flexCheckDefault">
+              Nuevo Instituto
+            </label>
+        </div>
+
+        <form [formGroup]="formInstituto" class="p-4" *ngIf="nuevoInstituto">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nomInstituto">
+                <label for="nomInstituto">Nombre Instituto</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="logoInstituto">
+                <label for="logoInstituto">Url Logo</label>
+            </div>
+        </form> -->
+
+        <div>
+            <label for="start">Start date:</label>
+            <input type="date" id="start" formControlName="fechainicio" name="trip-start" value="2001-01-01" min="2018-01-01" max="2022-12-31">
+        </div>
+
+        <div class="mb-4">
+            <label for="start">End date:</label>
+            <input type="date" id="start" formControlName="fechafin" name="trip-start" value="2001-01-01" min="2018-01-01" max="2022-12-31">
+        </div>
+
+        <div>
+            <button class="btn btn-primary w-100 mb-1" type="submit">Grabar</button>
+            <button class="btn btn-secondary w-100 mb-4" (click)="cancelar()">Cancelar</button>
+        </div>
+    </form>
+
+    
+
+    
+</div>
