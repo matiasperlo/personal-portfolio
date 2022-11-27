@@ -1,0 +1,50 @@
+<div class="container bg-light pt-3">
+    <h1 class="mb-4 text-center">Perfil</h1>
+    <div class="row text-center mb-4">
+        <div class="col">
+            <div class="btn">
+                <span class="iconify" data-icon="material-symbols:home" data-width="30" data-height="30"></span>
+                home
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-success alert-dismissible" role="alert" *ngIf="mostrarSuccess">
+        Cambios realizados con exito.
+        <button type="button" class="btn-close" aria-label="Close" (click)="mostrarSuccess = false;"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="mostrarError">
+        Ocurrio un error inesperado, intente de nuevo más tarde.
+        <button type="button" class="btn-close" aria-label="Close" (click)="mostrarError = false;"></button>
+    </div>
+</div>
+
+<div class="container bg-light pt-3">
+    
+    <form [formGroup]="formPerfil" (ngSubmit)="grabar()">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" formControlName="nombre" id="titulo">
+            <label for="nombre">Nombre</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" formControlName="perfil" id="titulo">
+            <label for="perfil">Perfil</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" formControlName="fotoPerfil" id="fotoPerfil">
+            <label for="fotoPerfil">Foto de Perfil</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" formControlName="fotoPortada" id="fotoPortada">
+            <label for="fotoPortada">Foto de Portada</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" formControlName="descSobreMi" id="descSobreMi">
+            <label for="descSobreMi">Descripcion sobre mi</label>
+        </div>
+
+        <div>Gestionar redes sociales (mas adelante)</div>
+        <div>
+            <button class="btn btn-primary w-100 mb-1" type="submit">Grabar</button>
+        </div>
+    </form>
+</div>

@@ -22,7 +22,7 @@
   <header>
     <div class="bg-dark">
       <!-- la opacity me permite hacer enfasis en los datos -->
-      <div class="wallpaper vh-100 opacity-25" style="background-image: url('assets/img/bg0.jpg')"></div>
+      <div class="wallpaper vh-100 opacity-25" style="background-image: url('{{ perfil?.foto_portada }}')"></div>
       
       <!-- un overlay de los datos del perfil -->
       <div class="overlay">
@@ -30,9 +30,9 @@
           <div class="row h-100">
             <div class="d-flex justify-content-center flex-column text-center">
               <div class="header-perfil">
-                <div class="avatar" style="background-image: url('assets/img/perfil.jpeg');"></div>
-                <h1 class="nombre text-white">Matias Perlo</h1>
-                <h2 class="descripcion text-white">Estudiante de Ingenieria de Sistemas</h2>
+                <div class="avatar" style="background-image: url('{{ perfil?.foto_perfil }}');"></div>
+                <h1 class="nombre text-white">{{ perfil?.nombre }}</h1>
+                <h2 class="descripcion text-white">{{ perfil?.rol }}</h2>
               </div>
             </div>
           </div>
@@ -49,7 +49,7 @@
     <div class="section" id="sobremi">
       <h3 class="section-title">Sobre Mi</h3> 
       <p>
-        {{ txtSobreMi }}
+        {{ perfil?.desc_sobremi }}
       </p>
     </div>
 
@@ -106,7 +106,7 @@
                   </div>
                   <div class="col">
                     <div class="d-flex h-100 justify-content-center flex-column text-center">
-                      <h2 class="item-place m-0">{{ edu.academia }}</h2>
+                      <h2 class="item-place m-0">{{ edu.instituto }}</h2>
                     </div>
                   </div>
               </div>
@@ -114,7 +114,7 @@
     
             <div class="col-lg-4 item-work">
               <div class="d-flex h-100 justify-content-center flex-column text-center">
-                <p class="item-dates">{{ edu.fechaInicio | date:'M-Y' }} - {{ edu.fechaFin | date:'M-Y' }}</p>
+                <p class="item-dates">{{ edu.fechainicio | date:'M-Y' }} - {{ edu.fechafin | date:'M-Y' }}</p>
                 <!-- TODO: Reparar esto que no anda -->
               </div>
             </div>
@@ -128,13 +128,13 @@
       <h3 class="section-title">Hard-Soft Skills</h3>
         
         <div class="d-flex flex-column row-gap-10p" *ngFor="let skill of skills">
-          <div class="row">
+          <div class="row mb-4">
             <div class="col-lg-4 ">
               <h3 class="m-0 text-center">{{ skill.nombre }}</h3>
             </div>
             <div class="col-lg-8">
               <div class="progress" style="height: 100%;">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">{{ skill.progreso }}%</div>
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow='50' aria-valuemin="0" aria-valuemax="100" style='width: {{ skill.progreso }}%'>{{ skill.progreso }}%</div>
               </div>
             </div>
           </div>
@@ -155,9 +155,9 @@
     <!-- palabras finales y contacto -->
     <div class="section">
       <h1 class="text-center agradecimiento">¡Gracias Por Su Visita!</h1>
-      <div class="avatar" style="background-image: url('assets/img/perfil.jpeg');"></div>
-      <h2 class="text-center">{{ txtNombre }}</h2>
-      <p class="email text-center">{{ txtEmail }}</p>
+      <div class="avatar" style="background-image: url('{{ perfil?.foto_perfil }}');"></div>
+      <h2 class="text-center">{{ perfil?.nombre }}</h2>
+      <p class="email text-center">{{ perfil?.email }}</p>
       <div class="d-flex flex-row mb-4" style="justify-content: space-evenly;">
         <span class="iconify" style="color: black;" data-icon="akar-icons:facebook-fill" data-width="50" data-height="50"></span>
         <span class="iconify" style="color: black;" data-icon="akar-icons:linkedin-box-fill" data-width="50" data-height="50"></span>

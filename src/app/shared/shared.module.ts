@@ -2,6 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './layout/header.component';
 import { VerCuandoLoginDirective } from './ver-cuando-login.directive';
+import { EducacionService } from './services/educacion.service';
+import { ExperienciaService } from './services/experiencia.service';
+import { PerfilService } from './services/perfil.service';
+import { FeedService } from './services/feed.service';
+import { ProyectosService } from './services/proyectos.service';
+import { SkillsService } from './services/skills.service';
+import { UsuarioService } from './services/usuario.service';
+import { InstitutoService } from './services/instituto.service';
+import { RolService } from './services/rol.service';
+import { EmpresaService } from './services/empresa.service';
+import { JornadaService } from './services/jornada.service';
 
 
 
@@ -15,40 +26,19 @@ import { VerCuandoLoginDirective } from './ver-cuando-login.directive';
   ],
   exports: [
     VerCuandoLoginDirective
+  ],
+  providers: [
+    EducacionService,
+    ExperienciaService,
+    PerfilService,
+    FeedService,
+    ProyectosService,
+    SkillsService,
+    UsuarioService,
+    InstitutoService,
+    RolService,
+    EmpresaService,
+    JornadaService
   ]
 })
 export class SharedModule { }
-
-
-// @NgModule({
-//   imports: [
-//     CommonModule,
-//     FormsModule,
-//     ReactiveFormsModule,
-//     HttpClientModule,
-//     RouterModule
-//   ],
-//   declarations: [
-//     ArticleListComponent,
-//     ArticleMetaComponent,
-//     ArticlePreviewComponent,
-//     FavoriteButtonComponent,
-//     FollowButtonComponent,
-//     ListErrorsComponent,
-//     ShowAuthedDirective
-//   ],
-//   exports: [
-//     ArticleListComponent,
-//     ArticleMetaComponent,
-//     ArticlePreviewComponent,
-//     CommonModule,
-//     FavoriteButtonComponent,
-//     FollowButtonComponent,
-//     FormsModule,
-//     ReactiveFormsModule,
-//     HttpClientModule,
-//     ListErrorsComponent,
-//     RouterModule,
-//     ShowAuthedDirective
-//   ]
-// })
