@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Educacion } from '../shared/models/educacion';
 import { Instituto } from '../shared/models/instituto';
 import { EducacionService } from '../shared/services/educacion.service';
@@ -26,7 +27,8 @@ export class EditEducacionesComponent implements OnInit {
   constructor(
     private educacionService: EducacionService,
     private institucionService: InstitutoService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) { 
 
     this.formItem = this.fb.group({});
@@ -56,7 +58,8 @@ export class EditEducacionesComponent implements OnInit {
         this.educaciones = data;
       },
       error: (err: any) => {
-        console.log("Error al obtener las educaciones");
+        this.mostrarError = true;
+        //console.log("Error al obtener las educaciones");
       }
     }
 
@@ -67,31 +70,33 @@ export class EditEducacionesComponent implements OnInit {
     const myObserver = {
       next: (data:any) => {
         this.instituciones = data;
-        next_func();
+        if (next_func && typeof next_func == 'function'){
+          next_func();
+        }
       },
       error: (error: any) => {
-        console.log("Error al cargar las instituciones");
+        this.mostrarError = true;
+        //console.log("Error al cargar las instituciones");
       }
     }
 
     this.institucionService.getInstituciones().subscribe(myObserver);
   }
 
-  editarItem(id: number){
+  editarItem(edu: Educacion){
     this.editaOAgrega = true;
     this.edita = true;
 
 
     // logica que se ejecuta solo si todavia no se cargaron las instituciones.
     const continuar = () => {
-      const item: Educacion = this.educaciones[id]; 
       this.formItem.reset({
-        titulo: item.titulo,
-        instituto: this.instituciones.findIndex(insti => insti.id == item.instituto.id),
-        fechainicio: item.fechainicio,
-        fechafin: item.fechafin
+        id: edu.id,
+        titulo: edu.titulo,
+        instituto: edu.instituto.id,
+        fechainicio: edu.fechainicio,
+        fechafin: edu.fechafin
       });
-      console.log("editar la edu: " + id);
     };
 
     if(this.instituciones.length != 0){
@@ -111,7 +116,6 @@ export class EditEducacionesComponent implements OnInit {
     this.cargarInstituciones();
 
     this.formItem.reset({});
-    console.log("creando nueva edu");
   }
 
   cancelar(){
@@ -145,44 +149,44 @@ export class EditEducacionesComponent implements OnInit {
 
     const itemCopy = { ...this.formItem.value };
     const dataRequest = {
+      id: itemCopy.id,
       titulo: itemCopy.titulo,
-      instituto: itemCopy.instituto,
+      instituto: this.instituciones.find(inst => inst.id == itemCopy.instituto),
       fechainicio: itemCopy.fechainicio,
       fechafin: itemCopy.fechafin
     };
 
     const requestObserver = {
       next: (res: any) => {
-        console.log(res);
         this.mostrarSuccess = true;
         this.cargarEducaciones();
       },
       error: (err: any) => {
         this.mostrarError = true;
-        console.log(err);
       }
     };
 
-    console.log(dataRequest);
     this.educacionService.postEducacion(dataRequest).subscribe(requestObserver);
     this.editaOAgrega = false;
   }
 
-  eliminarItem(id: number){
-    const item = this.educaciones[id];
+  eliminarItem(edu: Educacion){
+    const item = edu;
     const deleteObserver = {
       next: (res: any) => {
-        console.log('response: ' + res);
         this.mostrarSuccess = true;
         this.cargarEducaciones();
       },
       error: (err: any) => {
         this.mostrarError = true;
-        console.log('error: ' + err);
       }
     }
 
     this.educacionService.deleteEducacion(item.id).subscribe(deleteObserver);
+  }
+
+  navegarA(url: string){
+    this.router.navigateByUrl(url);
   }
 
 }
