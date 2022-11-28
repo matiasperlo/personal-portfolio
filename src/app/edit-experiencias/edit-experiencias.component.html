@@ -1,0 +1,81 @@
+<div class="container bg-light pt-3">
+    <h1 class="mb-4 text-center">Experiencias</h1>
+    <div class="row text-center mb-4">
+        <div class="col">
+            <div class="btn" (click)="crearItem()">
+                <span class="iconify" data-icon="material-symbols:add" data-width="30" data-height="30"></span>
+                añadir
+            </div>
+        </div>
+        <div class="col">
+            <div class="btn">
+                <span class="iconify" data-icon="material-symbols:home" data-width="30" data-height="30"></span>
+                home
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-success alert-dismissible" role="alert" *ngIf="mostrarSuccess">
+        Cambios realizados con exito.
+        <button type="button" class="btn-close" aria-label="Close" (click)="mostrarSuccess = false;"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="mostrarError">
+        Ocurrio un error inesperado, intente de nuevo más tarde.
+        <button type="button" class="btn-close" aria-label="Close" (click)="mostrarError = false;"></button>
+    </div>
+
+    <div class="d-flex flex-column" *ngFor="let exp of experiencias">
+        
+        <div class="d-flex align-items-center flex-row justify-content-between mb-2 ">
+            <div class="d-flex flex-row me-3">
+                <div class="btn px-1" (click)="editarItem(exp)">
+                    <span class="iconify me-2" data-icon="material-symbols:edit" data-width="30" data-height="30"></span>
+                </div>
+                <div class="btn px-1" (click)="eliminarItem(exp)">
+                    <span class="iconify" data-icon="material-symbols:delete-outline" data-width="30" data-height="30"></span>
+                </div>
+            </div>
+            <div class="text-truncate">
+                {{ exp.empresa.nombre }} - {{ exp.rol.rol }}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="container bg-light pt-3" *ngIf="editaOAgrega">
+    
+    <form [formGroup]="formItem" (ngSubmit)="grabar()">
+        <h1>{{ edita ? 'Edicion' : 'Nuevo'}}</h1>
+        <select class="form-select form-select-lg mb-3" formControlName="rol" aria-label=".form-select-lg example">
+            <option *ngFor="let rol of roles" [value]="rol.id" >{{ rol.rol }}</option>
+
+        </select>
+        <select class="form-select form-select-lg mb-3" formControlName="empresa" aria-label=".form-select-lg example">
+            <option *ngFor="let empr of empresas" [value]="empr.id" >{{ empr.nombre }}</option>
+
+        </select>
+        <select class="form-select form-select-lg mb-3" formControlName="jornada" aria-label=".form-select-lg example">
+            <option *ngFor="let jorn of jornadas" [value]="jorn.id" >{{ jorn.nombre }}</option>
+        </select>
+
+
+        <div>
+            <label for="start">Start date:</label>
+            <input type="date" id="start" formControlName="fechainicio" name="trip-start" value="2001-01-01" min="2018-01-01" max="2022-12-31">
+        </div>
+
+        <div class="mb-4">
+            <label for="start">End date:</label>
+            <input type="date" id="start" formControlName="fechafin" name="trip-start" value="2001-01-01" min="2018-01-01" max="2022-12-31">
+        </div>
+
+        <div>
+            <button class="btn btn-primary w-100 mb-1" type="submit">Grabar</button>
+            <button class="btn btn-secondary w-100 mb-4" (click)="cancelar()">Cancelar</button>
+        </div>
+    </form>
+
+    
+
+    
+</div>
