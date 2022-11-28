@@ -59,11 +59,11 @@ export class EditProyectosComponent implements OnInit {
     this.editaOAgrega= true;
     this.edita= true;
 
-    this.formItem = this.fb.group ({
-      id: [null],
-      nombre: ['', [Validators.required]],
-      descripcion: ['', [Validators.required]],
-      link: ['']
+    this.formItem.reset ({
+      id: proyecto.id,
+      nombre: proyecto.nombre,
+      descripcion: proyecto.descripcion,
+      link: proyecto.link
     })
   }
 
@@ -71,6 +71,8 @@ export class EditProyectosComponent implements OnInit {
     const myObserver = {
       next: (data: any) => {
         this.mostrarSuccess = true;
+        
+        this.cargarProyectos();
       },
       error: (err: any) => {
         this.mostrarError = true;
@@ -82,6 +84,7 @@ export class EditProyectosComponent implements OnInit {
 
   grabar(){
     if(this.formItem.invalid){
+      this.mostrarError = true;
       return;
     }
 
@@ -97,6 +100,10 @@ export class EditProyectosComponent implements OnInit {
     const postObserver = {
       next: (data: any) => {
         this.mostrarSuccess = true;
+        this.editaOAgrega = false;
+
+        this.cargarProyectos();
+
       },
       error: (err: any) => {
         this.mostrarError = true;
@@ -107,7 +114,7 @@ export class EditProyectosComponent implements OnInit {
 
   cancelar(){
     this.editaOAgrega = false;
-    this.formItem = this.fb.group({});
+    this.formItem.reset({});
   }
 
 }

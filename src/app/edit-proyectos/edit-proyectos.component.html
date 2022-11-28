@@ -47,12 +47,16 @@
     <form [formGroup]="formItem" (ngSubmit)="grabar()">
         <h1>{{ edita ? 'Edicion' : 'Nuevo'}}</h1>
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" formControlName="titulo" id="titulo">
-            <label for="titulo">Titulo</label>
+            <input type="text" class="form-control" formControlName="nombre" id="nombre">
+            <label for="nombre">nombre</label>
         </div>
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" formControlName="titulo" id="titulo">
-            <label for="titulo">Titulo</label>
+            <input type="text" class="form-control" formControlName="descripcion" id="descripcion">
+            <label for="descripcion">descripcion</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" formControlName="link" id="link">
+            <label for="link">link</label>
         </div>
 
         <div>

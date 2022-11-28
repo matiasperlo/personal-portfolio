@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Skill } from '../shared/models/skill';
 import { SkillsService } from '../shared/services/skills.service';
 
@@ -20,13 +21,15 @@ export class EditHabilidadesComponent implements OnInit {
   
   constructor(
     private fb: FormBuilder,
-    private habilidadService: SkillsService
+    private habilidadService: SkillsService,
+    private router: Router
   ) { 
     this.formItem = this.fb.group({});
   }
 
   ngOnInit(): void {
     this.formItem = this.fb.group({
+      id: [null, []],
       nombre: ['', [Validators.required]],
       progreso: [null, [Validators.required]]
     })
@@ -54,16 +57,18 @@ export class EditHabilidadesComponent implements OnInit {
   }
 
   editarItem(skill: Skill){
+    this.editaOAgrega = true;
+    this.edita = true;
 
-      const item: Skill = skill;
-      this.formItem.reset({
-        nombre: item.nombre,
-        progreso: item.progreso
-      });
+    const item: Skill = skill;
+    this.formItem.reset({
+      id: item.id,
+      nombre: item.nombre,
+      progreso: item.progreso
+    });
   }
 
   eliminarItem(skill: Skill){
-    const item = skill;
     const deleteObserver = {
       next: (res: any) => {
         console.log('response: ' + res);
@@ -72,20 +77,22 @@ export class EditHabilidadesComponent implements OnInit {
       },
       error: (err: any) => {
         this.mostrarError = true;
-        console.log('error: ' + err);
+        console.log('error: ' + err); 
       }
     }
 
-    this.habilidadService.deleteHabilidad(item.id).subscribe(deleteObserver);
+    this.habilidadService.deleteHabilidad(skill.id).subscribe(deleteObserver);
   }
 
   grabar(){
     if (this.formItem.invalid){
+      console.log("Formulario invalido");
       return;
     }
 
     const itemCopy = { ...this.formItem.value };
     const dataRequest = {
+      id: itemCopy.id,
       nombre: itemCopy.nombre,
       progreso: itemCopy.progreso
     };
@@ -109,5 +116,9 @@ export class EditHabilidadesComponent implements OnInit {
 
   cancelar(){
     this.editaOAgrega = false;
+  }
+
+  navegarA(url: string){
+    this.router.navigateByUrl(url);
   }
 }

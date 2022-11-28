@@ -85,7 +85,7 @@ export class EditExperienciasComponent implements OnInit {
     const myObserver = {
       next: (data: any) => {
         this.empresas = data;
-        next_func();
+        if(next_func && typeof next_func == 'function') next_func();
       },
       error: (err: any) => {
         console.log(err);
@@ -99,7 +99,7 @@ export class EditExperienciasComponent implements OnInit {
     const myObserver = {
       next: (data: any) => {
         this.roles = data;
-        next_func();
+        if(next_func && typeof next_func == 'function') next_func();
       },
       error: (err: any) => {
         console.log(err);
@@ -113,7 +113,7 @@ export class EditExperienciasComponent implements OnInit {
     const myObserver = {
       next: (data: any) => {
         this.jornadas = data;
-        next_func();
+        if(next_func && typeof next_func == 'function') next_func();
       },
       error: (err: any) => {
         console.log(err);
@@ -129,13 +129,12 @@ export class EditExperienciasComponent implements OnInit {
 
     // logica que se ejecuta solo si todavia no se cargaron las instituciones.
     const continuar = () => {
-      const item: Experiencia = exp; 
       this.formItem.reset({
-        rol: item.rol,
-        empresa: item.empresa,
-        jornada: item.jornada,
-        fechainicio: item.fechainicio,
-        fechafin: item.fechafin
+        rol: exp.rol.id,
+        empresa: exp.empresa.id,
+        jornada: exp.jornada.id,
+        fechainicio: exp.fechainicio,
+        fechafin: exp.fechafin
       });
     };
 
@@ -167,9 +166,10 @@ export class EditExperienciasComponent implements OnInit {
 
     const itemCopy = { ...this.formItem.value };
     const dataRequest = {
-      rol: itemCopy.rol,
-      empresa: itemCopy.empresa,
-      jornada: itemCopy.jornada,
+      id: itemCopy.id,
+      rol: this.roles.find(rol => rol.id == itemCopy.rol),
+      empresa: this.empresas.find(empr => empr.id == itemCopy.empresa),
+      jornada: this.jornadas.find(jorn => jorn.id == itemCopy.jornada),
       fechainicio: itemCopy.fechainicio,
       fechafin: itemCopy.fechafin
     };

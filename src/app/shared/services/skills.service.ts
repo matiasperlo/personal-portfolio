@@ -3,7 +3,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 
 @Injectable()
 export class SkillsService {
-  private api_url = "/habilidades";
+  private api_url = "/habilidad";
 
   constructor(
     private apiService: ApiService

@@ -6,7 +6,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 })
 export class JornadaService {
 
-  private api_url = "/jornada";
+  private api_url = "/jornadas";
 
   constructor(
     private apiService: ApiService
