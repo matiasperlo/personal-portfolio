@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 
 @Injectable()
@@ -12,6 +11,10 @@ export class PerfilService {
   ) { }
 
   getPerfil(){
-    return this.apiService.get(this.api_url);
+    return this.apiService.get(this.api_url + "/all");
+  }
+
+  postPerfil(data: Object){
+    return this.apiService.post(this.api_url + "/register", data);
   }
 }

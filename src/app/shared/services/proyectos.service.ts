@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 @Injectable()
 export class ProyectosService {
 
-  private api_url = "/proyectos";
+  private api_url = "/proyecto";
 
   constructor(
     private apiService: ApiService
