@@ -8,7 +8,6 @@ import { PerfilService } from './services/perfil.service';
 import { FeedService } from './services/feed.service';
 import { ProyectosService } from './services/proyectos.service';
 import { SkillsService } from './services/skills.service';
-import { UsuarioService } from './services/usuario.service';
 import { InstitutoService } from './services/instituto.service';
 import { RolService } from './services/rol.service';
 import { EmpresaService } from './services/empresa.service';
@@ -34,7 +33,6 @@ import { JornadaService } from './services/jornada.service';
     FeedService,
     ProyectosService,
     SkillsService,
-    UsuarioService,
     InstitutoService,
     RolService,
     EmpresaService,

@@ -1,20 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, distinctUntilChanged, map, Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map, Observable, ReplaySubject, tap } from 'rxjs';
 import { User } from '../models/user';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 
 /**
- * Servicio para manejar el estado del login de usuario y al usuario logueado
+ * Servicio Singleton para manejar el estado del login de usuario y al usuario logueado
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
+  private toggle = false;
   private currentUserSubject = new BehaviorSubject<User>({} as User);
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
+
+
+  private loginObserver = (data: any) => { this.setLogin(data); };
 
   constructor(
     private apiService: ApiService,
@@ -28,7 +34,7 @@ export class UserService {
    * @param user 
    */
   setLogin(user: User){
-    this.jwtService.guardarToken(user.token);
+    this.jwtService.guardarToken(user.jwt);
     this.currentUserSubject.next(user);
     this.isAuthenticatedSubject.next(true);
   }
@@ -42,6 +48,11 @@ export class UserService {
     this.isAuthenticatedSubject.next(false);
   }
 
+  toggleValidacion(){
+    this.toggle = !this.toggle;
+    this.isAuthenticatedSubject.next(this.toggle);
+  }
+
   /**
    * Intenta loguear al usuario y obtener sus datos y los datos de la sesion
    * @param credentials campos obtenidos de los formularios para realizar el login
@@ -49,12 +60,19 @@ export class UserService {
    */
   attemptAuth(credentials: any){
     const req_credentials = { username: credentials["username"], password: credentials["password"] };
-    return this.apiService.post('/auth', req_credentials);
-    // return this.apiService.post('/auth', req_credentials)
-    // .pipe(map(data => {
-    //   this.setLogin(data.user);
-    //   return data;
-    // }))
+    return this.apiService.post('/auth', req_credentials)
+                .pipe(
+                  tap( this.loginObserver )
+    );
+  }
+
+  register(credentials: any){
+
+    const req_credentials = { username: credentials["username"], password: credentials["password"] };
+    return this.apiService.post('/signup', req_credentials)
+                .pipe(
+                  tap( this.loginObserver)
+                );
   }
 
   getCurrentUser(): User{

@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 /**
  * Servicio que maneja el almacenamiento local del JWT, incluye acciones basicas.
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class JwtService {
 
   getToken(): String {

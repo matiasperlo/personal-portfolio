@@ -1,14 +1,229 @@
+/* ------------------------------------------------ */
+ /* classes propias */
+ .wallpaper {
+    background-size: cover;
+    background-position: 50%;
+  }
+  
+  .vh-85 {
+    height: 85vh;
+  }
 
-@media (min-width: 992px) {
+  .overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .header-perfil > .avatar{
+    width: 175px;
+    height: 175px;
+    background-size: cover;
+    background-position: 50%;
+    border-radius: 50%;
+    margin: 0 auto;
+  }
+  
+  .header-perfil > .nombre {
+    font-family: "RobotoBlack";
+    font-size: 64px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  .header-perfil > .descripcion {
+    font-family: "RobotoBold";
+    font-size: 24px;
+    margin-top: 0;
+  }
+  
+  .section {
+    margin-top: 100px;
+    font-family: 'RobotoRegular';
+    font-size: 24px;
+  }
+  
+  .section .section-title {
+    font-family: 'RobotoBold';
+    font-size: 48px;
+  }
+  
+  .section-item{
+    background-color: #F0F0F0;
+    box-shadow: 0 5px 5px 0 rgb(0 0 0 / 15%);
+    border-radius: 2%;
+    min-width: 290px;
+    overflow: hidden;
+
+  }
+
+
+  .d-flex.section-item{
+    flex-direction: column !important;
+    text-align: center;
+    align-items: center;
+    /* justify-content: center !important; */
+  }
+
+  .flex-responsive-carousel {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow-x: scroll;
+    
+    gap: 30px;
+   -webkit-overflow-scrolling: touch;
+   -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+  
+  .logo{
+    width: 100px;
+    /* min-width: 125px; */
+    /* max-width: 240px; */
+    height: 100px;
+    /* min-height: 200px; */
+    /* max-height: 240px; */
+    background-size: cover;
+    background-position: 50%;
+  }
+  
+  .row-gap-10p {
+    display: flex;
+    row-gap: 10px;
+  }
+  
+.item-rol{
+    font-family: "RobotoBold";
+  }
+  
+.item-place{
+    font-family: "RobotoRegular";
+  }
+  
+.item-time {
+    font-family: "RobotoLight";
+  }
+
+  .item-dates{
+    font-family: "RobotoLight";
+  }
+  
+  .column-gap-10p{
+    display: flex;
+    column-gap: 10px;
+  }
+  
+  .agradecimiento{
+    font-size: calc(1rem + 3.5vw);
+    font-family: "RobotoRegular";
+    color: #008BD9;
+  }
+  
+  .navbar-nav .nav-item {
+    border: 1px solid white;
+    border-radius: 0.1rem;
+    padding: 0.2rem;
+  }
+
+  .navbar-nav .nav-item:hover {
+    cursor: pointer;
+  }
+  
+  
+  .navbar-nav .nav-item.username{
+    cursor: none;
+    text-align: center;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 1.5rem;
+    /* border-bottom: 0.1rem #F0F0F0; */
+  }
+
+  @media (min-width: 992px)
+  {
+  
+    .navbar-expand-lg .column-gap-10p {
+      display: flex;
+      column-gap: 10px
+    }
+
+    .d-flex.section-item{
+      flex-direction: row !important;
+      text-align: left;
+      align-items: left;
+      /* justify-content: center !important; */
+    }
+  
+    .nav-item-log{
+      margin-left: 1.5rem;
+      margin-top: 0 !important;
+    }
+  
+    .navbar-expand-lg .navbar-collapse-flex-end {
+      display: flex;
+      justify-content: flex-end;
+    }
+  
+    .logo{
+        width: 150px;
+        height: 150px;
+        margin: 0px;
+      /* height: 100%; */
+    }
+
     .navbar-expand-lg .navbar-nav{
         padding: 0 !important;
     }
 
     .navbar-expand-lg .navbar-nav .nav-item{
         margin-bottom: 0 !important;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+
     }
 
     .navbar-expand-lg .navbar-nav .nav-item  .text-name {
         display: none !important;
     }
+
+    .flex-responsive-carousel {
+      flex-direction: column;
+      width: 100%;
+      overflow-x: auto;
+      
+      gap: 20px;
+     -webkit-overflow-scrolling: touch;
+     -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+
+    .navbar-expand-lg .navbar-nav .nav-item.username{
+      margin-right: 1.5rem;
+      padding-top: 0.2rem;
+    }
 }
+
+
+
+  /* dispositivos medianos como tablets */
+  @media (max-width: 768px)
+  {
+    /* .item-rol {
+      font-size: calc(1.7rem + 1.5vw);
+    } */
+  
+    .item-work{
+      margin-top: 20px;
+    }
+  }
+  
+  @media (min-width: 425px)
+  {
+    .logo{
+      max-width: 351px;
+    }
+  }
+  
+/* dispositivos desktop y mas alla */
