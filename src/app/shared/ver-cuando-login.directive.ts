@@ -27,10 +27,11 @@ export class VerCuandoLoginDirective implements OnInit{
   ngOnInit(): void {
     const authObserver = {
       next: (estaLogueado: boolean) => {
-        if(this.condition == estaLogueado){
+        if(this.condition && estaLogueado || !this.condition && !estaLogueado ){
           this.viewContainer.createEmbeddedView(this.templateRef);
         } else {
           this.viewContainer.clear();
+        
         }
       }
     }

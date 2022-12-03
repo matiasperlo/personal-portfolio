@@ -18,10 +18,9 @@ import { ImageService } from './services/image.service';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
     ApiService,
-    JwtService,
-    AuthGuardService,
-    UserService,
-    ImageService
+    // JwtService,
+    // AuthGuardService,
+    // ImageService
   ]
 })
 export class CoreModule { }

@@ -13,6 +13,17 @@ export class AuthComponent implements OnInit {
   authForm: FormGroup;
   isSubmitting = false;
   errorLog = false;
+  authObserver = {
+    next: (data: any) => {
+      this.router.navigateByUrl('/');
+      this.isSubmitting = false;
+      this.errorLog = false;
+    },
+    error: (err: any) => {
+      this.isSubmitting = false;
+      this.errorLog = true;
+    }
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -31,28 +42,21 @@ export class AuthComponent implements OnInit {
   }
 
   submitForm(){
-    console.log("Haciendo el submit");
     this.isSubmitting = true;
-
     const credentials = this.authForm.value;
-    console.log(credentials);
-
-    const observer = {
-      next: (data: any) => {
-        this.router.navigateByUrl('/');
-        this.isSubmitting = false;
-        this.errorLog = false;
-      },
-      error: (err: any) => {
-        console.log('Error al loguear');
-        this.isSubmitting = false;
-        this.errorLog = true;
-      }
-    }
 
     this.userService
       .attemptAuth(credentials)
-      .subscribe(observer);
+      .subscribe(this.authObserver);
+  }
+
+  onRegister(){
+    this.isSubmitting = true;
+    const credentials = this.authForm.value;
+
+    this.userService
+      .register(credentials)
+      .subscribe(this.authObserver);
   }
 
 }

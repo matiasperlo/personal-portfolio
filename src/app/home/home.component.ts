@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from '../core/models/user';
+import { UserService } from '../core/services/user.service';
 import { Educacion } from '../shared/models/educacion';
 import { Experiencia } from '../shared/models/experiencia';
 import { Feed } from '../shared/models/feed';
@@ -19,12 +22,27 @@ export class HomeComponent implements OnInit {
   proyectos: Proyecto[] = [];
   skills: Skill[] = [];
 
+  usuario: User | null = null ;
+
   constructor(
-    private feedService: FeedService
+    private feedService: FeedService,
+    private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.cargarFeed();
+    this.conocerUser();
+  }
+
+  conocerUser(){
+    const userObserver = {
+      next: (usr: any) => {
+        this.usuario = usr;
+      }
+    };
+
+    this.userService.currentUser.subscribe(userObserver);
   }
 
   cargarFeed(){
@@ -41,4 +59,10 @@ export class HomeComponent implements OnInit {
     this.feedService.getFeed().subscribe(myObserver);
 
   }
+
+  logout(){
+    this.userService.quitarLogin();
+    this.router.navigateByUrl('/');
+  }
+  
 }

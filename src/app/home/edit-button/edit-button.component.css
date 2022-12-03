@@ -1,0 +1,9 @@
+.btn-edit {
+    color: #008BD9;
+}
+
+.btn-edit:hover {
+    cursor: pointer;
+    color: #3CBBff;
+    transition: color 0.1s;
+}
