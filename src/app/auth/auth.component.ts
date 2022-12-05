@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationError } from '../core/models/authentication-error';
 import { UserService } from '../core/services/user.service';
 
 @Component({
@@ -11,17 +13,31 @@ import { UserService } from '../core/services/user.service';
 export class AuthComponent implements OnInit {
 
   authForm: FormGroup;
-  isSubmitting = false;
-  errorLog = false;
+  currentError: string = "";
+  errors = {
+    usuarioExistente: "Usuario Existente",
+    usuarioNoExiste : "El Usuario ingresado no existe",
+    passwordInvalido: "La Contraseña es inválida",
+    camposInvalidos : "Los campos son inválidos, revise que cumplan los requisitos y vuelva a intentarlo"
+  };
+
   authObserver = {
     next: (data: any) => {
-      this.router.navigateByUrl('/');
-      this.isSubmitting = false;
-      this.errorLog = false;
+
+      console.log("reading next");
+
+      if(this.userService.isUser(data)){
+        this.router.navigateByUrl('/');
+        return;
+      }
+
+      this.currentError = this.errors["usuarioExistente"];
     },
-    error: (err: any) => {
-      this.isSubmitting = false;
-      this.errorLog = true;
+    error: (err: HttpErrorResponse) => {
+      let errBody: AuthenticationError = err.error;
+      if (errBody.badPassword) this.currentError = this.errors["passwordInvalido"];
+      if (errBody.userAlreadyExists) this.currentError = this.errors["usuarioExistente"];
+      if (errBody.userNotExists) this.currentError = this.errors["usuarioNoExiste"];
     }
   }
 
@@ -32,17 +48,21 @@ export class AuthComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) { 
     this.authForm = fb.group({
-      'username': ['', Validators.required],
-      'password': ['', Validators.required]
+      'username': ['', [Validators.required, Validators.maxLength(25), Validators.minLength(5)]],
+      'password': ['', [Validators.required, Validators.maxLength(15), Validators.minLength(5), Validators.pattern('^[A-Za-z0-9]+$')]]
     })
   }
 
   ngOnInit(): void {
-    // De momento solo funcionara el login
+    
   }
 
-  submitForm(){
-    this.isSubmitting = true;
+  onSubmit(){
+
+    if (this.authForm.invalid){
+      this.currentError = this.errors["camposInvalidos"];
+      return;
+    }
     const credentials = this.authForm.value;
 
     this.userService
@@ -51,12 +71,16 @@ export class AuthComponent implements OnInit {
   }
 
   onRegister(){
-    this.isSubmitting = true;
+
+    if (this.authForm.invalid){
+      this.currentError = this.errors["camposInvalidos"];
+      return;
+    }
+
     const credentials = this.authForm.value;
 
     this.userService
       .register(credentials)
       .subscribe(this.authObserver);
   }
-
 }

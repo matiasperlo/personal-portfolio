@@ -1,27 +1,31 @@
-<div class="form-signin w-100 m-auto">
+<div class="form-signin w-100 vh-100 m-auto">
     <header class="text-center mb-4">
-        <span class="iconify text-primary" data-icon="mdi:robot-happy" data-width="50" data-height="50"></span>
-        <h1 class="text-primary">Bienvenido</h1>
+        <h1 class="text-primary mb-4">Bienvenido</h1>
+        <small>Ingrese sus credenciales para iniciar sesión, o cree un nuevo usuario colocando nombre y contraseña.</small>
     </header>
 
-    <form [formGroup]="authForm" (ngSubmit)="submitForm" class="mb-4">
+    <form [formGroup]="authForm" class="mb-4">
             <div class="form-floating mb-2">
-                <input type="text" formControlName="username" class="form-control"  id="txt-username"  placeholder="username">
+                <input type="text" formControlName="username" class="form-control"  id="txt-username"  placeholder="username"    maxlength="25">
                 <label class="form-label" for="txt-username">user</label>
             </div>
             <div class="form-floating mb-4">
-                <input type="password" formControlName="password" class="form-control"  id="txt-password" placeholder="Password">
+                <input type="password" formControlName="password" class="form-control"  id="txt-password" placeholder="Password" maxlength="15">
                 <label class="form-label" for="txt-password">password</label>
             </div>
 
-            <button class="w-100 btn btn-primary btn-lg mb-2" (click)="submitForm();" [disabled]="!authForm.valid">Acceder</button>
-            <button class="w-100 btn btn-outline btn-lg mb-4" (click)="onRegister()">Registrarse</button>
-
-            <div class="text-center">
-                <a href="#" style="text-decoration: none;">Entrar como invitado</a>
-            </div>
+            <button class="w-100 btn btn-primary btn-lg mb-2" (click)="onSubmit();">Acceder</button>
+            <button class="w-100 btn btn-outline btn-lg mb-4" (click)="onRegister();">Registrarse</button>
     </form>
 
-    <div class="text-danger text-center" *ngIf="errorLog" ><p>Error al intentar loguear</p></div>
+    <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="currentError != ''">
+        <p> {{ currentError }} </p>
+        <button type="button" class="btn-close" aria-label="Close" (click)="currentError = '';"></button>
+    </div>
+    
+    <div class="text-center logo-auth">
+        <img class="" src="assets/img/Arg_Programa.svg">
+    </div>
 
+    
 </div>

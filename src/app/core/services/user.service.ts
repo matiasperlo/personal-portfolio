@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, map, Observable, ReplaySubject, tap } from 'rxjs';
 import { User } from '../models/user';
@@ -12,7 +11,6 @@ import { JwtService } from './jwt.service';
   providedIn: 'root'
 })
 export class UserService {
-  private toggle = false;
   private currentUserSubject = new BehaviorSubject<User>({} as User);
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
 
@@ -20,7 +18,11 @@ export class UserService {
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
 
-  private loginObserver = (data: any) => { this.setLogin(data); };
+  private loginObserver = (data: any) => { 
+    if (this.isUser(data)) {
+      this.setLogin(data as User);
+    }
+  };
 
   constructor(
     private apiService: ApiService,
@@ -29,6 +31,12 @@ export class UserService {
     this.quitarLogin(); // inicializa el servicio como carente de usuario para poder ocmenzar
   }
   
+
+  isUser(data: unknown): boolean {
+    return data instanceof Object && "username" in data && "jwt" in data;
+  }
+
+
   /**
    * Guarda los datos del User que se acaba de authenticar para el login
    * @param user 
@@ -46,11 +54,6 @@ export class UserService {
     this.jwtService.destruirToken();
     this.currentUserSubject.next({} as User);
     this.isAuthenticatedSubject.next(false);
-  }
-
-  toggleValidacion(){
-    this.toggle = !this.toggle;
-    this.isAuthenticatedSubject.next(this.toggle);
   }
 
   /**
@@ -71,20 +74,11 @@ export class UserService {
     const req_credentials = { username: credentials["username"], password: credentials["password"] };
     return this.apiService.post('/signup', req_credentials)
                 .pipe(
-                  tap( this.loginObserver)
+                  tap(this.loginObserver)
                 );
   }
 
   getCurrentUser(): User{
     return this.currentUserSubject.value;
-  }
-
-  update(user: User): Observable<User> {
-    return this.apiService
-    .put('/users/update', {user })
-    .pipe(map(data => {
-      this.currentUserSubject.next(data.user);
-      return data.user;
-    }))
   }
 }

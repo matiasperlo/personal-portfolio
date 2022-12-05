@@ -133,7 +133,7 @@
   
   
   .navbar-nav .nav-item.username{
-    cursor: none;
+    cursor: default;
     text-align: center;
     border: 0;
     border-radius: 0;
