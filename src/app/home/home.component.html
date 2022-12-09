@@ -11,9 +11,9 @@
         
         <div class="navbar-nav p-4 column-gap-10p">
           <div class="nav-item text-light username" *appVerCuandoLogin="true" >{{ usuario?.username }}</div>
-          <div class="nav-item mb-2" onclick="window.open('https://www.google.com')"><span class="iconify" style="color: white;" data-icon="akar-icons:facebook-fill" data-width="30" data-height="30">    </span> <div class="text-white d-inline ms-3 text-name">facebook</div> </div>
-          <div class="nav-item mb-2" onclick="window.open('https://www.google.com')"><span class="iconify" style="color: white;" data-icon="akar-icons:linkedin-box-fill" data-width="30" data-height="30"></span> <div class="text-white d-inline ms-3 text-name">linkedin</div> </div>
-          <div class="nav-item mb-2" onclick="window.open('https://www.google.com')"><span class="iconify" style="color: white;" data-icon="akar-icons:github-fill" data-width="30" data-height="30">      </span> <div class="text-white d-inline ms-3 text-name">github</div>   </div>
+          <div class="nav-item mb-2" onclick="window.open('https://www.instagram.com/matiasperlo.ok/')"><span class="iconify" style="color: white;"  data-icon="bi:instagram" data-width="30" data-height="30">    </span> <div class="text-white d-inline ms-3 text-name">facebook</div> </div>
+          <div class="nav-item mb-2" onclick="window.open('https://www.linkedin.com/in/matias-perlo-1b725a191/')"><span class="iconify" style="color: white;" data-icon="akar-icons:linkedin-box-fill" data-width="30" data-height="30"></span> <div class="text-white d-inline ms-3 text-name">linkedin</div> </div>
+          <div class="nav-item mb-2" onclick="window.open('https://github.com/matiasperlo')"><span class="iconify" style="color: white;" data-icon="akar-icons:github-fill" data-width="30" data-height="30">      </span> <div class="text-white d-inline ms-3 text-name">github</div>   </div>
           <div class="nav-item nav-item-log mt-3" [routerLink]="['/auth']" *appVerCuandoLogin="false" > <span class="iconify" data-icon="carbon:login" style="color: white;" data-width="30" data-height="30"></span>  <div class="text-white d-inline ms-3 text-name">login</div> </div>
           <div class="nav-item nav-item-log mt-3" (click)="logout();" *appVerCuandoLogin="true"  > <span class="iconify" data-icon="carbon:logout" style="color: white;" data-width="30" data-height="30"></span> <div class="text-white d-inline ms-3 text-name">logout</div></div>
         </div>
@@ -63,7 +63,7 @@
       <div class="d-flex flex-row justify-content-start section-item px-1 py-2" *ngFor="let exp of experiencias">
         <div class="logo me-3" style="background-image: url('{{ exp.empresa.logo }}');"></div>
         <div class="d-flex flex-column">
-          <div class="item-rol">{{ exp.rol.rol }}</div>
+          <div class="item-rol">{{ exp.puesto.puesto }}</div>
           <div class="item-place">{{ exp.empresa.nombre }}</div>
           <div class="item-time">{{ exp.jornada.nombre }}</div>
           <div class="item-dates">{{ exp.fechainicio | date : "MMMM y" }} - {{ exp.fechafin | date : "MMMM y" }}</div>
@@ -125,14 +125,14 @@
       
     </div>
     <div class="m-0 p-0">
-      <div class="avatar" style="background-image: url('{{ perfil?.foto_perfil }}');"></div>
+      <app-avatar-image [editable]="false" urlImage="{{ perfil?.foto_perfil }}" urlEdit="perfil" ></app-avatar-image>
       <h2 class="text-center mb-4">{{ perfil?.nombre }}</h2>
       <p class="email text-center">{{ perfil?.email }}</p>
     </div>
     <div class="d-flex flex-row mb-4" style="justify-content: space-evenly;">
-      <span class="iconify" style="color: black;" data-icon="akar-icons:facebook-fill" data-width="50" data-height="50"></span>
-      <span class="iconify" style="color: black;" data-icon="akar-icons:linkedin-box-fill" data-width="50" data-height="50"></span>
-      <span class="iconify" style="color: black;" data-icon="akar-icons:github-fill" data-width="50" data-height="50"></span>
+      <span class="iconify clickable" style="color: black;" data-icon="bi:instagram" data-width="50" data-height="50"></span>
+      <span class="iconify clickable" style="color: black;" data-icon="akar-icons:linkedin-box-fill" data-width="50" data-height="50"></span>
+      <span class="iconify clickable" style="color: black;" data-icon="akar-icons:github-fill" data-width="50" data-height="50"></span>
     </div>
   </div>
 </div>

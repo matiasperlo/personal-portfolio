@@ -7,14 +7,11 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class AvatarImageComponent implements OnInit {
 
-  @Input() urlImage: string;
-  @Input() urlEdit: string;
-  @Input() editable: boolean;
+  @Input() urlImage: string = "";
+  @Input() urlEdit: string  = "";
+  @Input() editable: boolean= false;
 
   constructor() { 
-    this.urlImage = "";
-    this.urlEdit = "";
-    this.editable = false;
   }
 
   ngOnInit(): void {

@@ -24,8 +24,6 @@ export class AuthComponent implements OnInit {
   authObserver = {
     next: (data: any) => {
 
-      console.log("reading next");
-
       if(this.userService.isUser(data)){
         this.router.navigateByUrl('/');
         return;

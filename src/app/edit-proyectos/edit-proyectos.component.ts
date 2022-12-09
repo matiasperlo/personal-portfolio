@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Proyecto } from '../shared/models/proyecto';
 import { ProyectosService } from '../shared/services/proyectos.service';
 
@@ -20,7 +21,8 @@ export class EditProyectosComponent implements OnInit {
   
   constructor(
     private fb: FormBuilder,
-    private proyectoService: ProyectosService
+    private proyectoService: ProyectosService,
+    private router: Router
   ) { 
     this.formItem = this.fb.group({});
   }
@@ -115,6 +117,10 @@ export class EditProyectosComponent implements OnInit {
   cancelar(){
     this.editaOAgrega = false;
     this.formItem.reset({});
+  }
+
+  navegarA(url: string){
+    this.router.navigateByUrl(url);
   }
 
 }

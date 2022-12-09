@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -6,6 +7,16 @@ import { Instituto } from '../shared/models/instituto';
 import { EducacionService } from '../shared/services/educacion.service';
 import { InstitutoService } from '../shared/services/instituto.service';
 
+enum LogStatus {
+  HIDDEN          = "HIDDEN",
+  SUCCESS         = "SUCCESS",
+  ERROR           = "ERROR",
+  ERROR_FORM      = "ERROR_FORM",
+  ERROR_DELETING  = "ERROR_DELETING",
+  ERROR_UPDATING  = "ERROR_UPDATING",
+  ERROR_FORBIDEN  = "ERROR_FORBIDEN"
+}
+
 @Component({
   selector: 'app-edit-educaciones',
   templateUrl: './edit-educaciones.component.html',
@@ -13,16 +24,18 @@ import { InstitutoService } from '../shared/services/instituto.service';
 })
 export class EditEducacionesComponent implements OnInit {
   
+  
   educaciones: Educacion[] = [];
   instituciones: Instituto[] = [];
 
-  editaOAgrega: boolean = false;
-  edita: boolean = false;
-  nuevoInstituto: boolean = false;
-  mostrarSuccess: boolean = false;
-  mostrarError: boolean = false;
+  onForm: boolean = false;
+  logStatus: LogStatus = LogStatus.HIDDEN;
+  msgStyles = {
+    "alert-success": this.logStatus == LogStatus.SUCCESS,
+    "alert-danger": this.logStatus == LogStatus.ERROR
+  }
+
   formItem: FormGroup;
-  formInstituto: FormGroup;
 
   constructor(
     private educacionService: EducacionService,
@@ -32,7 +45,7 @@ export class EditEducacionesComponent implements OnInit {
   ) { 
 
     this.formItem = this.fb.group({});
-    this.formInstituto = this.fb.group({});
+    this.logStatus
   }
 
   ngOnInit(): void {
@@ -46,20 +59,19 @@ export class EditEducacionesComponent implements OnInit {
       fechafin: [null, Validators.required]
     });
 
-    this.formInstituto = this.fb.group({
-      nombre: ['', [Validators.required]],
-      logo: ['', [Validators.required]]
-    })
   }
 
   cargarEducaciones() {
     const myObserver = {
-      next: (data: any) => {
+      next: (data: Educacion[]) => {
         this.educaciones = data;
       },
-      error: (err: any) => {
-        this.mostrarError = true;
-        //console.log("Error al obtener las educaciones");
+      error: (err: HttpErrorResponse) => {
+        // TODO: manejar el forbidden aca
+        console.log("On error cargarEducaciones");
+        console.log(err);
+
+        this.logStatus = LogStatus.ERROR_FORBIDEN;
       }
     }
 
@@ -75,7 +87,7 @@ export class EditEducacionesComponent implements OnInit {
         }
       },
       error: (error: any) => {
-        this.mostrarError = true;
+        this.logStatus = LogStatus.ERROR;
         //console.log("Error al cargar las instituciones");
       }
     }
@@ -84,8 +96,7 @@ export class EditEducacionesComponent implements OnInit {
   }
 
   editarItem(edu: Educacion){
-    this.editaOAgrega = true;
-    this.edita = true;
+    this.onForm = true;
 
 
     // logica que se ejecuta solo si todavia no se cargaron las instituciones.
@@ -110,8 +121,7 @@ export class EditEducacionesComponent implements OnInit {
 
 
   crearItem(){
-    this.editaOAgrega = true;
-    this.edita = false;
+    this.onForm = true;
 
     this.cargarInstituciones();
 
@@ -119,29 +129,10 @@ export class EditEducacionesComponent implements OnInit {
   }
 
   cancelar(){
-    this.editaOAgrega = false;
+    this.onForm = false;
   }
 
   grabar(){
-
-    // if(this.nuevoInstituto){
-    //   if (this.formInstituto.invalid){
-    //     return;
-    //   }
-
-    //   const itemCopyInst = { ...this.formInstituto.value };
-    //   const postIntitutoObserver = {
-    //     next: (data: any) => {
-    //       console.log(data);
-    //       this.cargarInstituciones();
-    //     },
-    //     error: (err: any) => {
-    //       console.log(err);
-    //     }
-    //   };
-      
-    //   this.institucionService.postInstituto(itemCopyInst).subscribe(postIntitutoObserver);
-    // }
 
     if (this.formItem.invalid){
       return;
@@ -158,27 +149,27 @@ export class EditEducacionesComponent implements OnInit {
 
     const requestObserver = {
       next: (res: any) => {
-        this.mostrarSuccess = true;
+        this.logStatus = LogStatus.SUCCESS;
         this.cargarEducaciones();
       },
       error: (err: any) => {
-        this.mostrarError = true;
+        this.logStatus = LogStatus.ERROR;
       }
     };
 
     this.educacionService.postEducacion(dataRequest).subscribe(requestObserver);
-    this.editaOAgrega = false;
+    this.onForm = false;
   }
 
   eliminarItem(edu: Educacion){
     const item = edu;
     const deleteObserver = {
       next: (res: any) => {
-        this.mostrarSuccess = true;
+        this.logStatus = LogStatus.SUCCESS;
         this.cargarEducaciones();
       },
       error: (err: any) => {
-        this.mostrarError = true;
+        this.logStatus = LogStatus.SUCCESS;
       }
     }
 
@@ -187,6 +178,10 @@ export class EditEducacionesComponent implements OnInit {
 
   navegarA(url: string){
     this.router.navigateByUrl(url);
+  }
+
+  onCloseLog(){
+    this.logStatus = LogStatus.HIDDEN;
   }
 
 }

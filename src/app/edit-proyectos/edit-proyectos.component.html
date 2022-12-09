@@ -1,5 +1,5 @@
-<div class="container bg-light pt-3">
-    <h1 class="mb-4 text-center">Proyectos</h1>
+<h1 class="mb-4 text-center">Proyectos</h1>
+<div class="container bg-light pt-3" *ngIf="!editaOAgrega">
     <div class="row text-center mb-4">
         <div class="col">
             <div class="btn" (click)="crearItem()">
@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="btn">
+            <div class="btn" (click)="navegarA('/')">
                 <span class="iconify" data-icon="material-symbols:home" data-width="30" data-height="30"></span>
                 home
             </div>

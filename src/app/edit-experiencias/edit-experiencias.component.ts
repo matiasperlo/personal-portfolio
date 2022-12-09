@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Empresa } from '../shared/models/empresa';
 import { Experiencia } from '../shared/models/experiencia';
 import { Jornada } from '../shared/models/jornada';
-import { Rol } from '../shared/models/rol';
+import { Puesto } from '../shared/models/puesto';
 import { EmpresaService } from '../shared/services/empresa.service';
 import { ExperienciaService } from '../shared/services/experiencia.service';
 import { JornadaService } from '../shared/services/jornada.service';
-import { RolService } from '../shared/services/rol.service';
+import { PuestoService } from '../shared/services/puesto.service';
 
 @Component({
   selector: 'app-edit-experiencias',
@@ -18,7 +19,7 @@ export class EditExperienciasComponent implements OnInit {
 
   experiencias: Experiencia[] = [];
   jornadas: Jornada[] = [];
-  roles: Rol[] = [];
+  puestos: Puesto[] = [];
   empresas: Empresa[] = [];
 
   editaOAgrega: boolean = false;
@@ -30,10 +31,11 @@ export class EditExperienciasComponent implements OnInit {
 
   constructor(
     private experienciaService: ExperienciaService,
-    private rolService: RolService,
+    private puestoService: PuestoService,
     private jornadaService: JornadaService,
     private empresaService: EmpresaService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) { 
     this.formItem = this.fb.group({});
     this.formEmpresa = this.fb.group({});
@@ -41,7 +43,7 @@ export class EditExperienciasComponent implements OnInit {
 
   ngOnInit(): void {
     this.formItem = this.fb.group({
-      rol: [null, [Validators.required]],
+      puesto: [null, [Validators.required]],
       empresa: [null, [Validators.required]],
       jornada: [null, [Validators.required]],
       fechainicio: [null, [Validators.required]],
@@ -74,7 +76,7 @@ export class EditExperienciasComponent implements OnInit {
     this.edita = false;
 
     this.cargarEmpresas();
-    this.cargarRoles();
+    this.cargarPuestos();
     this.cargarJornadas();
 
     this.formItem.reset({});
@@ -95,10 +97,10 @@ export class EditExperienciasComponent implements OnInit {
     this.empresaService.getEmpresas().subscribe(myObserver);
   }
 
-  cargarRoles(next_func: any = null) {
+  cargarPuestos(next_func: any = null) {
     const myObserver = {
       next: (data: any) => {
-        this.roles = data;
+        this.puestos = data;
         if(next_func && typeof next_func == 'function') next_func();
       },
       error: (err: any) => {
@@ -106,7 +108,7 @@ export class EditExperienciasComponent implements OnInit {
       }
     };
 
-    this.rolService.getRoles().subscribe(myObserver);
+    this.puestoService.getPuestos().subscribe(myObserver);
   }
 
   cargarJornadas(next_func: any = null) {
@@ -130,7 +132,7 @@ export class EditExperienciasComponent implements OnInit {
     // logica que se ejecuta solo si todavia no se cargaron las instituciones.
     const continuar = () => {
       this.formItem.reset({
-        rol: exp.rol.id,
+        rol: exp.puesto.id,
         empresa: exp.empresa.id,
         jornada: exp.jornada.id,
         fechainicio: exp.fechainicio,
@@ -138,7 +140,7 @@ export class EditExperienciasComponent implements OnInit {
       });
     };
 
-    this.cargarRoles(this.cargarEmpresas(this.cargarJornadas(continuar)));
+    this.cargarPuestos(this.cargarEmpresas(this.cargarJornadas(continuar)));
     
   }
 
@@ -167,7 +169,7 @@ export class EditExperienciasComponent implements OnInit {
     const itemCopy = { ...this.formItem.value };
     const dataRequest = {
       id: itemCopy.id,
-      rol: this.roles.find(rol => rol.id == itemCopy.rol),
+      rol: this.puestos.find(puesto => puesto.id == itemCopy.puesto),
       empresa: this.empresas.find(empr => empr.id == itemCopy.empresa),
       jornada: this.jornadas.find(jorn => jorn.id == itemCopy.jornada),
       fechainicio: itemCopy.fechainicio,
@@ -194,5 +196,9 @@ export class EditExperienciasComponent implements OnInit {
 
   cancelar(){
     this.editaOAgrega = false;
+  }
+
+  navegarA(url: string){
+    this.router.navigateByUrl(url);
   }
 }

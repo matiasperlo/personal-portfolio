@@ -15,7 +15,6 @@ import { CoreModule } from '../core/core.module';
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    CoreModule
   ]
 })
 export class AuthModule { }

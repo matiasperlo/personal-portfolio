@@ -14,7 +14,7 @@ export class UserService {
   private currentUserSubject = new BehaviorSubject<User>({} as User);
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
 
-  private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
+  private isAuthenticatedSubject = new ReplaySubject<boolean>();
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
 
@@ -28,23 +28,52 @@ export class UserService {
     private apiService: ApiService,
     private jwtService: JwtService
   ) {
-    this.quitarLogin(); // inicializa el servicio como carente de usuario para poder ocmenzar
+
+    this.setup();
+  }
+
+  setup(){
+    this.currentUserSubject.next(this.getCurrentUser());
+    this.isAuthenticatedSubject.next(this.getIsAuthenticated());
   }
   
-
   isUser(data: unknown): boolean {
     return data instanceof Object && "username" in data && "jwt" in data;
   }
 
+  getCurrentUser(): User{
+    // return this.currentUserSubject.value;
+    let currentUser = window.sessionStorage.getItem("user");
+    return currentUser != null ? JSON.parse(currentUser) : {} as User;
+  }
+
+  private setUser(user: User){
+    window.sessionStorage["user"] = JSON.stringify(user);
+    this.currentUserSubject.next(user);
+  }
+
+  getRolOfCurrentUser(){
+    return this.getCurrentUser().rol;
+  }
+
+  getIsAuthenticated(): boolean {
+    let isAuth = window.sessionStorage.getItem("isAuthenticated");
+    return isAuth != null ? isAuth.toLowerCase() === 'true' : false;
+  }
+
+  private setIsAuthenticated(isAuth: boolean){
+    window.sessionStorage["isAuthenticated"] = isAuth;
+    this.isAuthenticatedSubject.next(isAuth);
+  }
 
   /**
    * Guarda los datos del User que se acaba de authenticar para el login
    * @param user 
    */
-  setLogin(user: User){
+   setLogin(user: User){
     this.jwtService.guardarToken(user.jwt);
-    this.currentUserSubject.next(user);
-    this.isAuthenticatedSubject.next(true);
+    this.setUser(user);
+    this.setIsAuthenticated(true);
   }
 
   /**
@@ -52,8 +81,8 @@ export class UserService {
    */
   quitarLogin(){
     this.jwtService.destruirToken();
-    this.currentUserSubject.next({} as User);
-    this.isAuthenticatedSubject.next(false);
+    this.setUser({} as User);
+    this.setIsAuthenticated(false);
   }
 
   /**
@@ -70,7 +99,6 @@ export class UserService {
   }
 
   register(credentials: any){
-
     const req_credentials = { username: credentials["username"], password: credentials["password"] };
     return this.apiService.post('/signup', req_credentials)
                 .pipe(
@@ -78,7 +106,5 @@ export class UserService {
                 );
   }
 
-  getCurrentUser(): User{
-    return this.currentUserSubject.value;
-  }
+
 }

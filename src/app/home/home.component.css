@@ -4,6 +4,10 @@
     background-size: cover;
     background-position: 50%;
   }
+
+  .clickable {
+    cursor: pointer;
+  }
   
   .vh-85 {
     height: 85vh;

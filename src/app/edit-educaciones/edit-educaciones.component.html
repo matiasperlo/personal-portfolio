@@ -1,29 +1,34 @@
-<div class="container bg-light pt-3">
-    <h1 class="mb-4 text-center">Educaciones</h1>
-    <div class="row text-center mb-4">
-        <div class="col">
-            <div class="btn" (click)="crearItem()">
-                <span class="iconify" data-icon="material-symbols:add" data-width="30" data-height="30"></span>
-                añadir
-            </div>
-        </div>
-        <div class="col">
-            <div class="btn" (click)="navegarA('/')">
-                <span class="iconify" data-icon="material-symbols:home" data-width="30" data-height="30"></span>
-                home
-            </div>
-        </div>
-    </div>
-    <div class="alert alert-success alert-dismissible" role="alert" *ngIf="mostrarSuccess">
-        Cambios realizados con exito.
-        <button type="button" class="btn-close" aria-label="Close" (click)="mostrarSuccess = false;"></button>
-    </div>
-    <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="mostrarError">
-        Ocurrio un error inesperado, intente de nuevo más tarde.
-        <button type="button" class="btn-close" aria-label="Close" (click)="mostrarError = false;"></button>
-    </div>
 
-    <div *ngIf="!editaOAgrega">
+<app-forbidden *ngIf="logStatus == 'ERROR_FORBIDEN' "></app-forbidden>
+
+<div class="container bg-light pt-3" *ngIf="logStatus != 'ERROR_FORBIDEN'" >
+    <div class="text-center-mb-1">
+        <h1 class="mb-4 text-center">Educacion</h1>
+    </div>
+    <div *ngIf="!onForm">
+        <div class="row text-center mb-4">
+            <div class="col">
+                <div class="btn" (click)="crearItem()">
+                    <span class="iconify" data-icon="material-symbols:add" data-width="30" data-height="30"></span>
+                    añadir
+                </div>
+            </div>
+            <div class="col">
+                <div class="btn" (click)="navegarA('/')">
+                    <span class="iconify" data-icon="material-symbols:home" data-width="30" data-height="30"></span>
+                    home
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissible" role="alert" *ngIf="logStatus != 'HIDDEN'" 
+                [ngClass]="{'alert-success': logStatus == 'SUCCESS',
+                            'alert-danger': logStatus == 'ERROR'}">
+            <p *ngIf="logStatus == 'SUCCESS'"> Cambios realizados con exito. </p>
+            <p *ngIf="logStatus == 'ERROR'"> Ocurrio un error inesperado, intente de nuevo más tarde. </p>
+
+            <button type="button" class="btn-close" aria-label="Close" (click)="onCloseLog()"></button>
+        </div>
+    
         <div class="d-flex flex-column" *ngFor="let edu of educaciones">
         
             <div class="d-flex align-items-center flex-row justify-content-between mb-2 ">
@@ -41,57 +46,36 @@
             </div>
         </div>
     </div>
-
-</div>
-
-<div class="container bg-light pt-3" *ngIf="editaOAgrega">
     
-    <form [formGroup]="formItem" (submit)="grabar()">
-        <h1>{{ edita ? 'Edicion' : 'Nuevo'}}</h1>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" formControlName="titulo" id="titulo">
-            <label for="titulo">Titulo</label>
-        </div>
-        <label for="selectInstituto">Instituciones</label>
-        <select class="form-select form-select-lg mb-3" id="selectInstituto" formControlName="instituto" aria-label=".form-select-lg example">
-            <option *ngFor="let insti of instituciones" [value]="insti.id">{{ insti.nombre }}</option>
-        </select>
+    <div class="container bg-light pt-3" *ngIf="onForm">
+        <form [formGroup]="formItem" (submit)="grabar()">
+            <h1>{{ formItem.controls['id'].value == null ? 'Nuevo' : 'Edicion'}}</h1>
 
-        <!-- <div class="form-check">
-            <input class="form-check-input" id="flexCheckDefault" type="checkbox" value="" (change)="nuevoInstituto = !nuevoInstituto" >
-            <label class="form-check-label" for="flexCheckDefault">
-              Nuevo Instituto
-            </label>
-        </div>
-
-        <form [formGroup]="formInstituto" class="p-4" *ngIf="nuevoInstituto">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="nomInstituto">
-                <label for="nomInstituto">Nombre Instituto</label>
+                <input type="text" class="form-control" formControlName="titulo" id="titulo">
+                <label for="titulo">Titulo</label>
             </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="logoInstituto">
-                <label for="logoInstituto">Url Logo</label>
+
+            <label for="selectInstituto">Instituciones</label>
+            <select class="form-select form-select-lg mb-3" id="selectInstituto" formControlName="instituto" aria-label=".form-select-lg example">
+                <option *ngFor="let insti of instituciones" [value]="insti.id">{{ insti.nombre }}</option>
+            </select>
+
+            <div>
+                <label for="start-date">Start date:</label>
+                <input type="date" id="start-date" formControlName="fechainicio" >
             </div>
-        </form> -->
 
-        <div>
-            <label for="start">Start date:</label>
-            <input type="date" id="start" formControlName="fechainicio" name="trip-start" value="2001-01-01" min="2018-01-01" max="2022-12-31">
-        </div>
+            <div class="mb-4">
+                <label for="end-date">End date:</label>
+                <input type="date" id="end-date" formControlName="fechafin">
+            </div>
 
-        <div class="mb-4">
-            <label for="start">End date:</label>
-            <input type="date" id="start" formControlName="fechafin" name="trip-start" value="2001-01-01" min="2018-01-01" max="2022-12-31">
-        </div>
+            <div>
+                <button class="btn btn-primary w-100 mb-1" type="submit">Grabar</button>
+                <button class="btn btn-secondary w-100 mb-4" (click)="cancelar()">Cancelar</button>
+            </div>
+        </form>
+    </div>
 
-        <div>
-            <button class="btn btn-primary w-100 mb-1" type="submit">Grabar</button>
-            <button class="btn btn-secondary w-100 mb-4" (click)="cancelar()">Cancelar</button>
-        </div>
-    </form>
-
-    
-
-    
 </div>

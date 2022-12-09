@@ -1,5 +1,8 @@
-<div class="container bg-light pt-3">
+<div class="container mb-1">
     <h1 class="mb-4 text-center">Experiencias</h1>
+</div>
+
+<div class="container bg-light pt-3" *ngIf="!editaOAgrega">
     <div class="row text-center mb-4">
         <div class="col">
             <div class="btn" (click)="crearItem()">
@@ -8,7 +11,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="btn">
+            <div class="btn" (click)="navegarA('/')">
                 <span class="iconify" data-icon="material-symbols:home" data-width="30" data-height="30"></span>
                 home
             </div>
@@ -35,7 +38,7 @@
                 </div>
             </div>
             <div class="text-truncate">
-                {{ exp.empresa.nombre }} - {{ exp.rol.rol }}
+                {{ exp.empresa.nombre }} - {{ exp.puesto.puesto }}
             </div>
         </div>
     </div>
@@ -47,7 +50,7 @@
     <form [formGroup]="formItem" (ngSubmit)="grabar()">
         <h1>{{ edita ? 'Edicion' : 'Nuevo'}}</h1>
         <select class="form-select form-select-lg mb-3" formControlName="rol" aria-label=".form-select-lg example">
-            <option *ngFor="let rol of roles" [value]="rol.id" >{{ rol.rol }}</option>
+            <option *ngFor="let puesto of puestos" [value]="puesto.id" >{{ puesto.puesto }}</option>
 
         </select>
         <select class="form-select form-select-lg mb-3" formControlName="empresa" aria-label=".form-select-lg example">
