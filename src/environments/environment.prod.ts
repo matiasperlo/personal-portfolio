@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:8080/api' //TODO: Reemplazarlo mas adelante en producción.
+  apiUrl: 'https://portfolio-api-matiasperlo.koyeb.app/api' //TODO: Reemplazarlo mas adelante en producción.
 };

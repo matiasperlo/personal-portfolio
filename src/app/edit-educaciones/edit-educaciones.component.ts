@@ -6,16 +6,9 @@ import { Educacion } from '../shared/models/educacion';
 import { Instituto } from '../shared/models/instituto';
 import { EducacionService } from '../shared/services/educacion.service';
 import { InstitutoService } from '../shared/services/instituto.service';
+import { MessageShowStatus, MessageStatus } from '../shared/services/messages.service';
 
-enum LogStatus {
-  HIDDEN          = "HIDDEN",
-  SUCCESS         = "SUCCESS",
-  ERROR           = "ERROR",
-  ERROR_FORM      = "ERROR_FORM",
-  ERROR_DELETING  = "ERROR_DELETING",
-  ERROR_UPDATING  = "ERROR_UPDATING",
-  ERROR_FORBIDEN  = "ERROR_FORBIDEN"
-}
+
 
 @Component({
   selector: 'app-edit-educaciones',
@@ -29,11 +22,8 @@ export class EditEducacionesComponent implements OnInit {
   instituciones: Instituto[] = [];
 
   onForm: boolean = false;
-  logStatus: LogStatus = LogStatus.HIDDEN;
-  msgStyles = {
-    "alert-success": this.logStatus == LogStatus.SUCCESS,
-    "alert-danger": this.logStatus == LogStatus.ERROR
-  }
+  logStatus: MessageStatus;
+  msgStyles: Object; 
 
   formItem: FormGroup;
 
@@ -45,7 +35,11 @@ export class EditEducacionesComponent implements OnInit {
   ) { 
 
     this.formItem = this.fb.group({});
-    this.logStatus
+    this.logStatus = new MessageStatus();
+    this.msgStyles = {
+      "alert-success": this.logStatus.isSuccess(),
+      "alert-danger": this.logStatus.isError()
+    };
   }
 
   ngOnInit(): void {
@@ -71,7 +65,7 @@ export class EditEducacionesComponent implements OnInit {
         console.log("On error cargarEducaciones");
         console.log(err);
 
-        this.logStatus = LogStatus.ERROR_FORBIDEN;
+        this.logStatus = MessageShowStatus.ERROR_FORBIDEN;
       }
     }
 
@@ -87,7 +81,7 @@ export class EditEducacionesComponent implements OnInit {
         }
       },
       error: (error: any) => {
-        this.logStatus = LogStatus.ERROR;
+        this.logStatus = MessageShowStatus.ERROR;
         //console.log("Error al cargar las instituciones");
       }
     }
@@ -149,11 +143,11 @@ export class EditEducacionesComponent implements OnInit {
 
     const requestObserver = {
       next: (res: any) => {
-        this.logStatus = LogStatus.SUCCESS;
+        this.logStatus = MessageShowStatus.SUCCESS;
         this.cargarEducaciones();
       },
       error: (err: any) => {
-        this.logStatus = LogStatus.ERROR;
+        this.logStatus = MessageShowStatus.ERROR;
       }
     };
 
@@ -165,11 +159,11 @@ export class EditEducacionesComponent implements OnInit {
     const item = edu;
     const deleteObserver = {
       next: (res: any) => {
-        this.logStatus = LogStatus.SUCCESS;
+        this.logStatus = MessageShowStatus.SUCCESS;
         this.cargarEducaciones();
       },
       error: (err: any) => {
-        this.logStatus = LogStatus.SUCCESS;
+        this.logStatus = MessageShowStatus.SUCCESS;
       }
     }
 
@@ -181,7 +175,7 @@ export class EditEducacionesComponent implements OnInit {
   }
 
   onCloseLog(){
-    this.logStatus = LogStatus.HIDDEN;
+    this.logStatus = MessageShowStatus.HIDDEN;
   }
 
 }

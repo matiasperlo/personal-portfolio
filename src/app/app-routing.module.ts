@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'edit-educaciones', loadChildren: () => import('./edit-educaciones/edit-educaciones.module').then(m => m.EditEducacionesModule), canActivate: [AdminGuard] },
   { path: 'edit-habilidades', loadChildren: () => import('./edit-habilidades/edit-habilidades.module').then(m => m.EditHabilidadesModule), canActivate: [AdminGuard] },
   { path: 'edit-experiencias', loadChildren: () => import('./edit-experiencias/edit-experiencias.module').then(m => m.EditExperienciasModule), canActivate: [AdminGuard] },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' } // 404 NOT FOUND LOGICO 
 ];
 
 @NgModule({

@@ -11,7 +11,7 @@
         
         <div class="navbar-nav p-4 column-gap-10p">
           <div class="nav-item text-light username" *appVerCuandoLogin="true" >{{ usuario?.username }}</div>
-          <div class="nav-item mb-2" onclick="window.open('https://www.instagram.com/matiasperlo.ok/')"><span class="iconify" style="color: white;"  data-icon="bi:instagram" data-width="30" data-height="30">    </span> <div class="text-white d-inline ms-3 text-name">facebook</div> </div>
+          <div class="nav-item mb-2" onclick="window.open('https://www.instagram.com/matiasperlo.ok/')"><span class="iconify" style="color: white;"  data-icon="bi:instagram" data-width="30" data-height="30">    </span> <div class="text-white d-inline ms-3 text-name">instagram</div> </div>
           <div class="nav-item mb-2" onclick="window.open('https://www.linkedin.com/in/matias-perlo-1b725a191/')"><span class="iconify" style="color: white;" data-icon="akar-icons:linkedin-box-fill" data-width="30" data-height="30"></span> <div class="text-white d-inline ms-3 text-name">linkedin</div> </div>
           <div class="nav-item mb-2" onclick="window.open('https://github.com/matiasperlo')"><span class="iconify" style="color: white;" data-icon="akar-icons:github-fill" data-width="30" data-height="30">      </span> <div class="text-white d-inline ms-3 text-name">github</div>   </div>
           <div class="nav-item nav-item-log mt-3" [routerLink]="['/auth']" *appVerCuandoLogin="false" > <span class="iconify" data-icon="carbon:login" style="color: white;" data-width="30" data-height="30"></span>  <div class="text-white d-inline ms-3 text-name">login</div> </div>
@@ -112,7 +112,7 @@
     <h3 class="section-title">Proyectos <app-edit-button url="proyectos" class="d-inline-block"></app-edit-button></h3>
     <div class="d-flex flex-column" *ngFor="let proyecto of proyectos">
       <div>
-        <h3 class="project-title"><a href="{{ proyecto.link }}">{{ proyecto.nombre }}</a></h3>
+        <h3 class="project-title"><a href="{{ proyecto.link }}" target="_blank">{{ proyecto.nombre }}</a></h3>
         <p>{{ proyecto.descripcion }}</p>
       </div>
     </div>
@@ -130,9 +130,9 @@
       <p class="email text-center">{{ perfil?.email }}</p>
     </div>
     <div class="d-flex flex-row mb-4" style="justify-content: space-evenly;">
-      <span class="iconify clickable" style="color: black;" data-icon="bi:instagram" data-width="50" data-height="50"></span>
-      <span class="iconify clickable" style="color: black;" data-icon="akar-icons:linkedin-box-fill" data-width="50" data-height="50"></span>
-      <span class="iconify clickable" style="color: black;" data-icon="akar-icons:github-fill" data-width="50" data-height="50"></span>
+      <span class="iconify clickable"  onclick="window.open('https://www.instagram.com/matiasperlo.ok/')" style="color: black;" data-icon="bi:instagram" data-width="50" data-height="50"></span>
+      <span class="iconify clickable"  onclick="window.open('https://www.linkedin.com/in/matias-perlo-1b725a191/')" style="color: black;" data-icon="akar-icons:linkedin-box-fill" data-width="50" data-height="50"></span>
+      <span class="iconify clickable"  onclick="window.open('https://github.com/matiasperlo')"  style="color: black;" data-icon="akar-icons:github-fill" data-width="50" data-height="50"></span>
     </div>
   </div>
 </div>

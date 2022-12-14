@@ -47,7 +47,7 @@ export class AuthComponent implements OnInit {
   ) { 
     this.authForm = fb.group({
       'username': ['', [Validators.required, Validators.maxLength(25), Validators.minLength(5)]],
-      'password': ['', [Validators.required, Validators.maxLength(15), Validators.minLength(5), Validators.pattern('^[A-Za-z0-9]+$')]]
+      'password': ['', [Validators.required, Validators.maxLength(15), Validators.minLength(5)]] // Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{5,32}$')
     })
   }
 

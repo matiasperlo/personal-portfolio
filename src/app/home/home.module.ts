@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
@@ -8,6 +8,9 @@ import { SharedModule } from '../shared/shared.module';
 import { EditButtonComponent } from './edit-button/edit-button.component';
 import { AvatarImageComponent } from './avatar-image/avatar-image.component';
 
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeEs, 'es');
 
 @NgModule({
   declarations: [
@@ -22,6 +25,7 @@ import { AvatarImageComponent } from './avatar-image/avatar-image.component';
   ],
   providers:[
     HomeAuthResolverService,
+    { provide: LOCALE_ID, useValue: 'es' }
   ]
 })
 export class HomeModule { }
