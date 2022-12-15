@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastService } from '../core/root/toast.service';
 import { Empresa } from '../shared/models/empresa';
 import { Experiencia } from '../shared/models/experiencia';
 import { Jornada } from '../shared/models/jornada';
@@ -24,8 +25,6 @@ export class EditExperienciasComponent implements OnInit {
 
   editaOAgrega: boolean = false;
   edita: boolean = false;
-  mostrarSuccess: boolean = false;
-  mostrarError: boolean = false;
   formItem: FormGroup;
   formEmpresa: FormGroup;
 
@@ -35,7 +34,8 @@ export class EditExperienciasComponent implements OnInit {
     private jornadaService: JornadaService,
     private empresaService: EmpresaService,
     private fb: FormBuilder,
-    private router: Router
+    public router: Router,
+    public toastService: ToastService
   ) { 
     this.formItem = this.fb.group({});
     this.formEmpresa = this.fb.group({});
@@ -149,12 +149,11 @@ export class EditExperienciasComponent implements OnInit {
     const deleteObserver = {
       next: (res: any) => {
         console.log('response: ' + res);
-        this.mostrarSuccess = true;
+        this.toastService.show('Registro eliminado correctamente', {classname:'bg-success text-light'});
         this.cargarExperiencias();
       },
       error: (err: any) => {
-        this.mostrarError = true;
-        console.log('error: ' + err);
+        this.toastService.show('Error al intentar eliminar el registro', {classname:'bg-danger text-light'});
       }
     }
 
@@ -180,11 +179,11 @@ export class EditExperienciasComponent implements OnInit {
       next: (res: any) => {
         
         console.log(res);
-        this.mostrarSuccess = true;
+        this.toastService.show('Cambios realizados con exito', {classname:'bg-success text-light'});
         this.cargarExperiencias();
       },
       error: (err: any) => {
-        this.mostrarError = true;
+        this.toastService.show('Error al realizar los cambios', {classname:'bg-success text-light'});
         console.log(err);
       }
     };
@@ -196,9 +195,5 @@ export class EditExperienciasComponent implements OnInit {
 
   cancelar(){
     this.editaOAgrega = false;
-  }
-
-  navegarA(url: string){
-    this.router.navigateByUrl(url);
   }
 }
