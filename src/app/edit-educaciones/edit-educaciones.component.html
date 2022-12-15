@@ -1,7 +1,7 @@
 
-<app-forbidden *ngIf="logStatus == 'ERROR_FORBIDEN' "></app-forbidden>
+<app-forbidden *ngIf="logStatus.isForbidden()"></app-forbidden>
 
-<div class="container bg-light pt-3" *ngIf="logStatus != 'ERROR_FORBIDEN'" >
+<div class="container bg-light pt-3" *ngIf="logStatus.isForbidden()" >
     <div class="text-center-mb-1">
         <h1 class="mb-4 text-center">Educacion</h1>
     </div>
@@ -20,11 +20,11 @@
                 </div>
             </div>
         </div>
-        <div class="alert alert-success alert-dismissible" role="alert" *ngIf="logStatus != 'HIDDEN'" 
-                [ngClass]="{'alert-success': logStatus == 'SUCCESS',
-                            'alert-danger': logStatus == 'ERROR'}">
-            <p *ngIf="logStatus == 'SUCCESS'"> Cambios realizados con exito. </p>
-            <p *ngIf="logStatus == 'ERROR'"> Ocurrio un error inesperado, intente de nuevo más tarde. </p>
+        <div class="alert alert-success alert-dismissible" role="alert" *ngIf="logStatus.isHidden()" 
+                [ngClass]="{'alert-success': logStatus.isSuccess(),
+                            'alert-danger': logStatus.isError()}">
+            <p *ngIf="logStatus.isSuccess()"> Cambios realizados con exito. </p>
+            <p *ngIf="logStatus.isError()"> Ocurrio un error inesperado, intente de nuevo más tarde. </p>
 
             <button type="button" class="btn-close" aria-label="Close" (click)="onCloseLog()"></button>
         </div>

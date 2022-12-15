@@ -65,7 +65,7 @@ export class EditEducacionesComponent implements OnInit {
         console.log("On error cargarEducaciones");
         console.log(err);
 
-        this.logStatus = MessageShowStatus.ERROR_FORBIDEN;
+        this.logStatus.setStatus(MessageShowStatus.ERROR_FORBIDEN);
       }
     }
 
@@ -81,7 +81,7 @@ export class EditEducacionesComponent implements OnInit {
         }
       },
       error: (error: any) => {
-        this.logStatus = MessageShowStatus.ERROR;
+        this.logStatus.setStatus(MessageShowStatus.ERROR);
         //console.log("Error al cargar las instituciones");
       }
     }
@@ -143,11 +143,11 @@ export class EditEducacionesComponent implements OnInit {
 
     const requestObserver = {
       next: (res: any) => {
-        this.logStatus = MessageShowStatus.SUCCESS;
+        this.logStatus.setStatus(MessageShowStatus.SUCCESS);
         this.cargarEducaciones();
       },
       error: (err: any) => {
-        this.logStatus = MessageShowStatus.ERROR;
+        this.logStatus.setStatus(MessageShowStatus.ERROR);
       }
     };
 
@@ -159,11 +159,11 @@ export class EditEducacionesComponent implements OnInit {
     const item = edu;
     const deleteObserver = {
       next: (res: any) => {
-        this.logStatus = MessageShowStatus.SUCCESS;
+        this.logStatus.setStatus(MessageShowStatus.SUCCESS);
         this.cargarEducaciones();
       },
       error: (err: any) => {
-        this.logStatus = MessageShowStatus.SUCCESS;
+        this.logStatus.setStatus(MessageShowStatus.SUCCESS);
       }
     }
 
@@ -175,7 +175,7 @@ export class EditEducacionesComponent implements OnInit {
   }
 
   onCloseLog(){
-    this.logStatus = MessageShowStatus.HIDDEN;
+    this.logStatus.setStatus(MessageShowStatus.HIDDEN);
   }
 
 }
