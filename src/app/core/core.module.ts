@@ -8,16 +8,23 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpTokenInterceptor } from './interceptors/http.token.interceptor';
 import { ImageService } from './services/image.service';
 import { AdminGuard } from './admin-guard';
+import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.component';
+import { ModalLoadingComponent } from './components/modal-loading/modal-loading.component';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ModalDialogComponent,
+    ModalLoadingComponent
+  ],
   imports: [
     CommonModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     ApiService,
     AdminGuard
     // UserService

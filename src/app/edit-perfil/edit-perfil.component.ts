@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DocumentService } from '../core/root/document.service';
 import { ToastService } from '../core/root/toast.service';
 import { Perfil } from '../shared/models/perfil';
 import { PerfilService } from '../shared/services/perfil.service';
@@ -21,9 +22,11 @@ export class EditPerfilComponent implements OnInit {
     private fb: FormBuilder,
     private perfilService: PerfilService,
     public router: Router,
-    public toastService: ToastService
+    public toastService: ToastService,
+    private documentService: DocumentService
   ) { 
     this.formPerfil = this.fb.group({});
+    this.documentService.setSubTitle('Perfil');
 
   }
 

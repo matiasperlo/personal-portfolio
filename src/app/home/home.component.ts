@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../core/models/user';
+import { DocumentService } from '../core/root/document.service';
+import { ToastService } from '../core/root/toast.service';
 import { UserService } from '../core/services/user.service';
 import { Educacion } from '../shared/models/educacion';
 import { Experiencia } from '../shared/models/experiencia';
@@ -27,12 +29,15 @@ export class HomeComponent implements OnInit {
   constructor(
     private feedService: FeedService,
     private userService: UserService,
-    private router: Router
+    public router: Router,
+    public toastService: ToastService,
+    private documentService: DocumentService
   ) { }
 
   ngOnInit(): void {
     this.cargarFeed();
     this.conocerUser();
+    this.documentService.setSubTitle('Home');
   }
 
   conocerUser(){
@@ -62,6 +67,7 @@ export class HomeComponent implements OnInit {
 
   logout(){
     this.userService.quitarLogin();
+    this.toastService.show('Logout realizado, ¡Hasta la Próxima!');
     this.router.navigateByUrl('/');
   }
   

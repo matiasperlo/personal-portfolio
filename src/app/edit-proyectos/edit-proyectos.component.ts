@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DocumentService } from '../core/root/document.service';
 import { ToastService } from '../core/root/toast.service';
 import { Proyecto } from '../shared/models/proyecto';
 import { ProyectosService } from '../shared/services/proyectos.service';
@@ -22,9 +23,11 @@ export class EditProyectosComponent implements OnInit {
     private fb: FormBuilder,
     private proyectoService: ProyectosService,
     public router: Router,
-    public toastService: ToastService
+    public toastService: ToastService,
+    private documentService: DocumentService
   ) { 
     this.formItem = this.fb.group({});
+    this.documentService.setSubTitle('Proyectos');
   }
 
   ngOnInit(): void {

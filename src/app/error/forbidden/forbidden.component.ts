@@ -9,14 +9,10 @@ import { Router } from '@angular/router';
 export class ForbiddenComponent implements OnInit {
 
   constructor(
-    private router: Router
+    public router: Router
   ) { }
 
   ngOnInit(): void {
-  }
-
-  onVolverHome(){
-    this.router.navigateByUrl('/');
   }
 
 }

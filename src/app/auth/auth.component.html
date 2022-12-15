@@ -17,11 +17,6 @@
             <button class="w-100 btn btn-primary btn-lg mb-2" (click)="onSubmit();">Acceder</button>
             <button class="w-100 btn btn-outline btn-lg mb-4" (click)="onRegister();">Registrarse</button>
     </form>
-
-    <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="currentError != ''">
-        <p> {{ currentError }} </p>
-        <button type="button" class="btn-close" aria-label="Close" (click)="currentError = '';"></button>
-    </div>
     
     <div class="text-center logo-auth">
         <img class="" src="assets/img/Arg_Programa.svg">

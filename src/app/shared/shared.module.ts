@@ -12,7 +12,6 @@ import { InstitutoService } from './services/instituto.service';
 import { RolService } from './services/rol.service';
 import { EmpresaService } from './services/empresa.service';
 import { JornadaService } from './services/jornada.service';
-import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { PuestoService } from './services/puesto.service';
 
 
@@ -21,14 +20,12 @@ import { PuestoService } from './services/puesto.service';
   declarations: [
     VerCuandoLoginDirective,
     HeaderComponent,
-    ForbiddenComponent,
   ],
   imports: [
     CommonModule,
   ],
   exports: [
     VerCuandoLoginDirective,
-    ForbiddenComponent,
   ],
   providers: [
     EducacionService,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DocumentService } from '../core/root/document.service';
 import { ToastService } from '../core/root/toast.service';
 import { Skill } from '../shared/models/skill';
 import { SkillsService } from '../shared/services/skills.service';
@@ -22,9 +23,11 @@ export class EditHabilidadesComponent implements OnInit {
     private fb: FormBuilder,
     private habilidadService: SkillsService,
     public router: Router,
-    public toastService: ToastService
+    public toastService: ToastService,
+    private documentService: DocumentService
   ) { 
     this.formItem = this.fb.group({});
+    this.documentService.setSubTitle('Habilidades');
   }
 
   ngOnInit(): void {

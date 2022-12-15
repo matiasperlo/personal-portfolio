@@ -59,31 +59,37 @@
   <!-- mi experiencias -->
   <div class="section">
     <h3 class="section-title">Experiencia <app-edit-button url="experiencias" class="d-inline-block"></app-edit-button></h3>
-    <div class="d-flex flex-responsive-carousel row-gap-10p " >
-      <div class="d-flex flex-row justify-content-start section-item px-1 py-2" *ngFor="let exp of experiencias">
-        <div class="logo me-3" style="background-image: url('{{ exp.empresa.logo }}');"></div>
-        <div class="d-flex flex-column">
-          <div class="item-rol">{{ exp.puesto.puesto }}</div>
-          <div class="item-place">{{ exp.empresa.nombre }}</div>
-          <div class="item-time">{{ exp.jornada.nombre }}</div>
-          <div class="item-dates">{{ exp.fechainicio | date : "MMMM y" }} - {{ exp.fechafin | date : "MMMM y" }}</div>
-
+    <div *ngIf="experiencias.length > 0; else noItemsMsg">
+     <div class="d-flex flex-responsive-carousel row-gap-10p " >
+        <div class="d-flex flex-row justify-content-start section-item px-1 py-2" *ngFor="let exp of experiencias" >
+          <div class="logo me-3" style="background-image: url('{{ exp.empresa.logo }}');"></div>
+          <div class="d-flex flex-column">
+            <div class="item-rol">{{ exp.puesto.puesto }}</div>
+            <div class="item-place">{{ exp.empresa.nombre }}</div>
+            <div class="item-time">{{ exp.jornada.nombre }}</div>
+            <div class="item-dates">{{ exp.fechainicio | date : "MMMM y" }} - {{ exp.fechafin | date : "MMMM y" }}</div>
+  
+          </div>
         </div>
       </div>
+
+      
+      
     </div>
   </div>
 
   <!-- mi educacion -->
   <div class="section">
     <h3 class="section-title">Educacion <app-edit-button url="educaciones" class="d-inline-block"></app-edit-button></h3>
-    <div class="d-flex flex-responsive-carousel row-gap-10p " >
-      <div class="d-flex flex-row justify-content-start section-item px-1 py-2" *ngFor="let edu of educaciones">
-        <div class="logo me-3" style="background-image: url('{{ edu.instituto.logo }}');"></div>
-        <div class="d-flex flex-column">
-          <div class="item-rol">{{ edu.titulo }}</div>
-          <div class="item-place">{{ edu.instituto.nombre }}</div>
-          <div class="item-dates">{{ edu.fechainicio | date : "MMMM y" }} - {{ edu.fechafin | date : "MMMM y" }}</div>
-
+    <div *ngIf="educaciones.length > 0; else noItemsMsg">
+      <div class="d-flex flex-responsive-carousel row-gap-10p " >
+        <div class="d-flex flex-row justify-content-start section-item px-1 py-2" *ngFor="let edu of educaciones">
+          <div class="logo me-3" style="background-image: url('{{ edu.instituto.logo }}');"></div>
+          <div class="d-flex flex-column">
+            <div class="item-rol">{{ edu.titulo }}</div>
+            <div class="item-place">{{ edu.instituto.nombre }}</div>
+            <div class="item-dates">{{ edu.fechainicio | date : "MMMM y" }} - {{ edu.fechafin | date : "MMMM y" }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -93,6 +99,7 @@
   <div class="section">
     <h3 class="section-title">Hard-Soft Skills <app-edit-button url="habilidades" class="d-inline-block"></app-edit-button></h3>
       
+    <div *ngIf="skills.length > 0; else noItemsMsg">
       <div class="d-flex flex-column row-gap-10p" *ngFor="let skill of skills">
         <div class="row mb-4">
           <div class="col-lg-4 ">
@@ -105,17 +112,22 @@
           </div>
         </div>
       </div>
+    </div>
+      
   </div>
 
   <!-- otros de mis proyectos  -->
   <div class="section">
     <h3 class="section-title">Proyectos <app-edit-button url="proyectos" class="d-inline-block"></app-edit-button></h3>
-    <div class="d-flex flex-column" *ngFor="let proyecto of proyectos">
-      <div>
-        <h3 class="project-title"><a href="{{ proyecto.link }}" target="_blank">{{ proyecto.nombre }}</a></h3>
-        <p>{{ proyecto.descripcion }}</p>
+    <div *ngIf="proyectos.length > 0; else noItemsMsg">
+      <div class="d-flex flex-column" *ngFor="let proyecto of proyectos">
+        <div>
+          <h3 class="project-title"><a href="{{ proyecto.link }}" target="_blank">{{ proyecto.nombre }}</a></h3>
+          <p>{{ proyecto.descripcion }}</p>
+        </div>
       </div>
     </div>
+    
   </div>
 
   <!-- palabras finales y contacto -->
@@ -137,4 +149,12 @@
   </div>
 </div>
 </div>
+
+
+<!-- Template para mostrar cuando no hay items -->
+<ng-template #noItemsMsg> 
+  <div class="text-center">
+    <small class="text-secondary"><strong>Ups!</strong> Todavia no tenemos items que mostrar en esta seccion :C</small>
+  </div>
+</ng-template>
 

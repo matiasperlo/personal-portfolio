@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DocumentService } from '../core/root/document.service';
 import { ToastService } from '../core/root/toast.service';
 import { Educacion } from '../shared/models/educacion';
 import { Instituto } from '../shared/models/instituto';
@@ -30,10 +31,12 @@ export class EditEducacionesComponent implements OnInit {
     private institucionService: InstitutoService,
     private fb: FormBuilder,
     public router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private documentService: DocumentService
   ) { 
 
     this.formItem = this.fb.group({});
+    this.documentService.setSubTitle('Educación');
   }
 
   ngOnInit(): void {

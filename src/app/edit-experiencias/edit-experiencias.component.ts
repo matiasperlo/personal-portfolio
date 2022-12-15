@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DocumentService } from '../core/root/document.service';
 import { ToastService } from '../core/root/toast.service';
 import { Empresa } from '../shared/models/empresa';
 import { Experiencia } from '../shared/models/experiencia';
@@ -35,10 +36,12 @@ export class EditExperienciasComponent implements OnInit {
     private empresaService: EmpresaService,
     private fb: FormBuilder,
     public router: Router,
-    public toastService: ToastService
+    public toastService: ToastService,
+    private documentService: DocumentService
   ) { 
     this.formItem = this.fb.group({});
     this.formEmpresa = this.fb.group({});
+    this.documentService.setSubTitle('Experiencia');
   }
 
   ngOnInit(): void {
