@@ -1,7 +1,5 @@
 
-<app-forbidden *ngIf="logStatus == 'ERROR_FORBIDEN' "></app-forbidden>
-
-<div class="container bg-light pt-3" *ngIf="logStatus != 'ERROR_FORBIDEN'" >
+<div class="container bg-light pt-3" >
     <div class="text-center-mb-1">
         <h1 class="mb-4 text-center">Educacion</h1>
     </div>
@@ -14,19 +12,11 @@
                 </div>
             </div>
             <div class="col">
-                <div class="btn" (click)="navegarA('/')">
+                <div class="btn" (click)="router.navigateByUrl('/');">
                     <span class="iconify" data-icon="material-symbols:home" data-width="30" data-height="30"></span>
                     home
                 </div>
             </div>
-        </div>
-        <div class="alert alert-success alert-dismissible" role="alert" *ngIf="logStatus != 'HIDDEN'" 
-                [ngClass]="{'alert-success': logStatus == 'SUCCESS',
-                            'alert-danger': logStatus == 'ERROR'}">
-            <p *ngIf="logStatus == 'SUCCESS'"> Cambios realizados con exito. </p>
-            <p *ngIf="logStatus == 'ERROR'"> Ocurrio un error inesperado, intente de nuevo más tarde. </p>
-
-            <button type="button" class="btn-close" aria-label="Close" (click)="onCloseLog()"></button>
         </div>
     
         <div class="d-flex flex-column" *ngFor="let edu of educaciones">

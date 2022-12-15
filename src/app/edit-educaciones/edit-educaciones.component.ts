@@ -2,11 +2,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastService } from '../core/root/toast.service';
 import { Educacion } from '../shared/models/educacion';
 import { Instituto } from '../shared/models/instituto';
 import { EducacionService } from '../shared/services/educacion.service';
 import { InstitutoService } from '../shared/services/instituto.service';
-import { MessageShowStatus, MessageStatus } from '../shared/services/messages.service';
 
 
 
@@ -22,8 +22,6 @@ export class EditEducacionesComponent implements OnInit {
   instituciones: Instituto[] = [];
 
   onForm: boolean = false;
-  logStatus: MessageStatus;
-  msgStyles: Object; 
 
   formItem: FormGroup;
 
@@ -31,15 +29,11 @@ export class EditEducacionesComponent implements OnInit {
     private educacionService: EducacionService,
     private institucionService: InstitutoService,
     private fb: FormBuilder,
-    private router: Router
+    public router: Router,
+    private toastService: ToastService
   ) { 
 
     this.formItem = this.fb.group({});
-    this.logStatus = new MessageStatus();
-    this.msgStyles = {
-      "alert-success": this.logStatus.isSuccess(),
-      "alert-danger": this.logStatus.isError()
-    };
   }
 
   ngOnInit(): void {
@@ -61,11 +55,7 @@ export class EditEducacionesComponent implements OnInit {
         this.educaciones = data;
       },
       error: (err: HttpErrorResponse) => {
-        // TODO: manejar el forbidden aca
-        console.log("On error cargarEducaciones");
-        console.log(err);
-
-        this.logStatus = MessageShowStatus.ERROR_FORBIDEN;
+        this.toastService.show('Error al cargar la lista de educación', {classname: 'bg-danger text-light'});
       }
     }
 
@@ -81,8 +71,7 @@ export class EditEducacionesComponent implements OnInit {
         }
       },
       error: (error: any) => {
-        this.logStatus = MessageShowStatus.ERROR;
-        //console.log("Error al cargar las instituciones");
+        this.toastService.show('Error al cargar datos. Inténtelo más tarde', {classname: 'bg-danger text-light'});
       }
     }
 
@@ -129,6 +118,7 @@ export class EditEducacionesComponent implements OnInit {
   grabar(){
 
     if (this.formItem.invalid){
+      // TODO: Advertencia con Modal en vez de Toast?
       return;
     }
 
@@ -143,11 +133,11 @@ export class EditEducacionesComponent implements OnInit {
 
     const requestObserver = {
       next: (res: any) => {
-        this.logStatus = MessageShowStatus.SUCCESS;
+        this.toastService.show('Datos guardados correctamente', {classname: 'bg-success text-light'});
         this.cargarEducaciones();
       },
       error: (err: any) => {
-        this.logStatus = MessageShowStatus.ERROR;
+        this.toastService.show('Error al intentar grabar los datos. Inténtelo de nuevo más tarde.', {classname: 'bg-danger text-light'});
       }
     };
 
@@ -159,23 +149,15 @@ export class EditEducacionesComponent implements OnInit {
     const item = edu;
     const deleteObserver = {
       next: (res: any) => {
-        this.logStatus = MessageShowStatus.SUCCESS;
+        this.toastService.show('Registro eliminado correctamente', {classname: 'bg-success text-light'});
         this.cargarEducaciones();
       },
       error: (err: any) => {
-        this.logStatus = MessageShowStatus.SUCCESS;
+        this.toastService.show('Error al intentar eliminar el registro', {classname: 'bg-danger text-light'});
       }
     }
 
     this.educacionService.deleteEducacion(item.id).subscribe(deleteObserver);
-  }
-
-  navegarA(url: string){
-    this.router.navigateByUrl(url);
-  }
-
-  onCloseLog(){
-    this.logStatus = MessageShowStatus.HIDDEN;
   }
 
 }

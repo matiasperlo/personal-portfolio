@@ -28,7 +28,7 @@ import { PuestoService } from './services/puesto.service';
   ],
   exports: [
     VerCuandoLoginDirective,
-    ForbiddenComponent
+    ForbiddenComponent,
   ],
   providers: [
     EducacionService,

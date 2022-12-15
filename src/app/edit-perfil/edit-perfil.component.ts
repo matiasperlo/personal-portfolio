@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastService } from '../core/root/toast.service';
 import { Perfil } from '../shared/models/perfil';
 import { PerfilService } from '../shared/services/perfil.service';
 
@@ -14,15 +15,13 @@ export class EditPerfilComponent implements OnInit {
   formPerfil: FormGroup;
   datosPerfil: Perfil | null = null;
 
-  mostrarSuccess: boolean = false;
-  mostrarError: boolean = false;
-
   foto_portada_preview: string = "";
 
   constructor(
     private fb: FormBuilder,
     private perfilService: PerfilService,
-    private router: Router
+    public router: Router,
+    public toastService: ToastService
   ) { 
     this.formPerfil = this.fb.group({});
 
@@ -82,10 +81,11 @@ export class EditPerfilComponent implements OnInit {
 
       const postObserver  = {
         next: (data: any) => {
-          this.mostrarSuccess = true;
+          this.toastService.show('Cambios realizados correctamente.', {classname: 'bg-success text-light'});
+
         },
         error: (err: any) => {
-          this.mostrarError = true
+          this.toastService.show('Error al intentar realizar los cambios.', {classname: 'bg-danger text-light'});
         }
       }
 
@@ -103,9 +103,5 @@ export class EditPerfilComponent implements OnInit {
 
 
       this.perfilService.postPerfil(requestBody).subscribe(postObserver);
-    }
-
-    navegarA(path: string){
-      this.router.navigateByUrl(path);
     }
   }

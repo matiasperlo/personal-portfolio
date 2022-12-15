@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastService } from '../core/root/toast.service';
 import { Skill } from '../shared/models/skill';
 import { SkillsService } from '../shared/services/skills.service';
 
@@ -15,14 +16,13 @@ export class EditHabilidadesComponent implements OnInit {
 
   editaOAgrega: boolean = false;
   edita: boolean = false;
-  mostrarSuccess: boolean = false;
-  mostrarError: boolean = false;
   formItem: FormGroup;
   
   constructor(
     private fb: FormBuilder,
     private habilidadService: SkillsService,
-    private router: Router
+    public router: Router,
+    public toastService: ToastService
   ) { 
     this.formItem = this.fb.group({});
   }
@@ -72,11 +72,11 @@ export class EditHabilidadesComponent implements OnInit {
     const deleteObserver = {
       next: (res: any) => {
         console.log('response: ' + res);
-        this.mostrarSuccess = true;
+        this.toastService.show('Registro eliminado correctamente.', {classname: 'bg-success text-light'});
         this.cargarHabilidades();
       },
       error: (err: any) => {
-        this.mostrarError = true;
+        this.toastService.show('Error al eliminar el registro.', {classname: 'bg-danger text-light'});
         console.log('error: ' + err); 
       }
     }
@@ -100,12 +100,11 @@ export class EditHabilidadesComponent implements OnInit {
     const requestObserver = {
       next: (res: any) => {
         console.log(res);
-        this.mostrarSuccess = true;
+        this.toastService.show('Cambios realizados correctamente.', {classname: 'bg-success text-light'});
         this.cargarHabilidades();
       },
       error: (err: any) => {
-        this.mostrarError = true;
-        console.log(err);
+        this.toastService.show('Error al intentar realizar los cambios.', {classname: 'bg-danger text-light'});
       }
     };
 
@@ -116,9 +115,5 @@ export class EditHabilidadesComponent implements OnInit {
 
   cancelar(){
     this.editaOAgrega = false;
-  }
-
-  navegarA(url: string){
-    this.router.navigateByUrl(url);
   }
 }
