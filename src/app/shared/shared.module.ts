@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './layout/header.component';
 import { VerCuandoLoginDirective } from './ver-cuando-login.directive';
 import { EducacionService } from './services/educacion.service';
 import { ExperienciaService } from './services/experiencia.service';
@@ -19,7 +18,6 @@ import { PuestoService } from './services/puesto.service';
 @NgModule({
   declarations: [
     VerCuandoLoginDirective,
-    HeaderComponent,
   ],
   imports: [
     CommonModule,

@@ -7,7 +7,7 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { catchError, finalize, Observable, throwError } from 'rxjs';
-import { JwtService } from '../services/jwt.service';
+import { JwtService } from '../root/jwt.service';
 import { ModalDialogService } from '../root/modal-dialog.service';
 
 @Injectable()

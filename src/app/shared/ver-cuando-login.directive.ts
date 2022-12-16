@@ -1,5 +1,5 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { UserService } from '../core';
+import { UserService } from '../core/root/user.service';
 
 /*
 */

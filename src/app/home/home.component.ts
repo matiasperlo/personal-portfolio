@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { User } from '../core/models/user';
 import { DocumentService } from '../core/root/document.service';
 import { ToastService } from '../core/root/toast.service';
-import { UserService } from '../core/services/user.service';
+import { UserService } from '../core/root/user.service';
 import { Educacion } from '../shared/models/educacion';
 import { Experiencia } from '../shared/models/experiencia';
 import { Feed } from '../shared/models/feed';
