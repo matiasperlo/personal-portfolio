@@ -1,17 +1,15 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
 import { map, Observable, Subscriber, take, tap } from "rxjs";
-import { isRol, Rol } from "../shared/models/rol";
-import { UserService } from "./services";
+import { isRol } from "../shared/models/rol";
 import { ApiService } from "./services/api.service";
-import { JwtService } from "./services/jwt.service";
+import { JwtService } from "./root/jwt.service";
 
 @Injectable()
 export class AdminGuard implements CanActivate {
   constructor(
     private router: Router,
     private jwtUtil: JwtService,
-    private userService: UserService,
     private apiService: ApiService
   ) {}
 

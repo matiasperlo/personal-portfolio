@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationError } from '../core/models/authentication-error';
 import { DocumentService } from '../core/root/document.service';
 import { ToastService } from '../core/root/toast.service';
-import { UserService } from '../core/services/user.service';
+import { UserService } from '../core/root/user.service';
 
 @Component({
   selector: 'app-auth',
