@@ -6,8 +6,9 @@
 // esta es la configuracion que se usa cuando se hace ng build
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/api'
-  // apiUrl: 'http://localhost:5555/api' //postman proxy
+  apiUrl: 'https://portfolio-api-matiasperlo.koyeb.app/api',
+  appName: 'Matias Perlo'
+  // apiUrl: 'http://localhost:8080/api'
 };
 
 /*

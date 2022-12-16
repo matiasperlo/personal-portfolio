@@ -1,7 +1,8 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DocumentService } from '../core/root/document.service';
+import { ToastService } from '../core/root/toast.service';
 import { Perfil } from '../shared/models/perfil';
 import { PerfilService } from '../shared/services/perfil.service';
 
@@ -15,34 +16,42 @@ export class EditPerfilComponent implements OnInit {
   formPerfil: FormGroup;
   datosPerfil: Perfil | null = null;
 
-  mostrarSuccess: boolean = false;
-  mostrarError: boolean = false;
+  foto_portada_preview: string = "";
 
   constructor(
     private fb: FormBuilder,
     private perfilService: PerfilService,
-    private router: Router
+    public router: Router,
+    public toastService: ToastService,
+    private documentService: DocumentService
   ) { 
     this.formPerfil = this.fb.group({});
+    this.documentService.setSubTitle('Perfil');
 
   }
 
   ngOnInit(): void {
     this.formPerfil = this.fb.group({
       id: [null, []],
-      nombre: ['', [Validators.required]],
-      rol: ['', [Validators.required]],
-      foto_perfil: ['', [Validators.required]],
-      foto_portada: ['', [Validators.required]],
-      desc_sobremi: ['',[Validators.required]],
-      email: ['', [Validators.required]]
+      nombre: ['', [Validators.required, Validators.maxLength(50)]],
+      rol: ['', [Validators.required, Validators.maxLength(100)]],
+      foto_perfil: ['', [Validators.required, Validators.maxLength(400)]],
+      foto_portada: ['', [Validators.required, Validators.maxLength(400)]],
+      desc_sobremi: ['',[Validators.required, Validators.maxLength(420)]],
+      email: ['', [Validators.required, Validators.maxLength(100)]]
     });
+
+    this.formPerfil.valueChanges.subscribe({
+      next: (value: any) => {
+        this.foto_portada_preview = this.formPerfil.value.foto_portada;
+      }
+    })
     this.cargarDatosPerfil();
   }
 
   cargarDatosPerfil(){
     const myObserver = {
-      next: (data: any) => {
+      next: (data: Perfil[]) => {
         this.datosPerfil = data[0];
         this.formPerfil.reset({
           id: this.datosPerfil?.id,
@@ -52,7 +61,8 @@ export class EditPerfilComponent implements OnInit {
           foto_portada: this.datosPerfil?.foto_portada,
           desc_sobremi: this.datosPerfil?.desc_sobremi,
           email: this.datosPerfil?.email
-        })
+        });
+        this.foto_portada_preview = this.datosPerfil?.foto_portada;
 
       },
       error: (err:any) => {
@@ -74,10 +84,11 @@ export class EditPerfilComponent implements OnInit {
 
       const postObserver  = {
         next: (data: any) => {
-          this.mostrarSuccess = true;
+          this.toastService.show('Cambios realizados correctamente.', {classname: 'bg-success text-light'});
+
         },
         error: (err: any) => {
-          this.mostrarError = true
+          this.toastService.show('Error al intentar realizar los cambios.', {classname: 'bg-danger text-light'});
         }
       }
 
@@ -93,12 +104,7 @@ export class EditPerfilComponent implements OnInit {
         email: itemCopy.email
       }
 
-      console.log(requestBody);
 
       this.perfilService.postPerfil(requestBody).subscribe(postObserver);
-    }
-
-    navegarA(path: string){
-      this.router.navigateByUrl(path);
     }
   }

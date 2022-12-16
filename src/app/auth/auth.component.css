@@ -10,3 +10,20 @@ html, body {
     padding:20px;
     max-width: 320px;
 }
+
+.logo-auth{
+    filter: invert(100%);
+    opacity: 0.5;
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.logo-auth img {
+    width: 5rem;
+}
+
+small {
+    font-size: .75rem;
+}

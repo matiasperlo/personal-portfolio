@@ -6,7 +6,7 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { JwtService } from '../services/jwt.service';
+import { JwtService } from '../root/jwt.service';
 
 @Injectable()
 export class HttpTokenInterceptor implements HttpInterceptor {
@@ -32,22 +32,3 @@ export class HttpTokenInterceptor implements HttpInterceptor {
     return next.handle(req);
   }
 }
-
-
-// constructor(private jwtService: JwtService) {}
-
-//   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-//     const headersConfig = {
-//       'Content-Type': 'application/json',
-//       'Accept': 'application/json'
-//     };
-
-//     const token = this.jwtService.getToken();
-
-//     if (token) {
-//       headersConfig['Authorization'] = `Token ${token}`;
-//     }
-
-//     const request = req.clone({ setHeaders: headersConfig });
-//     return next.handle(request);
-//   }

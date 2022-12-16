@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './layout/header.component';
 import { VerCuandoLoginDirective } from './ver-cuando-login.directive';
 import { EducacionService } from './services/educacion.service';
 import { ExperienciaService } from './services/experiencia.service';
@@ -12,19 +11,19 @@ import { InstitutoService } from './services/instituto.service';
 import { RolService } from './services/rol.service';
 import { EmpresaService } from './services/empresa.service';
 import { JornadaService } from './services/jornada.service';
+import { PuestoService } from './services/puesto.service';
 
 
 
 @NgModule({
   declarations: [
     VerCuandoLoginDirective,
-    HeaderComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
-    VerCuandoLoginDirective
+    VerCuandoLoginDirective,
   ],
   providers: [
     EducacionService,
@@ -36,7 +35,8 @@ import { JornadaService } from './services/jornada.service';
     InstitutoService,
     RolService,
     EmpresaService,
-    JornadaService
+    JornadaService,
+    PuestoService
   ]
 })
 export class SharedModule { }

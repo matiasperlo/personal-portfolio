@@ -1,5 +1,5 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { UserService } from '../core/services/user.service';
+import { UserService } from '../core/root/user.service';
 
 /*
 */
@@ -27,6 +27,7 @@ export class VerCuandoLoginDirective implements OnInit{
   ngOnInit(): void {
     const authObserver = {
       next: (estaLogueado: boolean) => {
+        
         if(this.condition && estaLogueado || !this.condition && !estaLogueado ){
           this.viewContainer.createEmbeddedView(this.templateRef);
         } else {

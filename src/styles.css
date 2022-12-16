@@ -63,6 +63,14 @@ body {
   display: flex;
   justify-content: flex-end;
 }
+
+.modal-content {
+  background: none;
+  border: none;
+  width: auto;
+  margin-right: auto;
+  margin-left: auto;
+}
 /* ------------------------------------------------ */
 
 

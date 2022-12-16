@@ -2,19 +2,11 @@
     <h1 class="mb-4 text-center">Perfil</h1>
     <div class="row text-center mb-4">
         <div class="col">
-            <div class="btn" (click)="navegarA('/');">
+            <div class="btn" (click)="router.navigateByUrl('/')">
                 <span class="iconify" data-icon="material-symbols:home" data-width="30" data-height="30"></span>
                 home
             </div>
         </div>
-    </div>
-    <div class="alert alert-success alert-dismissible" role="alert" *ngIf="mostrarSuccess">
-        Cambios realizados con exito.
-        <button type="button" class="btn-close" aria-label="Close" (click)="mostrarSuccess = false;"></button>
-    </div>
-    <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="mostrarError">
-        Ocurrio un error inesperado, intente de nuevo más tarde.
-        <button type="button" class="btn-close" aria-label="Close" (click)="mostrarError = false;"></button>
     </div>
 </div>
 
@@ -22,34 +14,46 @@
     
     <form [formGroup]="formPerfil" (ngSubmit)="grabar()">
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" formControlName="nombre" id="titulo">
+            <input type="text" class="form-control" formControlName="nombre" id="nombre" maxlength="50">
             <label for="nombre">Nombre</label>
         </div>
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" formControlName="rol" id="titulo">
-            <label for="perfil">Perfil</label>
+            <input type="text" class="form-control" formControlName="rol" id="titulo" maxlength="100">
+            <label for="titulo">Titulo</label>
         </div>
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" formControlName="foto_perfil" id="fotoPerfil">
-            <label for="fotoPerfil">Foto de Perfil</label>
+            <input type="email" class="form-control" formControlName="email" id="email" maxlength="100">
+            <label for="email">Email</label>
         </div>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" formControlName="foto_portada" id="fotoPortada">
-            <label for="fotoPortada">Foto de Portada</label>
+        <div class="row row-cols-1 row-cols-lg-2 mb-3">
+            <div class="col">
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" formControlName="foto_perfil" id="fotoPerfil">
+                    <label for="fotoPerfil">Foto de Perfil</label>
+                </div>
+                
+                <div class="image-preview resizing-preview-image " style="background-image: url('{{ formPerfil.value.foto_perfil }}');"></div>
+
+                
+            </div>
+            <div class="col">
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" formControlName="foto_portada" id="fotoPortada">
+                    <label for="fotoPortada">Foto de Portada</label>
+                </div>
+
+                <div class="image-preview resizing-preview-image " style="background-image: url('{{ formPerfil.value.foto_portada }}');"></div>
+                
+            </div>
         </div>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" formControlName="desc_sobremi" id="descSobreMi">
-            <label for="descSobreMi">Descripcion sobre mi</label>
+        
+        <div class="form-group mb-3">
+            <label for="descSobreMi">Descripcion Breve</label>
+            <textarea class="form-control" formControlName="desc_sobremi" id="descSobreMi" rows="4" maxlength="420"></textarea>
         </div>
 
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" formControlName="email" id="email" [value]="datosPerfil?.email">
-            <label for="descSobreMi">Email</label>
-        </div>
-
-        <div>Gestionar redes sociales (mas adelante)</div>
         <div>
-            <button class="btn btn-primary w-100 mb-1" type="submit">Grabar</button>
+            <button class="btn btn-primary w-100 mb-1" type="submit">Guardar Cambios</button>
         </div>
     </form>
 </div>

@@ -1,10 +1,15 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DocumentService } from '../core/root/document.service';
+import { ToastService } from '../core/root/toast.service';
 import { Educacion } from '../shared/models/educacion';
 import { Instituto } from '../shared/models/instituto';
 import { EducacionService } from '../shared/services/educacion.service';
 import { InstitutoService } from '../shared/services/instituto.service';
+
+
 
 @Component({
   selector: 'app-edit-educaciones',
@@ -13,26 +18,25 @@ import { InstitutoService } from '../shared/services/instituto.service';
 })
 export class EditEducacionesComponent implements OnInit {
   
+  
   educaciones: Educacion[] = [];
   instituciones: Instituto[] = [];
 
-  editaOAgrega: boolean = false;
-  edita: boolean = false;
-  nuevoInstituto: boolean = false;
-  mostrarSuccess: boolean = false;
-  mostrarError: boolean = false;
+  onForm: boolean = false;
+
   formItem: FormGroup;
-  formInstituto: FormGroup;
 
   constructor(
     private educacionService: EducacionService,
     private institucionService: InstitutoService,
     private fb: FormBuilder,
-    private router: Router
+    public router: Router,
+    private toastService: ToastService,
+    private documentService: DocumentService
   ) { 
 
     this.formItem = this.fb.group({});
-    this.formInstituto = this.fb.group({});
+    this.documentService.setSubTitle('Educación');
   }
 
   ngOnInit(): void {
@@ -46,20 +50,15 @@ export class EditEducacionesComponent implements OnInit {
       fechafin: [null, Validators.required]
     });
 
-    this.formInstituto = this.fb.group({
-      nombre: ['', [Validators.required]],
-      logo: ['', [Validators.required]]
-    })
   }
 
   cargarEducaciones() {
     const myObserver = {
-      next: (data: any) => {
+      next: (data: Educacion[]) => {
         this.educaciones = data;
       },
-      error: (err: any) => {
-        this.mostrarError = true;
-        //console.log("Error al obtener las educaciones");
+      error: (err: HttpErrorResponse) => {
+        this.toastService.show('Error al cargar la lista de educación', {classname: 'bg-danger text-light'});
       }
     }
 
@@ -75,8 +74,7 @@ export class EditEducacionesComponent implements OnInit {
         }
       },
       error: (error: any) => {
-        this.mostrarError = true;
-        //console.log("Error al cargar las instituciones");
+        this.toastService.show('Error al cargar datos. Inténtelo más tarde', {classname: 'bg-danger text-light'});
       }
     }
 
@@ -84,8 +82,7 @@ export class EditEducacionesComponent implements OnInit {
   }
 
   editarItem(edu: Educacion){
-    this.editaOAgrega = true;
-    this.edita = true;
+    this.onForm = true;
 
 
     // logica que se ejecuta solo si todavia no se cargaron las instituciones.
@@ -110,8 +107,7 @@ export class EditEducacionesComponent implements OnInit {
 
 
   crearItem(){
-    this.editaOAgrega = true;
-    this.edita = false;
+    this.onForm = true;
 
     this.cargarInstituciones();
 
@@ -119,31 +115,13 @@ export class EditEducacionesComponent implements OnInit {
   }
 
   cancelar(){
-    this.editaOAgrega = false;
+    this.onForm = false;
   }
 
   grabar(){
 
-    // if(this.nuevoInstituto){
-    //   if (this.formInstituto.invalid){
-    //     return;
-    //   }
-
-    //   const itemCopyInst = { ...this.formInstituto.value };
-    //   const postIntitutoObserver = {
-    //     next: (data: any) => {
-    //       console.log(data);
-    //       this.cargarInstituciones();
-    //     },
-    //     error: (err: any) => {
-    //       console.log(err);
-    //     }
-    //   };
-      
-    //   this.institucionService.postInstituto(itemCopyInst).subscribe(postIntitutoObserver);
-    // }
-
     if (this.formItem.invalid){
+      // TODO: Advertencia con Modal en vez de Toast?
       return;
     }
 
@@ -158,35 +136,31 @@ export class EditEducacionesComponent implements OnInit {
 
     const requestObserver = {
       next: (res: any) => {
-        this.mostrarSuccess = true;
+        this.toastService.show('Datos guardados correctamente', {classname: 'bg-success text-light'});
         this.cargarEducaciones();
       },
       error: (err: any) => {
-        this.mostrarError = true;
+        this.toastService.show('Error al intentar grabar los datos. Inténtelo de nuevo más tarde.', {classname: 'bg-danger text-light'});
       }
     };
 
     this.educacionService.postEducacion(dataRequest).subscribe(requestObserver);
-    this.editaOAgrega = false;
+    this.onForm = false;
   }
 
   eliminarItem(edu: Educacion){
     const item = edu;
     const deleteObserver = {
       next: (res: any) => {
-        this.mostrarSuccess = true;
+        this.toastService.show('Registro eliminado correctamente', {classname: 'bg-success text-light'});
         this.cargarEducaciones();
       },
       error: (err: any) => {
-        this.mostrarError = true;
+        this.toastService.show('Error al intentar eliminar el registro', {classname: 'bg-danger text-light'});
       }
     }
 
     this.educacionService.deleteEducacion(item.id).subscribe(deleteObserver);
-  }
-
-  navegarA(url: string){
-    this.router.navigateByUrl(url);
   }
 
 }

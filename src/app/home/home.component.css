@@ -4,6 +4,10 @@
     background-size: cover;
     background-position: 50%;
   }
+
+  .clickable {
+    cursor: pointer;
+  }
   
   .vh-85 {
     height: 85vh;
@@ -133,7 +137,7 @@
   
   
   .navbar-nav .nav-item.username{
-    cursor: none;
+    cursor: default;
     text-align: center;
     border: 0;
     border-radius: 0;

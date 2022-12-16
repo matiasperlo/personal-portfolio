@@ -1,5 +1,5 @@
-<div class="container bg-light pt-3">
-    <h1 class="mb-4 text-center">Habilidades</h1>
+<h1 class="my-4 text-center">Habilidades</h1>
+<div class="container bg-light pt-3" *ngIf="!editaOAgrega; else formTemp">
     <div class="row text-center mb-4">
         <div class="col">
             <div class="btn" (click)="crearItem()">
@@ -8,23 +8,14 @@
             </div>
         </div>
         <div class="col">
-            <div class="btn" (click)="navegarA('/');">
+            <div class="btn" (click)="router.navigateByUrl('/')">
                 <span class="iconify" data-icon="material-symbols:home" data-width="30" data-height="30"></span>
                 home
             </div>
         </div>
     </div>
-    <div class="alert alert-success alert-dismissible" role="alert" *ngIf="mostrarSuccess">
-        Cambios realizados con exito.
-        <button type="button" class="btn-close" aria-label="Close" (click)="mostrarSuccess = false;"></button>
-    </div>
-    <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="mostrarError">
-        Ocurrio un error inesperado, intente de nuevo más tarde.
-        <button type="button" class="btn-close" aria-label="Close" (click)="mostrarError = false;"></button>
-    </div>
-    <div *ngIf="!editaOAgrega">
+    <div *ngIf="habilidades.length > 0; else noItemsTemp">
         <div class="d-flex flex-column" *ngFor="let skill of habilidades; let i = index" >
-        
             <div class="d-flex align-items-center flex-row justify-content-between mb-2 ">
                 <div class="d-flex flex-row me-3">
                     <div class="btn px-1" (click)="editarItem(skill)">
@@ -40,30 +31,34 @@
             </div>
         </div>
     </div>
+
+    <ng-template #noItemsTemp>
+        <div class="text-center">
+            ¡Sin Items! Comienza agregando algún ítem a la lista.
+        </div>
+    </ng-template>
     
 
 </div>
 
-<div class="container bg-light pt-3" *ngIf="editaOAgrega">
-    
-    <form [formGroup]="formItem" (ngSubmit)="grabar()">
-        <h1>{{ edita ? 'Edicion' : 'Nuevo'}}</h1>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" formControlName="nombre" id="nombre">
-            <label for="nombre">Nombre</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" formControlName="progreso" id="progreso">
-            <label for="progreso">Progreso</label>
-        </div>
 
-        <div>
-            <button class="btn btn-primary w-100 mb-1" type="submit">Grabar</button>
-            <button class="btn btn-secondary w-100 mb-4" (click)="cancelar()">Cancelar</button>
-        </div>
-    </form>
-
+<ng-template #formTemp>
+    <div class="container bg-light pt-3">
+        <form [formGroup]="formItem" (ngSubmit)="grabar()">
+            <h1>{{ edita ? 'Edicion' : 'Nuevo'}}</h1>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" formControlName="nombre" id="nombre">
+                <label for="nombre">Nombre</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" formControlName="progreso" id="progreso">
+                <label for="progreso">Progreso</label>
+            </div>
     
-
-    
-</div>
+            <div>
+                <button class="btn btn-primary w-100 mb-1" type="submit">Grabar</button>
+                <button class="btn btn-secondary w-100 mb-4" (click)="cancelar()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

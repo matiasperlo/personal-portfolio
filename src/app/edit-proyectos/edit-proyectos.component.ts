@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { DocumentService } from '../core/root/document.service';
+import { ToastService } from '../core/root/toast.service';
 import { Proyecto } from '../shared/models/proyecto';
 import { ProyectosService } from '../shared/services/proyectos.service';
 
@@ -14,15 +17,17 @@ export class EditProyectosComponent implements OnInit {
 
   editaOAgrega: boolean = false;
   edita: boolean = false;
-  mostrarSuccess: boolean = false;
-  mostrarError: boolean = false;
   formItem: FormGroup;
   
   constructor(
     private fb: FormBuilder,
-    private proyectoService: ProyectosService
+    private proyectoService: ProyectosService,
+    public router: Router,
+    public toastService: ToastService,
+    private documentService: DocumentService
   ) { 
     this.formItem = this.fb.group({});
+    this.documentService.setSubTitle('Proyectos');
   }
 
   ngOnInit(): void {
@@ -70,12 +75,12 @@ export class EditProyectosComponent implements OnInit {
   eliminarItem(proyecto: Proyecto){
     const myObserver = {
       next: (data: any) => {
-        this.mostrarSuccess = true;
-        
+        this.toastService.show('Registro eliminado correctamente.', {classname: 'bg-success text-light'});
         this.cargarProyectos();
       },
       error: (err: any) => {
-        this.mostrarError = true;
+        this.toastService.show('Error al intentar eliminar el registro.', {classname: 'bg-danger text-light'});
+
       }
     };
 
@@ -84,7 +89,7 @@ export class EditProyectosComponent implements OnInit {
 
   grabar(){
     if(this.formItem.invalid){
-      this.mostrarError = true;
+      this.toastService.show('Formulario Invalido.', {classname: 'bg-danger text-light'});
       return;
     }
 
@@ -99,14 +104,14 @@ export class EditProyectosComponent implements OnInit {
 
     const postObserver = {
       next: (data: any) => {
-        this.mostrarSuccess = true;
+        this.toastService.show('Cambios realizados correctamente.', {classname: 'bg-success text-light'});
         this.editaOAgrega = false;
-
         this.cargarProyectos();
 
       },
       error: (err: any) => {
-        this.mostrarError = true;
+        this.toastService.show('Error al intentar grabar los cambios realizados.', {classname: 'bg-danger text-light'});
+
       }
     };
     this.proyectoService.postProyecto(requestBody).subscribe(postObserver);
