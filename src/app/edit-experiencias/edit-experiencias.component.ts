@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DocumentService } from '../core/root/document.service';
-import { ToastService } from '../core/root/toast.service';
+import { ToastMessages, ToastService } from '../core/root/toast.service';
 import { Empresa } from '../shared/models/empresa';
 import { Experiencia } from '../shared/models/experiencia';
 import { Jornada } from '../shared/models/jornada';
@@ -26,8 +26,12 @@ export class EditExperienciasComponent implements OnInit {
 
   editaOAgrega: boolean = false;
   edita: boolean = false;
+  onNuevaEmpresa: boolean = false;
+  onNuevoPuesto: boolean = false;
+
   formItem: FormGroup;
   formEmpresa: FormGroup;
+  formPuesto: FormGroup;
 
   constructor(
     private experienciaService: ExperienciaService,
@@ -39,13 +43,18 @@ export class EditExperienciasComponent implements OnInit {
     public toastService: ToastService,
     private documentService: DocumentService
   ) { 
+    this.documentService.setSubTitle('Experiencia');
+
     this.formItem = this.fb.group({});
     this.formEmpresa = this.fb.group({});
-    this.documentService.setSubTitle('Experiencia');
+    this.formPuesto = this.fb.group({});
   }
 
   ngOnInit(): void {
+
+    // Formulario de Experiencias
     this.formItem = this.fb.group({
+      id: [null, []],
       puesto: [null, [Validators.required]],
       empresa: [null, [Validators.required]],
       jornada: [null, [Validators.required]],
@@ -53,10 +62,18 @@ export class EditExperienciasComponent implements OnInit {
       fechafin: [null, [Validators.required]]
     });
     
+    // Formulario de Empresas
     this.formEmpresa = this.fb.group({
       nombre: ['', [Validators.required]],
       logo: ['', [Validators.required]]
     });
+
+
+    // Formulario de Puestos de Trabajo
+    this.formPuesto = this.fb.group({
+      puesto: ['', [Validators.required]],
+      descripcion: ['', []]
+    })
 
     this.cargarExperiencias();
   }
@@ -138,7 +155,8 @@ export class EditExperienciasComponent implements OnInit {
     // logica que se ejecuta solo si todavia no se cargaron las instituciones.
     const continuar = () => {
       this.formItem.reset({
-        rol: exp.puesto.id,
+        id: exp.id,
+        puesto: exp.puesto.id,
         empresa: exp.empresa.id,
         jornada: exp.jornada.id,
         fechainicio: fechaInicio,
@@ -154,12 +172,11 @@ export class EditExperienciasComponent implements OnInit {
     const item = exp;
     const deleteObserver = {
       next: (res: any) => {
-        console.log('response: ' + res);
-        this.toastService.show('Registro eliminado correctamente', {classname:'bg-success text-light'});
+        this.toastService.showSuccess(ToastMessages.S_ELIMINAR);
         this.cargarExperiencias();
       },
       error: (err: any) => {
-        this.toastService.show('Error al intentar eliminar el registro', {classname:'bg-danger text-light'});
+        this.toastService.showError(ToastMessages.E_ELIMINAR);
       }
     }
 
@@ -167,42 +184,65 @@ export class EditExperienciasComponent implements OnInit {
   }
 
   grabar(){
-    if (this.formItem.invalid){
+    if (this.formItem.invalid && !this.onNuevoPuesto && !this.onNuevaEmpresa){
       this.toastService.showError("Campos Invalidos");
       return;
     }
     
-
     const itemCopy = { ...this.formItem.value };
 
-    const dataRequest = {
-      id: itemCopy.id,
-      puesto: this.puestos.find(puesto => puesto.id == itemCopy.puesto),
-      empresa: this.empresas.find(empr => empr.id == itemCopy.empresa),
-      jornada: this.jornadas.find(jorn => jorn.id == itemCopy.jornada),
-      fechainicio: itemCopy.fechainicio,
-      fechafin: itemCopy.fechafin
-    };
+    itemCopy["jornada"] = this.jornadas.find(jorn => jorn.id == itemCopy.jornada);
+
+    // guardar puesto nuevo
+    if(this.onNuevoPuesto){
+      if(this.formPuesto.invalid){
+        this.toastService.showError(ToastMessages.E_CAMPOS_INVALIDOS);
+        return;
+      }
+
+      itemCopy["puesto"] = { ...this.formPuesto.value };
+    } else {
+      itemCopy["puesto"] = this.puestos.find(puesto => puesto.id == itemCopy.puesto)
+    }
+
+    // guardar empresa nueva
+    if(this.onNuevaEmpresa){
+      if(this.formEmpresa.invalid){
+        this.toastService.showError(ToastMessages.E_CAMPOS_INVALIDOS);
+        return;
+      }
+      itemCopy["empresa"] = { ...this.formEmpresa.value };
+    } else {
+      itemCopy["empresa"] = this.empresas.find(empr => empr.id == itemCopy.empresa)
+    }
 
     const requestObserver = {
       next: (res: any) => {
-        
-        console.log(res);
-        this.toastService.show('Cambios realizados con exito', {classname:'bg-success text-light'});
+        this.toastService.showSuccess(ToastMessages.S_GRABAR);
+        this.resetForms();
         this.cargarExperiencias();
       },
       error: (err: any) => {
-        this.toastService.show('Error al realizar los cambios', {classname:'bg-success text-light'});
-        console.log(err);
+        this.toastService.showError(ToastMessages.E_GRABAR);
       }
     };
 
-    console.log(dataRequest);
-    this.experienciaService.postExperiencia(dataRequest).subscribe(requestObserver);
+    console.log(itemCopy);
     this.editaOAgrega = false;
+    this.experienciaService.postExperiencia(itemCopy).subscribe(requestObserver);
   }
 
   cancelar(){
     this.editaOAgrega = false;
+    this.resetForms();
+  }
+
+  private resetForms(){
+    this.onNuevoPuesto = false;
+    this.onNuevaEmpresa = false;
+
+    this.formItem.reset();
+    this.formPuesto.reset();
+    this.formEmpresa.reset();
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DocumentService } from '../core/root/document.service';
-import { ToastService } from '../core/root/toast.service';
+import { ToastMessages, ToastService } from '../core/root/toast.service';
 import { Perfil } from '../shared/models/perfil';
 import { PerfilService } from '../shared/services/perfil.service';
 
@@ -84,11 +84,11 @@ export class EditPerfilComponent implements OnInit {
 
       const postObserver  = {
         next: (data: any) => {
-          this.toastService.show('Cambios realizados correctamente.', {classname: 'bg-success text-light'});
+          this.toastService.showSuccess(ToastMessages.S_GRABAR);
 
         },
         error: (err: any) => {
-          this.toastService.show('Error al intentar realizar los cambios.', {classname: 'bg-danger text-light'});
+          this.toastService.showError(ToastMessages.E_GRABAR);
         }
       }
 

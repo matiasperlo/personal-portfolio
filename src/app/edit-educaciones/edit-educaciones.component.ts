@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DocumentService } from '../core/root/document.service';
-import { ToastService } from '../core/root/toast.service';
+import { ToastMessages, ToastService } from '../core/root/toast.service';
 import { Educacion } from '../shared/models/educacion';
 import { Instituto } from '../shared/models/instituto';
 import { EducacionService } from '../shared/services/educacion.service';
@@ -22,9 +22,11 @@ export class EditEducacionesComponent implements OnInit {
   educaciones: Educacion[] = [];
   instituciones: Instituto[] = [];
 
+  onNuevoInstituto: boolean = false; 
   onForm: boolean = false;
 
   formItem: FormGroup;
+  formInstitucion: FormGroup;
 
   constructor(
     private educacionService: EducacionService,
@@ -35,8 +37,10 @@ export class EditEducacionesComponent implements OnInit {
     private documentService: DocumentService
   ) { 
 
-    this.formItem = this.fb.group({});
     this.documentService.setSubTitle('Educación');
+
+    this.formItem = this.fb.group({});
+    this.formInstitucion = this.fb.group({});
   }
 
   ngOnInit(): void {
@@ -50,6 +54,11 @@ export class EditEducacionesComponent implements OnInit {
       fechafin: [null, Validators.required]
     });
 
+    this.formInstitucion = this.fb.group({
+      nombre: ['', [Validators.required]],
+      logo: ['', [Validators.required]]
+    })
+
   }
 
   cargarEducaciones() {
@@ -58,7 +67,7 @@ export class EditEducacionesComponent implements OnInit {
         this.educaciones = data;
       },
       error: (err: HttpErrorResponse) => {
-        this.toastService.show('Error al cargar la lista de educación', {classname: 'bg-danger text-light'});
+        this.toastService.showError(ToastMessages.E_LISTADO + ": Educacion");
       }
     }
 
@@ -74,7 +83,7 @@ export class EditEducacionesComponent implements OnInit {
         }
       },
       error: (error: any) => {
-        this.toastService.show('Error al cargar datos. Inténtelo más tarde', {classname: 'bg-danger text-light'});
+        this.toastService.showError(ToastMessages.E_LISTADO + ": Instituciones");
       }
     }
 
@@ -98,11 +107,7 @@ export class EditEducacionesComponent implements OnInit {
       });
     };
 
-    if(this.instituciones.length != 0){
-      continuar();
-    } else {
-      this.cargarInstituciones(continuar);
-    }
+    this.cargarInstituciones(continuar);
     
   }
 
@@ -122,31 +127,36 @@ export class EditEducacionesComponent implements OnInit {
 
   grabar(){
 
-    if (this.formItem.invalid){
-      // TODO: Advertencia con Modal en vez de Toast?
+    if (this.formItem.invalid && !this.onNuevoInstituto){
+      this.toastService.showError(ToastMessages.E_CAMPOS_INVALIDOS);
       return;
     }
 
     const itemCopy = { ...this.formItem.value };
-    const dataRequest = {
-      id: itemCopy.id,
-      titulo: itemCopy.titulo,
-      instituto: this.instituciones.find(inst => inst.id == itemCopy.instituto),
-      fechainicio: itemCopy.fechainicio,
-      fechafin: itemCopy.fechafin
-    };
+
+    if(this.onNuevoInstituto){
+      if(this.formInstitucion.invalid){
+        this.toastService.showError(ToastMessages.E_CAMPOS_INVALIDOS);
+        return;
+      }
+      itemCopy["instituto"] = { ...this.formInstitucion.value };
+    } else {
+      itemCopy["instituto"] = this.instituciones.find(inst => inst.id == itemCopy.instituto);
+    }
 
     const requestObserver = {
       next: (res: any) => {
-        this.toastService.show('Datos guardados correctamente', {classname: 'bg-success text-light'});
+        this.toastService.showSuccess(ToastMessages.S_GRABAR);
+        this.formInstitucion.reset({});
+        this.onNuevoInstituto = false;
         this.cargarEducaciones();
       },
       error: (err: any) => {
-        this.toastService.show('Error al intentar grabar los datos. Inténtelo de nuevo más tarde.', {classname: 'bg-danger text-light'});
+        this.toastService.showError(ToastMessages.E_GRABAR);
       }
     };
 
-    this.educacionService.postEducacion(dataRequest).subscribe(requestObserver);
+    this.educacionService.postEducacion(itemCopy).subscribe(requestObserver);
     this.onForm = false;
   }
 
@@ -154,15 +164,22 @@ export class EditEducacionesComponent implements OnInit {
     const item = edu;
     const deleteObserver = {
       next: (res: any) => {
-        this.toastService.show('Registro eliminado correctamente', {classname: 'bg-success text-light'});
+        this.toastService.showSuccess(ToastMessages.S_ELIMINAR);
         this.cargarEducaciones();
       },
       error: (err: any) => {
-        this.toastService.show('Error al intentar eliminar el registro', {classname: 'bg-danger text-light'});
+        this.toastService.showError(ToastMessages.E_ELIMINAR);
       }
     }
 
     this.educacionService.deleteEducacion(item.id).subscribe(deleteObserver);
+  }
+
+  onToggleNuevaInstitucion(){
+    this.onNuevoInstituto = !this.onNuevoInstituto;
+    if(!this.onNuevoInstituto){
+      this.formInstitucion.reset();
+    }
   }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DocumentService } from '../core/root/document.service';
-import { ToastService } from '../core/root/toast.service';
+import { ToastMessages, ToastService } from '../core/root/toast.service';
 import { Skill } from '../shared/models/skill';
 import { SkillsService } from '../shared/services/skills.service';
 
@@ -75,11 +75,11 @@ export class EditHabilidadesComponent implements OnInit {
     const deleteObserver = {
       next: (res: any) => {
         console.log('response: ' + res);
-        this.toastService.show('Registro eliminado correctamente.', {classname: 'bg-success text-light'});
+        this.toastService.showSuccess(ToastMessages.S_ELIMINAR);
         this.cargarHabilidades();
       },
       error: (err: any) => {
-        this.toastService.show('Error al eliminar el registro.', {classname: 'bg-danger text-light'});
+        this.toastService.showError(ToastMessages.E_ELIMINAR);
         console.log('error: ' + err); 
       }
     }
@@ -103,11 +103,11 @@ export class EditHabilidadesComponent implements OnInit {
     const requestObserver = {
       next: (res: any) => {
         console.log(res);
-        this.toastService.show('Cambios realizados correctamente.', {classname: 'bg-success text-light'});
+        this.toastService.showSuccess(ToastMessages.S_GRABAR);
         this.cargarHabilidades();
       },
       error: (err: any) => {
-        this.toastService.show('Error al intentar realizar los cambios.', {classname: 'bg-danger text-light'});
+        this.toastService.showError(ToastMessages.E_GRABAR);
       }
     };
 

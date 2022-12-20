@@ -10,6 +10,5 @@ export class ToastsComponent {
 
   constructor(public toastService: ToastService) {}
 
-  isTemplate(toast: Toast) { return toast.textOrTpl instanceof TemplateRef; }
 
 }

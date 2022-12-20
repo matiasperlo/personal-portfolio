@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DocumentService } from '../core/root/document.service';
-import { ToastService } from '../core/root/toast.service';
+import { ToastMessages, ToastService } from '../core/root/toast.service';
 import { Proyecto } from '../shared/models/proyecto';
 import { ProyectosService } from '../shared/services/proyectos.service';
 
@@ -89,7 +89,7 @@ export class EditProyectosComponent implements OnInit {
 
   grabar(){
     if(this.formItem.invalid){
-      this.toastService.show('Formulario Invalido.', {classname: 'bg-danger text-light'});
+      this.toastService.showError(ToastMessages.E_CAMPOS_INVALIDOS);
       return;
     }
 
@@ -104,13 +104,13 @@ export class EditProyectosComponent implements OnInit {
 
     const postObserver = {
       next: (data: any) => {
-        this.toastService.show('Cambios realizados correctamente.', {classname: 'bg-success text-light'});
+        this.toastService.showSuccess(ToastMessages.S_GRABAR);
         this.editaOAgrega = false;
         this.cargarProyectos();
 
       },
       error: (err: any) => {
-        this.toastService.show('Error al intentar grabar los cambios realizados.', {classname: 'bg-danger text-light'});
+        this.toastService.showError(ToastMessages.E_GRABAR);
 
       }
     };
