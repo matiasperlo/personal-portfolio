@@ -132,14 +132,17 @@ export class EditExperienciasComponent implements OnInit {
     this.editaOAgrega = true;
     this.edita = true;
 
+    let fechaInicio = new Date(exp.fechainicio).toISOString().split('T')[0];
+    let fechaFin = new Date(exp.fechafin).toISOString().split('T')[0];
+
     // logica que se ejecuta solo si todavia no se cargaron las instituciones.
     const continuar = () => {
       this.formItem.reset({
         rol: exp.puesto.id,
         empresa: exp.empresa.id,
         jornada: exp.jornada.id,
-        fechainicio: exp.fechainicio,
-        fechafin: exp.fechafin
+        fechainicio: fechaInicio,
+        fechafin: fechaFin
       });
     };
 
@@ -165,13 +168,16 @@ export class EditExperienciasComponent implements OnInit {
 
   grabar(){
     if (this.formItem.invalid){
+      this.toastService.showError("Campos Invalidos");
       return;
     }
+    
 
     const itemCopy = { ...this.formItem.value };
+
     const dataRequest = {
       id: itemCopy.id,
-      rol: this.puestos.find(puesto => puesto.id == itemCopy.puesto),
+      puesto: this.puestos.find(puesto => puesto.id == itemCopy.puesto),
       empresa: this.empresas.find(empr => empr.id == itemCopy.empresa),
       jornada: this.jornadas.find(jorn => jorn.id == itemCopy.jornada),
       fechainicio: itemCopy.fechainicio,
