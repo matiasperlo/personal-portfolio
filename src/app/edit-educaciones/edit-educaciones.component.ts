@@ -84,6 +84,8 @@ export class EditEducacionesComponent implements OnInit {
   editarItem(edu: Educacion){
     this.onForm = true;
 
+    let fechaInicio = new Date(edu.fechainicio).toISOString().split('T')[0];
+    let fechaFin = new Date(edu.fechafin).toISOString().split('T')[0];
 
     // logica que se ejecuta solo si todavia no se cargaron las instituciones.
     const continuar = () => {
@@ -91,8 +93,8 @@ export class EditEducacionesComponent implements OnInit {
         id: edu.id,
         titulo: edu.titulo,
         instituto: edu.instituto.id,
-        fechainicio: edu.fechainicio,
-        fechafin: edu.fechafin
+        fechainicio: fechaInicio,
+        fechafin: fechaFin
       });
     };
 

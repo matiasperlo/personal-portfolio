@@ -49,7 +49,7 @@
     
         <form [formGroup]="formItem" (ngSubmit)="grabar()">
             <h1>{{ edita ? 'Edicion' : 'Nuevo'}}</h1>
-            <select class="form-select form-select-lg mb-3" formControlName="rol" aria-label=".form-select-lg example">
+            <select class="form-select form-select-lg mb-3" formControlName="puesto" aria-label=".form-select-lg example">
                 <option *ngFor="let puesto of puestos" [value]="puesto.id" >{{ puesto.puesto }}</option>
     
             </select>
