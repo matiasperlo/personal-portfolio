@@ -53,19 +53,45 @@
                     <label for="titulo">Titulo</label>
                 </div>
     
-                <label for="selectInstituto">Instituciones</label>
-                <select class="form-select form-select-lg mb-3" id="selectInstituto" formControlName="instituto" aria-label=".form-select-lg example">
-                    <option *ngFor="let insti of instituciones" [value]="insti.id">{{ insti.nombre }}</option>
-                </select>
-    
-                <div>
-                    <label for="start-date">Start date:</label>
-                    <input type="date" id="start-date" formControlName="fechainicio" >
+                <label for="selectInstituto" class="mb-2">Instituciones</label>
+                
+                <div class="my-2">
+                    <input type="checkbox" name="Nuevo Instituto" id="newInstituto" (change)="onNuevoInstituto = !onNuevoInstituto">
+                    <label for="newInstituto" class="ms-1">Registrar Nuevo Instituto</label>
                 </div>
+
+                <ng-container *ngIf="!onNuevoInstituto; else formInstituto">
+                    <select class="form-select form-select-lg mb-3" id="selectInstituto" formControlName="instituto" aria-label=".form-select-lg example">
+                        <option *ngFor="let insti of instituciones" [value]="insti.id">{{ insti.nombre }}</option>
+                    </select>
+                </ng-container>
+
+                <ng-template #formInstituto>
+                    <form [formGroup]="formInstitucion" class="my-3">
+                        <small class="text-secondary">Nuevo Instituto</small>
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" id="nombreInstitucion" formControlName="nombre">
+                            <label for="nombreInstitucion">nombre</label>
+                        </div>
+
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="logoInstitucion" formControlName="logo">
+                            <label for="logoInstitucion">logo</label>
+                        </div>
+                    </form>
+                </ng-template>
+                
     
-                <div class="mb-4">
-                    <label for="end-date">End date:</label>
-                    <input type="date" id="end-date" formControlName="fechafin">
+                <div class="row  row-cols-1 row-cols-lg-2 mt-2 mb-4">
+                    <div class="col mb-2">
+                        <label for="start-date">Fecha de Inicio:</label>
+                        <input type="date" id="start-date" formControlName="fechainicio" >
+                    </div>
+        
+                    <div class="col mb-2">
+                        <label for="end-date">Fecha de Fin:</label>
+                        <input type="date" id="end-date" formControlName="fechafin">
+                    </div>
                 </div>
     
                 <div>

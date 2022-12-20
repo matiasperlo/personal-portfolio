@@ -49,28 +49,78 @@
     
         <form [formGroup]="formItem" (ngSubmit)="grabar()">
             <h1>{{ edita ? 'Edicion' : 'Nuevo'}}</h1>
-            <select class="form-select form-select-lg mb-3" formControlName="puesto" aria-label=".form-select-lg example">
-                <option *ngFor="let puesto of puestos" [value]="puesto.id" >{{ puesto.puesto }}</option>
-    
-            </select>
-            <select class="form-select form-select-lg mb-3" formControlName="empresa" aria-label=".form-select-lg example">
-                <option *ngFor="let empr of empresas" [value]="empr.id" >{{ empr.nombre }}</option>
-    
-            </select>
+
+            <label for="puestos">Puesto de Trabajo</label>
+            <div class="my-2">
+                <input type="checkbox" name="Nuevo Puesto" id="newPuesto" (change)="onNuevoPuesto = !onNuevoPuesto">
+                <label for="newPuesto" class="ms-1">Registrar Nuevo Puesto</label>
+            </div>
+
+            <ng-container *ngIf="!onNuevoPuesto; else nuevoPuestoTemp">
+                <select class="form-select form-select-lg mb-3" formControlName="puesto" id="puestos" aria-label=".form-select-lg example">
+                    <option *ngFor="let puesto of puestos" [value]="puesto.id" >{{ puesto.puesto }}</option>
+                </select>
+            </ng-container>
+
+            <ng-template #nuevoPuestoTemp>
+                <form [formGroup]="formPuesto" class="my-2">
+                    <div class="form-floating mb-2">
+                        <input class="form-control" type="text" id="nombrePuesto" formControlName="puesto">
+                        <label for="nombrePuesto">Puesto</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <input class="form-control" type="text" id="descripcionPuesto" formControlName="descripcion">
+                        <label for="descripcionPuesto">Descripcion del Puesto</label>
+                    </div>
+                </form>
+            </ng-template>
+
+
+            <label for="puestos">Puesto de Trabajo</label>
+            <div class="my-2">
+                <input type="checkbox" name="Nueva Empresa" id="newEmpresa" (change)="onNuevaEmpresa = !onNuevaEmpresa">
+                <label for="newEmpresa" class="ms-1">Registrar Nueva Empresa</label>
+            </div>
+
+            <ng-container *ngIf="!onNuevaEmpresa; else nuevaEmpresaTemp">
+                <select class="form-select form-select-lg mb-3" formControlName="empresa" aria-label=".form-select-lg example">
+                    <option *ngFor="let empr of empresas" [value]="empr.id" >{{ empr.nombre }}</option>
+                </select>
+            </ng-container>
+
+            <ng-template #nuevaEmpresaTemp>
+                <form [formGroup]="formEmpresa" class="my-2">
+                    <div class="form-floating mb-2">
+                        <input class="form-control" type="text" id="nombreEmpresa" formControlName="nombre">
+                        <label for="nombreEmpresa">Nombre de Empresa</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <input class="form-control" type="text" id="logoEmpresa" formControlName="logo">
+                        <label for="logoEmpresa">Logo de Empresa</label>
+                    </div>
+                </form>
+            </ng-template>
+            
+
             <select class="form-select form-select-lg mb-3" formControlName="jornada" aria-label=".form-select-lg example">
                 <option *ngFor="let jorn of jornadas" [value]="jorn.id" >{{ jorn.nombre }}</option>
             </select>
     
     
-            <div>
-                <label for="start">Start date:</label>
-                <input type="date" id="start" formControlName="fechainicio" name="trip-start" value="2001-01-01" min="2018-01-01" max="2022-12-31">
+            <div class="row  row-cols-1 row-cols-lg-2 mt-2 mb-4">
+                <div class="col mb-2">
+                    <label for="start">Fecha de Inicio:</label>
+                    <input type="date" id="start" formControlName="fechainicio" name="trip-start" value="2001-01-01" min="2018-01-01" max="2022-12-31">
+                </div>
+        
+                <div class="col mb-2">
+                    <label for="start">Fecha de Fin:</label>
+                    <input type="date" id="start" formControlName="fechafin" name="trip-start" value="2001-01-01" min="2018-01-01" max="2022-12-31">
+                </div>
             </div>
-    
-            <div class="mb-4">
-                <label for="start">End date:</label>
-                <input type="date" id="start" formControlName="fechafin" name="trip-start" value="2001-01-01" min="2018-01-01" max="2022-12-31">
-            </div>
+            
     
             <div>
                 <button class="btn btn-primary w-100 mb-1" type="submit">Grabar</button>
